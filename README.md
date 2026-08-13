@@ -9,7 +9,7 @@ In other words, contributing here is the correct way to fix, improve, or extend 
 
 ## Repository layout
 
-All manual content lives under [`site/`](site/), with one Markdown file per documentation page (e.g. `elements-in-five-minutes-or-less.md`, `data-models.md`, `leaderboards.md`, release notes, troubleshooting guides, and more).
+All manual content lives under site, with one Markdown file per documentation page (e.g. `elements-in-five-minutes-or-less.md`, `data-models.md`, `leaderboards.md`, release notes, troubleshooting guides, and more).
 
 ## Contributing
 
