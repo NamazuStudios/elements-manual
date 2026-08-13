@@ -63,7 +63,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Elements provides the ability to create and customize Single Sign On (SSO) options for a variety of services, and even connect a single User to multiple external ids. These services must follow the OIDC or OAuth2 specifications. See <a href="auth-schemes">Auth Schemes</a> for more details on how this works.</p>
+<p>Elements provides the ability to create and customize Single Sign On (SSO) options for a variety of services, and even connect a single User to multiple external ids. These services must follow the OIDC or OAuth2 specifications. See <a href="auth-schemes">Auth Schemes</a> for more details on how this works. Note that logging in through one of these services never merges into a session you already hold — to attach an additional identity to an account you're already signed into, see <a href="account-linking">Account Linking</a> instead.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->

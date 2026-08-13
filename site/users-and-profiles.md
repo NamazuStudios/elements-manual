@@ -42,6 +42,14 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
+<li><strong>displayName</strong><!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>A friendly name for the User, distinct from the per-Profile <strong>DisplayName</strong> described below. Auto-filled from an OIDC provider's <code>preferred_username</code> claim on first login if not already set (see <a href="setting-up-twitch-oidc-login-backend">Setting Up Twitch OIDC Login</a>); otherwise blank unless set explicitly.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
 <li><strong>level</strong><!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
 <li>UNPRIVILEGED - An unprivileged/anonymous user.</li>
@@ -61,6 +69,14 @@
 <li><strong>linkedAccounts</strong><!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
 <li>A list of account types that the User is linked to, such as name, email, steam, google, apple, etc.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list --></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>linkedAccountProfiles</strong><!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>For OIDC-linked accounts, a snapshot of the raw profile claims (<code>given_name</code>, <code>preferred_username</code>, and any other <code>profile</code>-scope claims) returned by each provider the last time it authenticated, keyed by the OIDC scheme's name. This is a per-provider audit trail visible on the user record in the admin console — unlike <strong>linkedAccounts</strong>, which just lists which schemes are linked, this holds what those schemes actually returned.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list --></li>
 <!-- /wp:list-item --></ul>

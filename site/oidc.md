@@ -4,6 +4,12 @@
 <p>When creating a new Session, you have the option to authenticate using a predefined OIDC Auth Scheme.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<p>This page covers the older, static OIDC Auth Scheme, which validates an <code>id_token</code> you already possess against a fixed issuer/keys configuration. If you want Elements to drive the full authorization-code flow — opening a provider's login page, handling the redirect, and exchanging the code for tokens on your behalf — see <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients (Browser Redirect Flow)</a> and <a href="setting-up-twitch-oidc-login-backend">Setting Up Twitch OIDC Login (Backend)</a> for the newer, provider-configuration-driven approach.</p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:genesis-blocks/gb-notice -->
+
 <!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-how-does-it-work">How does it work?</h2>
 <!-- /wp:heading -->
@@ -81,7 +87,7 @@ Payload
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>In the Auth section of the CRM, under the OIDC tab, you can create a new scheme or manage existing schemes.</p>
+<p>In the Auth section of the admin console, under the OIDC tab, you can create a new scheme or manage existing schemes.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":22308,"sizeSlug":"large","linkDestination":"none"} -->

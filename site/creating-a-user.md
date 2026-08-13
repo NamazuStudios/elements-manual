@@ -49,11 +49,11 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>First, we can use the CRM as a SUPERUSER to create new users (see <a href="../core-features/users-and-profiles">Users and Profiles</a>).</p>
+<p>First, we can use the admin console as a SUPERUSER to create new users (see <a href="../core-features/users-and-profiles">Users and Profiles</a>).</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Second, we can use the <a href="https://namazustudios.com/docs/namazu-elements-core/user-authentication-sign-in/user-authentication-in-elements/#h-authentication-methods">SignUp API </a>from our frontend code for basic user id / password auth.</p>
+<p>Second, we can use the <a href="https://namazustudios.com/docs/namazu-elements-core/user-authentication-sign-in/user-authentication-in-elements/#h-authentication-methods">SignUp API </a>from our frontend code for basic user id / password auth. Every field on the signup request is optional — <code>name</code>, <code>email</code>, and <code>password</code> can all be omitted, in which case Elements generates them for you (a random name, an <code>&lt;name&gt;@anonymous.invalid</code> placeholder email, and a random password). Because a generated password can't be seen anywhere else, it's returned once in the signup response. You can also pass a <code>profiles</code> array on the same request to create one or more Profiles for the new User in the same call, rather than creating them separately afterward.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
