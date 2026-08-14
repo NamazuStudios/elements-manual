@@ -85,6 +85,14 @@
 
 <!-- wp:list-item -->
 <li><strong>autoCreateProfile</strong> <em>(Elements 3.9+)</em>: Whether a user's primary profile for this application should be created automatically. Defaults to <code>true</code> if unspecified. See <a href="creating-a-user">Creating a User</a> for how to trigger this during user creation.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>authoritativeProfilePicture</strong> <em>(Elements 3.9+)</em>: If <code>true</code>, a user cannot edit their own profile picture for this application via the REST API -- it must be set by backend/Element code instead. Defaults to <code>false</code> if unspecified (users may edit their own profile picture).</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>displayNameRegex</strong> <em>(Elements 3.9+)</em>: An optional Java regular expression a profile's display name must match for this application. If blank or unspecified, no additional check is performed. Profile creates/updates with a non-matching display name are rejected with a <code>400 Bad Request</code>; if the configured regex itself fails to compile, the request fails with a <code>500</code> and the failure is logged server-side.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -143,7 +151,9 @@
     "name" : "NAME",
     "description" : "This is a description",
     "maxProfiles" : 1,
-    "autoCreateProfile" : true
+    "autoCreateProfile" : true,
+    "authoritativeProfilePicture" : false,
+    "displayNameRegex" : null
 }]</code></pre>
 <!-- /wp:code -->
 

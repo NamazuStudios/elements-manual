@@ -23,6 +23,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Session creation by Application</strong> — username/password and OAuth2 session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. See <a href="sessions">Sessions</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Authoritative profile pictures and display-name validation</strong> — new <code>authoritativeProfilePicture</code> and <code>displayNameRegex</code> settings on Application. See <a href="applications">Applications</a>.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -44,6 +48,14 @@
 
 <!-- wp:paragraph -->
 <p>Username/password and OAuth2 session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session; if the application or the primary profile can't be resolved, the session is simply created without a profile.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-authoritative-profile-pictures-and-display-name-validation"} -->
+<h3 id="h-authoritative-profile-pictures-and-display-name-validation" class="wp-block-heading">Authoritative Profile Pictures and Display-Name Validation</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><code>Application</code> gains two more new fields: <code>authoritativeProfilePicture</code> (defaults to <code>false</code>), which when <code>true</code> blocks a user from editing their own profile picture for that application via the REST API (it must be set by backend/Element code instead), and <code>displayNameRegex</code> (optional), a Java regular expression a profile's display name must match for that application -- profile creates/updates with a non-matching display name are rejected. Leave it blank to skip the check.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
