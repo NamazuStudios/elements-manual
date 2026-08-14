@@ -129,7 +129,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><em>(Elements 3.9+)</em> Rather than passing an explicit <code>profileId</code> or <code>profileSelector</code>, username/password and OAuth2 session requests can instead pass <code>applicationId</code> to have Elements attach the user's primary profile for that <a href="applications">Application</a> automatically -- see <a href="sessions">Sessions</a> for details.</p>
+<p><em>(Elements 3.9+)</em> Rather than passing an explicit <code>profileId</code> or <code>profileSelector</code>, username/password and OAuth2 session requests can instead pass <code>applicationNameOrId</code> to have Elements attach the user's primary profile for that <a href="applications">Application</a> automatically -- see <a href="sessions">Sessions</a> for details.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:separator -->

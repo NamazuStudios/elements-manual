@@ -57,7 +57,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><em>(Elements 3.9+)</em> Instead of (or in addition to) an explicit <code>profiles</code> entry, you can pass <code>autoCreateProfileApplicationId</code> (an application name or ID) on the user-create/signup request to have Elements automatically create the user's primary profile for that <a href="applications">Application</a> -- but only if the Application is configured for it (see <code>autoCreateProfile</code> and <code>maxProfiles</code> in <a href="applications">Applications</a>); otherwise the field is a no-op. Naming the same application in both <code>autoCreateProfileApplicationId</code> and <code>profiles</code> is a <code>400 Bad Request</code>, since the two mechanisms conflict for that application.</p>
+<p><em>(Elements 3.9+)</em> Instead of (or in addition to) an explicit <code>profiles</code> entry, you can pass <code>autoCreateProfileApplicationNameOrId</code> (an application name or ID) on the user-create/signup request to have Elements automatically create the user's primary profile for that <a href="applications">Application</a> -- but only if the Application is configured for it (see <code>autoCreateProfile</code> and <code>maxProfiles</code> in <a href="applications">Applications</a>); otherwise the field is a no-op. Naming the same application in both <code>autoCreateProfileApplicationNameOrId</code> and <code>profiles</code> is a <code>400 Bad Request</code>, since the two mechanisms conflict for that application.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

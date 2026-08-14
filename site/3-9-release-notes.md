@@ -18,11 +18,11 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>Automatic primary profile creation</strong> — a new <code>autoCreateProfile</code> setting on Application, combined with a new <code>autoCreateProfileApplicationId</code> field on the user-create/signup request, lets Elements create a user's primary profile for an Application automatically at signup time. See <a href="creating-a-user">Creating a User</a>.</li>
+<li><strong>Automatic primary profile creation</strong> — a new <code>autoCreateProfile</code> setting on Application, combined with a new <code>autoCreateProfileApplicationNameOrId</code> field on the user-create/signup request, lets Elements create a user's primary profile for an Application automatically at signup time. See <a href="creating-a-user">Creating a User</a>.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>Session creation by Application</strong> — username/password and OAuth2 session requests can now pass <code>applicationId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. See <a href="sessions">Sessions</a>.</li>
+<li><strong>Session creation by Application</strong> — username/password and OAuth2 session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. See <a href="sessions">Sessions</a>.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -35,7 +35,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p><code>Application</code> gains two new fields: <code>maxProfiles</code> (defaults to <code>1</code>) caps how many profiles a user may create for that application, and <code>autoCreateProfile</code> (defaults to <code>true</code>) governs whether a user's primary profile is created automatically when requested via <code>autoCreateProfileApplicationId</code> on user creation. Lowering <code>maxProfiles</code> never affects profiles that already exist -- only new profile creations are gated. Existing applications with no value set for these fields behave as if they were set to the defaults.</p>
+<p><code>Application</code> gains two new fields: <code>maxProfiles</code> (defaults to <code>1</code>) caps how many profiles a user may create for that application, and <code>autoCreateProfile</code> (defaults to <code>true</code>) governs whether a user's primary profile is created automatically when requested via <code>autoCreateProfileApplicationNameOrId</code> on user creation. Lowering <code>maxProfiles</code> never affects profiles that already exist -- only new profile creations are gated. Existing applications with no value set for these fields behave as if they were set to the defaults.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"anchor":"h-session-creation-by-application"} -->
@@ -43,7 +43,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Username/password and OAuth2 session requests accept a new <code>applicationId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session; if the application or the primary profile can't be resolved, the session is simply created without a profile.</p>
+<p>Username/password and OAuth2 session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session; if the application or the primary profile can't be resolved, the session is simply created without a profile.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
