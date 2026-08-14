@@ -5,7 +5,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>See <a href="https://github.com/NamazuStudios/element-example">https://github.com/NamazuStudios/element-example</a> for a complete example. It is recommended to use this as a starting point as well.</p>
+<p>See <a href="https://github.com/NamazuStudios/element-example">https://github.com/NamazuStudios/element-example</a> for a complete example. It is recommended to use this as a starting point as well. For a full step-by-step walkthrough of that project — setup, running locally, and a breakdown of every file — see <a href="element-example-complete-walkthrough">Building the Example Element: A Complete Walkthrough</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:image {"id":22164,"width":"314px","height":"auto","sizeSlug":"full","linkDestination":"none"} -->
@@ -23,16 +23,14 @@
 <!-- wp:code -->
 <pre class="wp-block-code"><code>package com.mystudio.mygame;
 
-import com.mystudio.mygame.rest.HelloWorld;
+import com.mystudio.mygame.rest.ExampleContent;
 import com.mystudio.mygame.rest.HelloWithAuthentication;
+import com.mystudio.mygame.rest.HelloWorld;
 import dev.getelements.elements.sdk.annotation.ElementServiceExport;
 import dev.getelements.elements.sdk.annotation.ElementServiceImplementation;
 import jakarta.ws.rs.core.Application;
 
 import java.util.Set;
-
-// Swagger OpenAPI JAX-RS resource
-import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 
 @ElementServiceImplementation
 @ElementServiceExport(Application.class)
@@ -42,18 +40,26 @@ public class HelloWorldApplication extends Application {
      * Here we register all the classes that we want to be included in the Element.
      */
     @Override
-    public Set&lt;Class&lt;?>> getClasses() {
+    public Set&lt;Class&lt;?&gt;&gt; getClasses() {
         return Set.of(
                 //Endpoints
                 HelloWorld.class,
                 HelloWithAuthentication.class,
+                ExampleContent.class,
 
-                //Required if you want codegen to work for this
-                OpenApiResource.class
+                // Exposes the default security rules for the API. Assumes you are using the builtin
+                // Elements auth system by setting `dev.getelements.elements.auth.enabled` to true.
+                OpenAPISecurityConfig.class
         );
     }
 }</code></pre>
 <!-- /wp:code -->
+
+<!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="7a2c19"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<p>You'll also need <code>@ElementDefaultAttribute</code> fields on this class to configure your REST/WebSocket root paths and turn on the auth filter — see the <a href="element-example-complete-walkthrough">complete walkthrough</a> for the full annotated version used by the example project.</p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:genesis-blocks/gb-notice -->
 
 <!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-defining-an-element-with-package-info-java">Defining an Element with <code>package-info.java</code></h2>
@@ -90,7 +96,7 @@ public class HelloWorldApplication extends Application {
 @ElementDefinition(recursive = true)
 
 // Enables DI via Guice
-@GuiceElementModule(ExampleModule.class) 
+@GuiceElementModule(MyGameModule.class) 
 
 // Allows injecting DAO layer from Elements Core
 @ElementDependency("dev.getelements.elements.sdk.dao") 
@@ -100,7 +106,7 @@ public class HelloWorldApplication extends Application {
 
 package com.mystudio.mygame;
 
-import com.mystudio.mygame.guice.ExampleModule;
+import com.mystudio.mygame.guice.MyGameModule;
 import dev.getelements.elements.sdk.annotation.ElementDefinition;
 import dev.getelements.elements.sdk.annotation.ElementDependency;
 import dev.getelements.elements.sdk.spi.guice.annotations.GuiceElementModule;</code></pre>
@@ -143,9 +149,6 @@ import dev.getelements.elements.sdk.spi.guice.annotations.GuiceElementModule;</c
 <!-- wp:code -->
 <pre class="wp-block-code"><code>package com.mystudio.mygame.service;
 
-import dev.getelements.elements.sdk.annotation.ElementServiceExport;
-
-@ElementServiceExport
 public interface GreetingService {
 
     /**
@@ -158,7 +161,7 @@ public interface GreetingService {
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
 <div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
-<p>It is important to add the <code>@ElementServiceExport</code> annotation to make this service discoverable within the Element.</p>
+<p>This interface lives in the <code>api</code> module so other Elements can depend on it without pulling in your implementation. <code>@ElementServiceExport</code> is important for making the service discoverable within the Element — you can put it on the interface or on the implementation class; the example project puts it on the implementation (shown below).</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
@@ -169,10 +172,12 @@ public interface GreetingService {
 <!-- wp:code -->
 <pre class="wp-block-code"><code>package com.mystudio.mygame.service;
 
+import dev.getelements.elements.sdk.annotation.ElementServiceExport;
 import dev.getelements.elements.sdk.model.user.User;
 import dev.getelements.elements.sdk.service.user.UserService;
 import jakarta.inject.Inject;
 
+@ElementServiceExport(GreetingService.class)
 public class GreetingServiceImpl implements GreetingService {
 
     private UserService userService;
@@ -233,25 +238,31 @@ public class GreetingServiceImpl implements GreetingService {
 <!-- wp:code -->
 <pre class="wp-block-code"><code>package com.mystudio.mygame.guice;
 
-import com.google.inject.AbstractModule;
+import com.google.inject.PrivateModule;
 import com.mystudio.mygame.service.GreetingService;
 import com.mystudio.mygame.service.GreetingServiceImpl;
 
 
-public class ExampleModule extends AbstractModule {
+public class MyGameModule extends PrivateModule {
 
   @Override
   protected void configure() {
 
     bind(GreetingService.class).to(GreetingServiceImpl.class);
 
-    // Needed in conjunction with the @ElementServiceExport annotation
-    // to make this discoverable by the service locator
+    // Required because PrivateModule hides all bindings by default. Without this,
+    // the service locator lookup below would fail even with @ElementServiceExport present.
     expose(GreetingService.class);
   }
 
 }</code></pre>
 <!-- /wp:code -->
+
+<!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="4c7e21"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<p>We recommend <code>PrivateModule</code> over plain <code>AbstractModule</code> so your Element's internal bindings can't leak into, or collide with, other Elements' bindings. With <code>PrivateModule</code>, <code>expose()</code> is not optional — it's the only way anything you bind becomes visible outside the module.</p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:genesis-blocks/gb-notice -->
 
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
@@ -262,21 +273,24 @@ public class ExampleModule extends AbstractModule {
 <!-- /wp:heading -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code>package com.mystudio.mygame.endpoint;
+<pre class="wp-block-code"><code>package com.mystudio.mygame.rest;
 
 import com.mystudio.mygame.service.GreetingService;
-import dev.getelements.elements.sdk.spi.ElementSupplier;
+import dev.getelements.elements.sdk.Element;
+import dev.getelements.elements.sdk.ElementSupplier;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Tag(name = "MyGame")
-@Path("/greet")
-public class GreetingEndpoint {
+@Path("/hellowithauthentication")
+public class HelloWithAuthentication {
 
     private final Element element = ElementSupplier
-            .getElementLocal(GreetingEndpoint.class)
+            .getElementLocal(HelloWithAuthentication.class)
             .get();
 
     private final GreetingService greetingService = element
@@ -286,10 +300,8 @@ public class GreetingEndpoint {
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   @Operation(
-    summary = "Gets a greeting", 
-    description = "Checks if the session token in the header corresponds
-    to at least a USER level user and returns a greeting with their name
-    if so, or Guest if not."
+    summary = "Gets a greeting",
+    description = "Checks if the session token in the header corresponds to at least a USER level user and returns a greeting with their name if so, or Guest if not."
   )
   public String greet() {
     return greetingService.getGreeting();
@@ -307,7 +319,7 @@ public class GreetingEndpoint {
 <!-- /wp:heading -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code>GET /greet
+<pre class="wp-block-code"><code>GET /element/example/rest/api/hellowithauthentication
 Elements-SessionSecret: eyJhbGciOiJIUzI1...</code></pre>
 <!-- /wp:code -->
 
