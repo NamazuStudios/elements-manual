@@ -33,8 +33,8 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code>mvn -pl debug exec:java \
-  -Ddev.getelements.elements.stripe.api.key=sk_test_YOUR_KEY \
+<pre class="wp-block-code"><code>mvn -pl debug exec:java 
+  -Ddev.getelements.elements.stripe.api.key=sk_test_YOUR_KEY 
   -Ddev.getelements.elements.stripe.webhook.secret=whsec_YOUR_SECRET</code></pre>
 <!-- /wp:code -->
 
