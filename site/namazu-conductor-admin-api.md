@@ -18,12 +18,12 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-endpoints">Endpoints</h2>
+<!-- wp:heading {"anchor":"h-endpoints"} -->
+<h2 id="h-endpoints" class="wp-block-heading">Endpoints</h2>
 <!-- /wp:heading -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-get-jobs">GET /jobs</h3>
+<!-- wp:heading {"level":3,"anchor":"h-get-jobs"} -->
+<h3 id="h-get-jobs" class="wp-block-heading">GET /jobs</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -33,10 +33,10 @@
 <!-- wp:code -->
 <pre class="wp-block-code"><code>{
   "status": "ok",
-  "providers": [
+  "providers": &#91;
     {
       "element": "dev.getelements.conductor.kubernetes",
-      "executions": [ { "id": "...", "status": "RUNNING", "endpoints": [ ... ] } ],
+      "executions": &#91; { "id": "...", "status": "RUNNING", "endpoints": &#91; ... ] } ],
       "error": null
     },
     {
@@ -52,8 +52,8 @@
 <p><code>status</code> summarizes the response: <code>ok</code> if every provider responded without error, <code>partial</code> if at least one did, <code>error</code> if none did. If no <code>OrchestrationService</code> providers are deployed at all, the call returns <code>503 Service Unavailable</code> instead of an empty list.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-post-jobs">POST /jobs</h3>
+<!-- wp:heading {"level":3,"anchor":"h-post-jobs"} -->
+<h3 id="h-post-jobs" class="wp-block-heading">POST /jobs</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -64,10 +64,10 @@
 <pre class="wp-block-code"><code>{
   "element": "dev.getelements.conductor.kubernetes",
   "profileId": "my-game-server-template",
-  "args": [ "..." ],
-  "command": [ "..." ],
+  "args": &#91; "..." ],
+  "command": &#91; "..." ],
   "environment": { "KEY": "value" },
-  "placement": [ { "type": "REGION", "id": "us-east" } ]
+  "placement": &#91; { "type": "REGION", "id": "us-east" } ]
 }</code></pre>
 <!-- /wp:code -->
 
@@ -75,8 +75,8 @@
 <p>On success, returns the <code>JobExecution</code> the provider handed back — typically <code>PENDING</code> at this point, since <code>execute()</code> returns immediately rather than waiting for the job to start. Returns <code>404</code> if the named element doesn't exist, doesn't expose <code>OrchestrationService</code>, or the profile id isn't one of its available profiles. Returns <code>500</code> if the provider accepted the request but the underlying execution call failed.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-post-jobs-stop">POST /jobs/stop</h3>
+<!-- wp:heading {"level":3,"anchor":"h-post-jobs-stop"} -->
+<h3 id="h-post-jobs-stop" class="wp-block-heading">POST /jobs/stop</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -86,8 +86,8 @@
 <!-- wp:code -->
 <pre class="wp-block-code"><code>{
   "element": "dev.getelements.conductor.kubernetes",
-  "id": "<job execution id>"
-}</code></pre>
+  "id": "<job execution="" id="">"
+}</job></code></pre>
 <!-- /wp:code -->
 
 <!-- wp:paragraph -->
@@ -98,8 +98,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-dashboard-panel">Dashboard Panel</h2>
+<!-- wp:heading {"anchor":"h-dashboard-panel"} -->
+<h2 id="h-dashboard-panel" class="wp-block-heading">Dashboard Panel</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
