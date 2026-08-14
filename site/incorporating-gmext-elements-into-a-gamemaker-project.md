@@ -150,7 +150,7 @@
 <!-- wp:code -->
 <pre class="wp-block-code"><code>import re, json
 text = open("YourProject.yyp").read()
-cleaned = re.sub(r',\s*([}\]])', r'\1', text)
+cleaned = re.sub(r',s*([}]])', r'1', text)
 data = json.loads(cleaned)  # raises if malformed
 names = [r["id"]["name"] for r in data["resources"]]
 assert len(names) == len(set(names)), "duplicate resource name"</code></pre>
