@@ -8,8 +8,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-attributes">Attributes</h2>
+<!-- wp:heading {"anchor":"h-attributes"} -->
+<h2 id="h-attributes" class="wp-block-heading">Attributes</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->
@@ -20,8 +20,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-setting-attributes">Setting Attributes</h2>
+<!-- wp:heading {"anchor":"h-setting-attributes"} -->
+<h2 id="h-setting-attributes" class="wp-block-heading">Setting Attributes</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -46,8 +46,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-credential-precedence-and-the-admin-panel">Credential Precedence and the Admin Panel</h2>
+<!-- wp:heading {"anchor":"h-credential-precedence-and-the-admin-panel"} -->
+<h2 id="h-credential-precedence-and-the-admin-panel" class="wp-block-heading">Credential Precedence and the Admin Panel</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -62,8 +62,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-multi-environment-deployments">Multi-Environment Deployments</h2>
+<!-- wp:heading {"anchor":"h-multi-environment-deployments"} -->
+<h2 id="h-multi-environment-deployments" class="wp-block-heading">Multi-Environment Deployments</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -85,7 +85,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Warning","noticeBackgroundColor":"#ffdd57"} -->
-<div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0650"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="0eaadb"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
 <p>Do not share one MongoDB database between multiple deployments of this Element. The configuration and webhook event-log collections use fixed, unnamespaced names (<code>stripe_config</code> and <code>stripe_event_log</code>), so sharing a database lets one deployment's credentials and event log bleed into another's.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
@@ -94,8 +94,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-build-and-run">Build and Run</h2>
+<!-- wp:heading {"anchor":"h-build-and-run"} -->
+<h2 id="h-build-and-run" class="wp-block-heading">Build and Run</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -117,8 +117,8 @@ mvn -pl debug exec:java</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-maven-coordinates">Maven Coordinates</h2>
+<!-- wp:heading {"anchor":"h-maven-coordinates"} -->
+<h2 id="h-maven-coordinates" class="wp-block-heading">Maven Coordinates</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -148,8 +148,8 @@ mvn -pl debug exec:java</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-integration-tests">Integration Tests</h2>
+<!-- wp:heading {"anchor":"h-integration-tests"} -->
+<h2 id="h-integration-tests" class="wp-block-heading">Integration Tests</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -173,8 +173,8 @@ mvn verify -pl integration-test</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-related-pages">Related Pages</h2>
+<!-- wp:heading {"anchor":"h-related-pages"} -->
+<h2 id="h-related-pages" class="wp-block-heading">Related Pages</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -190,3 +190,7 @@ mvn verify -pl integration-test</code></pre>
 <li><a href="stripe-rest-api-reference">Stripe REST API Reference</a> — full REST endpoint reference</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
