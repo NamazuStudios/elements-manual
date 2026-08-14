@@ -57,6 +57,10 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
+<p><em>(Elements 3.9+)</em> Instead of (or in addition to) an explicit <code>profiles</code> entry, you can pass <code>autoCreateProfileApplicationId</code> (an application name or ID) on the user-create/signup request to have Elements automatically create the user's primary profile for that <a href="applications">Application</a> -- but only if the Application is configured for it (see <code>autoCreateProfile</code> and <code>maxProfiles</code> in <a href="applications">Applications</a>); otherwise the field is a no-op. Naming the same application in both <code>autoCreateProfileApplicationId</code> and <code>profiles</code> is a <code>400 Bad Request</code>, since the two mechanisms conflict for that application.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
 <p>Lastly, we can use any <a href="../core-features/auth-schemes/oidc">OIDC</a>, <a href="../core-features/auth-schemes/oauth2">OAuth2</a>, or <a href="../core-features/auth-schemes/custom-auth-schemes">Custom Auth</a> to sign in, which will automatically create a user with the info in the token if one doesn't exist yet.</p>
 <!-- /wp:paragraph -->
 

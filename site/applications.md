@@ -77,6 +77,14 @@
 
 <!-- wp:list-item -->
 <li><strong>description:</strong> This string is the application's description.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>maxProfiles</strong> <em>(Elements 3.9+)</em>: The maximum number of profiles a user may create for this application. Defaults to <code>1</code> if unspecified. Lowering this value does not affect profiles that already exist -- it only gates new profile creations going forward.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>autoCreateProfile</strong> <em>(Elements 3.9+)</em>: Whether a user's primary profile for this application should be created automatically. Defaults to <code>true</code> if unspecified. See <a href="creating-a-user">Creating a User</a> for how to trigger this during user creation.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -133,7 +141,9 @@
     "_id" : ObjectId("5cdb1088e96c3c4f2bfe1da7"),
     "active" : true,
     "name" : "NAME",
-    "description" : "This is a description"
+    "description" : "This is a description",
+    "maxProfiles" : 1,
+    "autoCreateProfile" : true
 }]</code></pre>
 <!-- /wp:code -->
 
