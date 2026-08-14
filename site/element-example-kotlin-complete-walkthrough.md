@@ -221,11 +221,11 @@ cd element-example-kotlin</code></pre>
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code>curl -X POST http://localhost:8080/app/rest/example-element/examplecontent \
+<pre class="wp-block-code"><code>curl -X POST http://localhost:8080/app/rest/example-element/examplecontent 
   -H "Content-Type: application/json" -d '{"name":"test-name"}'
 # =&gt; {"name":"test-name","requestType":"ExamplePostResponse","metadata":null}
 
-curl -X PUT http://localhost:8080/app/rest/example-element/examplecontent/pathname \
+curl -X PUT http://localhost:8080/app/rest/example-element/examplecontent/pathname 
   -H "Content-Type: application/json" -d '{"name":"test-name"}'
 # =&gt; {"name":"test-name","requestType":"ExamplePutResponse","metadata":{"name":"pathname"}}</code></pre>
 <!-- /wp:code -->
