@@ -33,6 +33,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Authoritative profile pictures and display-name validation</strong> — new <code>authoritativeProfilePicture</code> and <code>displayNameRegex</code> settings on Application. See <a href="applications">Applications</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Progress API fixes and a new advance-progress endpoint</strong> — <code>POST /progress</code> and the superuser <code>PUT /progress/{id}</code> path are fixed, and a new <code>POST /progress/{progressId}/advance</code> endpoint lets a Mission opt in to client-driven progress advancement. Reported, diagnosed, and prototyped by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> -- thank you!</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -62,6 +66,18 @@
 
 <!-- wp:paragraph -->
 <p><code>Application</code> gains two more new fields: <code>authoritativeProfilePicture</code> (defaults to <code>false</code>), which when <code>true</code> blocks a user from editing their own profile picture for that application via the REST API (it must be set by backend/Element code instead), and <code>displayNameRegex</code> (optional), a Java regular expression a profile's display name must match for that application -- profile creates/updates with a non-matching display name are rejected. Leave it blank to skip the check.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-progress-api-fixes-and-advance-progress-endpoint"} -->
+<h3 id="h-progress-api-fixes-and-advance-progress-endpoint" class="wp-block-heading">Progress API Fixes and Advance-Progress Endpoint</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><code>POST /progress</code> no longer 400s with <code>"profile - must not be null"</code> when a valid profile is supplied, and the superuser <code>PUT /progress/{id}</code> path no longer rejects every possible request body. Both were reported with full root-cause analysis by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> in <a href="https://github.com/NamazuStudios/elements/issues/2">#2</a> and <a href="https://github.com/NamazuStudios/elements/issues/3">#3</a> -- thank you for the thorough repros and the <code>sequence</code>/<code>currentStep</code> data-model deep-dive.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Mission gains a new <code>authoritative</code> field (defaults to <code>true</code>). A new <code>POST /progress/{progressId}/advance</code> endpoint decrements a Progress's remaining actions, advancing Steps and issuing Rewards as needed -- superusers may always call it, and a regular user may only call it for their own Progress on a Mission explicitly marked <code>authoritative: false</code>. This is the client-driven progress advancement @hobolabsdigital originally prototyped in #3, now gated per-Mission so authoritative-integrity is preserved by default.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
