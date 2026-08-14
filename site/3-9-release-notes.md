@@ -1,5 +1,11 @@
 <h1>3.9 Release Notes</h1>
 
+<!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Warning","noticeBackgroundColor":"#ffdd57"} -->
+<div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="d29f31"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
+<p>Elements 3.9 is still under active development (current version: <code>3.9.0-SNAPSHOT</code>) and has not been released. The contents of this page are a draft and may change before the final release.</p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:genesis-blocks/gb-notice -->
+
 <!-- wp:heading {"anchor":"h-overview"} -->
 <h2 id="h-overview" class="wp-block-heading">Overview</h2>
 <!-- /wp:heading -->
