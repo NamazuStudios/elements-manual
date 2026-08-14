@@ -1,19 +1,21 @@
 <h1>Building the Example Element: A Complete Walkthrough</h1>
 
-<!-- wp:paragraph -->
+<!-- wp:paragraph {"anchor":"h-a-complete-tour-of-the-example-element-project-from-a-blank-checkout-to-a-running-backend-with-a-custom-rest-api-and-a-dashboard-plugin"} -->
 <p id="h-a-complete-tour-of-the-example-element-project-from-a-blank-checkout-to-a-running-backend-with-a-custom-rest-api-and-a-dashboard-plugin">A complete tour of the <a href="https://github.com/NamazuStudios/element-example">Example Element project</a>, from a blank checkout to a running backend with a custom REST API and a dashboard plugin.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph -->
-<p>Prefer video? Watch the quickstart walkthrough here: <a href="https://www.youtube.com/watch?v=TqkvpwvRJEc">https://www.youtube.com/watch?v=TqkvpwvRJEc</a></p>
-<!-- /wp:paragraph -->
+<!-- wp:embed {"url":"https://www.youtube.com/watch?v=TqkvpwvRJEc","type":"video","providerNameSlug":"youtube","responsive":true,"className":"wp-embed-aspect-16-9 wp-has-aspect-ratio"} -->
+<figure class="wp-block-embed is-type-video is-provider-youtube wp-block-embed-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+https://www.youtube.com/watch?v=TqkvpwvRJEc
+</div></figure>
+<!-- /wp:embed -->
 
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-what-youll-build">What You'll Build</h2>
+<!-- wp:heading {"anchor":"h-what-you-ll-build"} -->
+<h2 id="h-what-you-ll-build" class="wp-block-heading">What You'll Build</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -46,8 +48,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-prerequisites">Prerequisites</h2>
+<!-- wp:heading {"anchor":"h-prerequisites"} -->
+<h2 id="h-prerequisites" class="wp-block-heading">Prerequisites</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list {"ordered":true} -->
@@ -73,21 +75,23 @@
 <!-- /wp:list -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a01"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a01"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2">
+<!-- wp:paragraph -->
 <p>Since Elements is a Java 21 project, we recommend <a href="https://www.jetbrains.com/idea/download/">IntelliJ</a> as your IDE. See the platform-specific setup guides (<a href="setup-for-windows">Windows</a>, <a href="mac-os-setup">Mac</a>, <a href="ubuntu-linux-setup">Linux</a>) if you haven't set up a local Elements development environment before.</p>
-<!-- /wp:paragraph --></div></div>
+<!-- /wp:paragraph -->
+</div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-step-by-step-setup-to-running">Step by Step: Setup to Running</h2>
+<!-- wp:heading {"anchor":"h-step-by-step-setup-to-running"} -->
+<h2 id="h-step-by-step-setup-to-running" class="wp-block-heading">Step by Step: Setup to Running</h2>
 <!-- /wp:heading -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-1-clone-the-repository">1. Clone the Repository</h3>
+<!-- wp:heading {"level":3,"anchor":"h-1-clone-the-repository"} -->
+<h3 id="h-1-clone-the-repository" class="wp-block-heading">1. Clone the Repository</h3>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -108,8 +112,8 @@ cd element-example</code></pre>
 └── services-dev/ # Docker Compose services (MongoDB) for local dev</code></pre>
 <!-- /wp:code -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-2-build-everything">2. Build Everything</h3>
+<!-- wp:heading {"level":3,"anchor":"h-2-build-everything"} -->
+<h3 id="h-2-build-everything" class="wp-block-heading">2. Build Everything</h3>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -120,8 +124,8 @@ cd element-example</code></pre>
 <p>This compiles <code>api</code> and <code>element</code> in dependency order, packages <code>element</code> into a <code>.elm</code> archive, and installs everything (including the classified API jar and the <code>.elm</code> artifact) into your local Maven repository. The <code>ui</code> module's real npm build is skipped unless you pass <code>-Pbuild-ui</code> — see the Maven deep dive below for why.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-3-start-mongodb">3. Start MongoDB</h3>
+<!-- wp:heading {"level":3,"anchor":"h-3-start-mongodb"} -->
+<h3 id="h-3-start-mongodb" class="wp-block-heading">3. Start MongoDB</h3>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -132,8 +136,8 @@ cd element-example</code></pre>
 <p>This starts a single-node MongoDB 6.0.9 instance configured as replica set <code>local-test</code> on port 27017, plus a one-shot <code>rs-init</code> sidecar container that waits for Mongo to accept connections and then runs <code>rs.initiate(...)</code> to actually form the replica set. Elements' core SDK requires a replica set (it relies on transactions/change streams), so a plain standalone <code>mongod</code> will not work.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-4-run-the-element-locally">4. Run the Element Locally</h3>
+<!-- wp:heading {"level":3,"anchor":"h-4-run-the-element-locally"} -->
+<h3 id="h-4-run-the-element-locally" class="wp-block-heading">4. Run the Element Locally</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -145,7 +149,7 @@ cd element-example</code></pre>
 <!-- /wp:code -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a02"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
 <p>The working directory must be the project root (<code>element-example/</code>), because <code>run.java</code> shells out to <code>npm</code> in <code>ui/</code> and <code>docker compose</code> in <code>services-dev/</code> using relative paths. In IntelliJ: Run → Edit Configurations → set the working directory to the project root.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
@@ -184,8 +188,8 @@ cd element-example</code></pre>
 <p>After a short startup you'll see log output indicating the Elements runtime is listening, by default on port 8080.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-5-verify-its-working">5. Verify It's Working</h3>
+<!-- wp:heading {"level":3,"anchor":"h-5-verify-it-s-working"} -->
+<h3 id="h-5-verify-it-s-working" class="wp-block-heading">5. Verify It's Working</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -215,7 +219,7 @@ cd element-example</code></pre>
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code>http://localhost:8080/api/rest/openapi.json</code></pre>
+<pre class="wp-block-code"><code>http:&#47;&#47;localhost:8080/api/rest/openapi.json</code></pre>
 <!-- /wp:code -->
 
 <!-- wp:paragraph -->
@@ -226,12 +230,12 @@ cd element-example</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading" id="h-maven-structure-deep-dive">Maven Structure Deep Dive</h1>
+<!-- wp:heading {"level":1,"anchor":"h-maven-structure-deep-dive"} -->
+<h1 id="h-maven-structure-deep-dive" class="wp-block-heading">Maven Structure Deep Dive</h1>
 <!-- /wp:heading -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-root-pom-xml">Root <code>pom.xml</code></h2>
+<!-- wp:heading {"anchor":"h-root-pom-xml"} -->
+<h2 id="h-root-pom-xml" class="wp-block-heading">Root <code>pom.xml</code></h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -297,8 +301,8 @@ cd element-example</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-api-pom-xml-the-classified-jar">The <code>api</code> Module: a Classified Jar</h2>
+<!-- wp:heading {"anchor":"h-the-api-module-a-classified-jar"} -->
+<h2 id="h-the-api-module-a-classified-jar" class="wp-block-heading">The <code>api</code> Module: a Classified Jar</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -334,8 +338,8 @@ cd element-example</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-element-pom-xml-dependencies">The <code>element</code> Module: Dependencies</h2>
+<!-- wp:heading {"anchor":"h-the-element-module-dependencies"} -->
+<h2 id="h-the-element-module-dependencies" class="wp-block-heading">The <code>element</code> Module: Dependencies</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -367,17 +371,19 @@ cd element-example</code></pre>
 <!-- /wp:paragraph -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a03"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a03"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2">
+<!-- wp:paragraph -->
 <p>Only artifacts that are <strong>not</strong> <code>provided</code> get bundled into the <code>.elm</code>'s <code>lib/</code> directory. Always double-check the BOM's scoping if you see duplicate-class errors at runtime — it usually means something that should be <code>provided</code> got bundled twice.</p>
-<!-- /wp:paragraph --></div></div>
+<!-- /wp:paragraph -->
+</div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-the-elm-packaging-pipeline">The <code>.elm</code> Packaging Pipeline</h2>
+<!-- wp:heading {"anchor":"h-the-elm-packaging-pipeline"} -->
+<h2 id="h-the-elm-packaging-pipeline" class="wp-block-heading">The <code>.elm</code> Packaging Pipeline</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -467,8 +473,8 @@ cd element-example</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-debug-pom-xml">The <code>debug</code> Module</h2>
+<!-- wp:heading {"anchor":"h-the-debug-module"} -->
+<h2 id="h-the-debug-module" class="wp-block-heading">The <code>debug</code> Module</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -492,8 +498,8 @@ cd element-example</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-ui-pom-xml">The <code>ui</code> Module</h2>
+<!-- wp:heading {"anchor":"h-the-ui-module"} -->
+<h2 id="h-the-ui-module" class="wp-block-heading">The <code>ui</code> Module</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -535,16 +541,16 @@ cd element-example</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading" id="h-java-source-deep-dive">Java Source Deep Dive</h1>
+<!-- wp:heading {"level":1,"anchor":"h-java-source-deep-dive"} -->
+<h1 id="h-java-source-deep-dive" class="wp-block-heading">Java Source Deep Dive</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>All source lives under <code>com.mystudio.mygame</code>, split across the <code>api</code> and <code>element</code> modules. Here's every file, in the order you'd read them to understand how the pieces connect.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-package-info-java">1. <code>package-info.java</code> — Declaring the Element</h2>
+<!-- wp:heading {"anchor":"h-1-package-info-java-declaring-the-element"} -->
+<h2 id="h-1-package-info-java-declaring-the-element" class="wp-block-heading">1. <code>package-info.java</code> — Declaring the Element</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -588,8 +594,8 @@ import dev.getelements.elements.sdk.spi.guice.annotations.GuiceElementModule;</c
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-mygamemodule-java">2. <code>guice/MyGameModule.java</code> — the Guice Module</h2>
+<!-- wp:heading {"anchor":"h-2-guice-mygamemodule-java-the-guice-module"} -->
+<h2 id="h-2-guice-mygamemodule-java-the-guice-module" class="wp-block-heading">2. <code>guice/MyGameModule.java</code> — the Guice Module</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -629,8 +635,8 @@ public class MyGameModule extends PrivateModule {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-greetingservice-java">3. <code>service/GreetingService.java</code> — the API Interface</h2>
+<!-- wp:heading {"anchor":"h-3-service-greetingservice-java-the-api-interface"} -->
+<h2 id="h-3-service-greetingservice-java-the-api-interface" class="wp-block-heading">3. <code>service/GreetingService.java</code> — the API Interface</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -659,8 +665,8 @@ public interface GreetingService {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-greetingserviceimpl-java">4. <code>service/GreetingServiceImpl.java</code> — the Implementation</h2>
+<!-- wp:heading {"anchor":"h-4-service-greetingserviceimpl-java-the-implementation"} -->
+<h2 id="h-4-service-greetingserviceimpl-java-the-implementation" class="wp-block-heading">4. <code>service/GreetingServiceImpl.java</code> — the Implementation</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -722,8 +728,8 @@ public class GreetingServiceImpl implements GreetingService {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-helloworldapplication-java">5. <code>HelloWorldApplication.java</code> — Registering Endpoints</h2>
+<!-- wp:heading {"anchor":"h-5-helloworldapplication-java-registering-endpoints"} -->
+<h2 id="h-5-helloworldapplication-java-registering-endpoints" class="wp-block-heading">5. <code>HelloWorldApplication.java</code> — Registering Endpoints</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -804,8 +810,8 @@ public class HelloWorldApplication extends Application {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-openapisecurityconfig-java">6. <code>OpenAPISecurityConfig.java</code> — Documenting the Auth Scheme</h2>
+<!-- wp:heading {"anchor":"h-6-openapisecurityconfig-java-documenting-the-auth-scheme"} -->
+<h2 id="h-6-openapisecurityconfig-java-documenting-the-auth-scheme" class="wp-block-heading">6. <code>OpenAPISecurityConfig.java</code> — Documenting the Auth Scheme</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -861,8 +867,8 @@ public class OpenAPISecurityConfig {}</code></pre>
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-helloworld-java">7. <code>rest/HelloWorld.java</code> — an Open Probe Endpoint</h2>
+<!-- wp:heading {"anchor":"h-7-rest-helloworld-java-an-open-probe-endpoint"} -->
+<h2 id="h-7-rest-helloworld-java-an-open-probe-endpoint" class="wp-block-heading">7. <code>rest/HelloWorld.java</code> — an Open Probe Endpoint</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -902,8 +908,8 @@ public class HelloWorld {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-hellowithauthentication-java">8. <code>rest/HelloWithAuthentication.java</code> — the Service Locator Pattern</h2>
+<!-- wp:heading {"anchor":"h-8-rest-hellowithauthentication-java-the-service-locator-pattern"} -->
+<h2 id="h-8-rest-hellowithauthentication-java-the-service-locator-pattern" class="wp-block-heading">8. <code>rest/HelloWithAuthentication.java</code> — the Service Locator Pattern</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -975,8 +981,8 @@ public class HelloWithAuthentication {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-examplecontent-java">9. <code>rest/ExampleContent.java</code> — POST/PUT and Path Params</h2>
+<!-- wp:heading {"anchor":"h-9-rest-examplecontent-java-post-put-and-path-params"} -->
+<h2 id="h-9-rest-examplecontent-java-post-put-and-path-params" class="wp-block-heading">9. <code>rest/ExampleContent.java</code> — POST/PUT and Path Params</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -1088,8 +1094,8 @@ public class ExamplePutResponse {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-whats-not-in-this-repo">What's Not Demonstrated in This Repo</h2>
+<!-- wp:heading {"anchor":"h-what-s-not-demonstrated-in-this-repo"} -->
+<h2 id="h-what-s-not-demonstrated-in-this-repo" class="wp-block-heading">What's Not Demonstrated in This Repo</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -1118,8 +1124,8 @@ public class ExamplePutResponse {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading" id="h-the-debug-runner">The Debug Runner: <code>run.java</code></h1>
+<!-- wp:heading {"level":1,"anchor":"h-the-debug-runner-run-java"} -->
+<h1 id="h-the-debug-runner-run-java" class="wp-block-heading">The Debug Runner: <code>run.java</code></h1>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -1135,7 +1141,7 @@ import java.io.IOException;
  * IntelliJ: Run → Edit Configurations → Working directory → set to this project root.
  */
 public class run {
-    public static void main(final String[] args ) throws IOException, InterruptedException {
+    public static void main(final String&#91;] args ) throws IOException, InterruptedException {
 
         // Install npm dependencies on first run, then build both segment bundles.
         // The bundles are written directly to element/src/main/ui/{superuser,user}/
@@ -1189,16 +1195,16 @@ public class run {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading" id="h-dashboard-ui-plugin-deep-dive">Dashboard UI Plugin Deep Dive</h1>
+<!-- wp:heading {"level":1,"anchor":"h-dashboard-ui-plugin-deep-dive"} -->
+<h1 id="h-dashboard-ui-plugin-deep-dive" class="wp-block-heading">Dashboard UI Plugin Deep Dive</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>Elements can inject custom pages into the Elements admin dashboard by shipping a React component bundle alongside the Java code. The dashboard discovers these at runtime via a <code>plugin.json</code> manifest — no dashboard changes required. The <code>ui/</code> module is a Vite/TypeScript project that builds these bundles.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-ui-source-layout">Source Layout</h2>
+<!-- wp:heading {"anchor":"h-source-layout"} -->
+<h2 id="h-source-layout" class="wp-block-heading">Source Layout</h2>
 <!-- /wp:heading -->
 
 <!-- wp:code -->
@@ -1220,8 +1226,8 @@ public class run {
     └── user/                  # same four files, simpler component</code></pre>
 <!-- /wp:code -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-ui-package-json">Build Scripts</h2>
+<!-- wp:heading {"anchor":"h-build-scripts"} -->
+<h2 id="h-build-scripts" class="wp-block-heading">Build Scripts</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -1242,8 +1248,8 @@ public class run {
 <p>React and its dev tooling are listed only under <code>devDependencies</code> — there's no runtime <code>dependencies</code> block. That's deliberate: the built bundle never ships its own copy of React.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-vite-base-config">The Dual-Mode Vite Config</h2>
+<!-- wp:heading {"anchor":"h-the-dual-mode-vite-config"} -->
+<h2 id="h-the-dual-mode-vite-config" class="wp-block-heading">The Dual-Mode Vite Config</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -1258,7 +1264,7 @@ public class run {
       // API calls are proxied to a running Elements instance (override with ELEMENTS_URL).
       const elementsUrl = process.env.ELEMENTS_URL ?? 'http://localhost:8080'
       return {
-        plugins: [react({ jsxRuntime: 'classic' })],
+        plugins: &#91;react({ jsxRuntime: 'classic' })],
         root: `src/${segment}`,
         server: { proxy: { '/api': elementsUrl, '/app': elementsUrl } },
       }
@@ -1271,14 +1277,14 @@ public class run {
         lib: {
           entry: `src/${segment}/plugin-entry.ts`,
           name: 'ElementPlugin',
-          formats: ['iife'],
+          formats: &#91;'iife'],
           fileName: () =&gt; 'plugin.bundle.js',
         },
         outDir: `../element/src/main/ui/${segment}`,
         emptyOutDir: false,
         minify: false,
         rollupOptions: {
-          external: ['react'],
+          external: &#91;'react'],
           output: { globals: { react: 'window.React' } },
         },
       },
@@ -1305,8 +1311,8 @@ public class run {
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-exampleplugin-tsx">The Plugin Component</h2>
+<!-- wp:heading {"anchor":"h-the-plugin-component"} -->
+<h2 id="h-the-plugin-component" class="wp-block-heading">The Plugin Component</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -1323,9 +1329,9 @@ interface VersionInfo {
 }
 
 export function ExamplePlugin() {
-  const [info, setInfo] = React.useState&lt;VersionInfo | null&gt;(null)
-  const [loading, setLoading] = React.useState(false)
-  const [error, setError] = React.useState&lt;string | null&gt;(null)
+  const &#91;info, setInfo] = React.useState&lt;VersionInfo | null&gt;(null)
+  const &#91;loading, setLoading] = React.useState(false)
+  const &#91;error, setError] = React.useState&lt;string | null&gt;(null)
 
   async function fetchVersion() {
     setLoading(true)
@@ -1380,13 +1386,15 @@ window.__elementsPlugins?.register('example-element', ExamplePlugin)</code></pre
 <!-- /wp:code -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a04"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="ee0a04"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2">
+<!-- wp:paragraph -->
 <p>If your Element's REST endpoint requires authentication, the platform's convention is to send <code>window.__elementsApiClient.getSessionToken()</code> as an <code>Elements-SessionSecret</code> header on the fetch call (cookies alone aren't reliable in every dashboard context). This example's own fetch call only hits the unauthenticated <code>/api/rest/version</code> platform endpoint, so it doesn't exercise that pattern — if you want to call <code>/element/example/rest/api/hellowithauthentication</code> from a plugin, you'll need to add that header yourself, following the same shape shown for server-side auth elsewhere in this guide.</p>
-<!-- /wp:paragraph --></div></div>
+<!-- /wp:paragraph -->
+</div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-plugin-json">The <code>plugin.json</code> Manifest</h2>
+<!-- wp:heading {"anchor":"h-the-plugin-json-manifest"} -->
+<h2 id="h-the-plugin-json-manifest" class="wp-block-heading">The <code>plugin.json</code> Manifest</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -1396,7 +1404,7 @@ window.__elementsPlugins?.register('example-element', ExamplePlugin)</code></pre
 <!-- wp:code -->
 <pre class="wp-block-code"><code>{
   "schema": "1",
-  "entries": [
+  "entries": &#91;
     {
       "label": "Example Element",
       "icon": "Package",
@@ -1415,8 +1423,8 @@ window.__elementsPlugins?.register('example-element', ExamplePlugin)</code></pre
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading {"level":1} -->
-<h1 class="wp-block-heading" id="h-static-and-ui-content-serving">Static & UI Content Serving</h1>
+<!-- wp:heading {"level":1,"anchor":"h-static-amp-ui-content-serving"} -->
+<h1 id="h-static-amp-ui-content-serving" class="wp-block-heading">Static &amp; UI Content Serving</h1>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -1467,13 +1475,9 @@ window.__elementsPlugins?.register('example-element', ExamplePlugin)</code></pre
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-next-steps">Next Steps</h2>
+<!-- wp:heading {"anchor":"h-next-steps"} -->
+<h2 id="h-next-steps" class="wp-block-heading">Next Steps</h2>
 <!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>Watch the quickstart video again if any step above didn't click: <a href="https://www.youtube.com/watch?v=TqkvpwvRJEc">https://www.youtube.com/watch?v=TqkvpwvRJEc</a></p>
-<!-- /wp:paragraph -->
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
