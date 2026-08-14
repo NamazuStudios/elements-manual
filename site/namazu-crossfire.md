@@ -59,6 +59,32 @@
 <!-- /wp:separator -->
 
 <!-- wp:heading -->
+<h2 class="wp-block-heading" id="h-guides">Guides</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><a href="../deploying-crossfire-in-your-game"><strong>Deploying Namazu Crossfire in your game</strong></a><br>How to add the Crossfire Element as a dependency and enable it in your local development environment.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="../crossfire-protocol-reference"><strong>Crossfire Protocol Reference</strong></a><br>The full wire protocol: connection state machine, the four handshake flows, signal types and lifecycles, control messages, and error handling. Start here if you're implementing a client from scratch.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="../crossfire-client-libraries"><strong>Crossfire Client Libraries (JVM &amp; Browser)</strong></a><br>How to use the JVM (<code>client-onvoid</code>) and browser (<code>client-teavm</code>) WebRTC client libraries alongside the <a href="../crossfire">Unity plugin</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="../crossfire-custom-matchmaking-algorithms"><strong>Custom Matchmaking Algorithms</strong></a><br>How the built-in FIFO and join-code matchmaking algorithms work, and how to implement your own (ratings, lobbies, region pools).</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-additional-resources-and-further-reading">Additional Resources and Further Reading</h2>
 <!-- /wp:heading -->
 
