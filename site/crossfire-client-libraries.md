@@ -8,6 +8,11 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
+<!-- TODO(docs): render source at images/client-architecture.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL -->
+<!-- wp:image {"linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="images/client-architecture.svg" alt="Module relationship diagram: api and common feed client, which client-onvoid and client-teavm implement; both, plus the separate Unity plugin, speak the same wire protocol to the server"/></figure>
+<!-- /wp:image -->
+
 <!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-the-shared-client-api">The shared client API</h2>
 <!-- /wp:heading -->

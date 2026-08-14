@@ -1,0 +1,18 @@
+sequenceDiagram
+    autonumber
+    participant A as Profile A (already connected)
+    participant S as Server (match mailbox)
+    participant B as Profile B (late joiner)
+
+    A->>S: STRING_BROADCAST (lifecycle = MATCH)
+    Note over S: buffered in A's match outbox
+
+    B->>S: connect() after SIGNALING handshake
+    S->>S: synthesize SIGNAL_JOIN, CONNECT
+    alt no host currently assigned
+        S->>S: assign B as host
+        S-->>A: HOST broadcast
+        S-->>B: HOST broadcast
+    end
+    S-->>B: replay backlog: SIGNAL_JOIN, SIGNAL_LEAVE,<br/>CONNECT, HOST, and any MATCH-lifecycle signals
+    Note over B: B is now caught up on roster<br/>and any late-joiner game state

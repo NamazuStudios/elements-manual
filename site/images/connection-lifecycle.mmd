@@ -1,0 +1,14 @@
+stateDiagram-v2
+    [*] --> WAITING
+    WAITING --> READY: socket accepted
+    READY --> HANDSHAKE: handshake message accepted\n(FIND / JOIN / CREATE / JOIN_CODE)
+    HANDSHAKE --> SIGNALING: authenticated and\nmatch assigned
+    SIGNALING --> TERMINATED: socket closed,\nLEAVE, or error
+    READY --> TERMINATED: error
+    HANDSHAKE --> TERMINATED: error
+    TERMINATED --> [*]
+
+    note right of TERMINATED
+        Absorbing. Further inbound
+        messages are logged and dropped.
+    end note

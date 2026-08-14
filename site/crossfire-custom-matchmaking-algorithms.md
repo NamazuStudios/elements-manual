@@ -50,6 +50,11 @@
 <pre class="wp-block-code"><code>READY &#8594; MATCHING &#8594; MATCHED &#8594; TERMINATED</code></pre>
 <!-- /wp:code -->
 
+<!-- TODO(docs): render source at images/matchphase-lifecycle.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL -->
+<!-- wp:image {"linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="images/matchphase-lifecycle.svg" alt="MatchPhase state machine: READY to MATCHING to MATCHED to TERMINATED, with cancellation transitions to TERMINATED from READY and MATCHING"/></figure>
+<!-- /wp:image -->
+
 <!-- wp:paragraph -->
 <p><code>TERMINATED</code> is absorbing — every transition first checks for it and no-ops if already there, so a handle can never come back to life once the player has disconnected or left. Transitions are otherwise strict and enforced by the state record itself: <code>startMatching()</code> requires <code>READY</code>, and reporting a result requires <code>MATCHING</code>; calling either out of order throws <code>ProtocolStateException</code> rather than silently doing nothing.</p>
 <!-- /wp:paragraph -->

@@ -1,0 +1,13 @@
+stateDiagram-v2
+    [*] --> READY
+    READY --> MATCHING: startMatching()
+    MATCHING --> MATCHED: setResult(match)\ninside onMatching()
+    MATCHED --> TERMINATED: leaveMatch() / endMatch()
+    MATCHING --> TERMINATED: leaveMatch()\n(cancelled before a match was found)
+    READY --> TERMINATED: leaveMatch()\n(cancelled before matching started)
+    TERMINATED --> TERMINATED: any further call is a no-op
+
+    note right of TERMINATED
+        Absorbing. A handle can never
+        come back to life once terminated.
+    end note

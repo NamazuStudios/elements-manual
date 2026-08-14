@@ -1,0 +1,44 @@
+sequenceDiagram
+    autonumber
+    participant H as Host client
+    participant S as Crossfire server
+    participant Alg as MatchmakingAlgorithm
+    participant P as Peer client
+
+    rect rgb(240, 240, 240)
+    Note over H,Alg: v1.0 - FIND (matchmaking queue)
+    H->>S: FIND {sessionKey, configuration}
+    S->>Alg: initialize(request)
+    Alg->>Alg: find-or-create MultiMatch,<br/>add profile
+    Alg-->>S: setResult(match)
+    S-->>H: MATCHED {matchId, profileId}
+    end
+
+    rect rgb(240, 240, 240)
+    Note over H,Alg: v1.0 - JOIN (reconnect by match ID)
+    H->>S: JOIN {sessionKey, matchId}
+    S->>Alg: resume(request)
+    Alg->>Alg: verify profile is a member
+    Alg-->>S: setResult(match)
+    S-->>H: MATCHED {matchId, profileId}
+    end
+
+    rect rgb(232, 245, 233)
+    Note over H,Alg: v1.1 - CREATE (host makes a joinable match)
+    H->>S: CREATE {sessionKey, configuration}
+    S->>Alg: initialize(request)
+    Alg->>Alg: create MultiMatch,<br/>generate join code
+    Alg-->>S: setResult(match)
+    S-->>H: CREATED {matchId, joinCode, profileId}
+    end
+
+    rect rgb(232, 245, 233)
+    Note over P,Alg: v1.1 - JOIN_CODE (peer joins by code)
+    P->>S: JOIN_CODE {sessionKey, joinCode}
+    S->>Alg: resume(request)
+    Alg->>Alg: look up match by code,<br/>add profile if new
+    Alg-->>S: setResult(match)
+    S-->>P: MATCHED {matchId, profileId}
+    end
+
+    Note over H,P: Both connections are now in SIGNALING

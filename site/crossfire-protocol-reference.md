@@ -24,6 +24,11 @@
 <pre class="wp-block-code"><code>WAITING &#8594; READY &#8594; HANDSHAKE &#8594; SIGNALING &#8594; TERMINATED</code></pre>
 <!-- /wp:code -->
 
+<!-- TODO(docs): render source at images/connection-lifecycle.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL (see the pattern used in oidc-login-for-thick-clients-browser-redirect-flow.md) -->
+<!-- wp:image {"linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="images/connection-lifecycle.svg" alt="Crossfire connection state machine: WAITING to READY to HANDSHAKE to SIGNALING to TERMINATED, with error transitions to TERMINATED from READY and HANDSHAKE"/></figure>
+<!-- /wp:image -->
+
 <!-- wp:list -->
 <ul class="wp-block-list">
 <li><strong>WAITING</strong> &#8212; the socket has not yet been accepted by the server.</li>
@@ -106,6 +111,11 @@
 <!-- wp:paragraph -->
 <p>Every flow follows the same shape: client sends a handshake request &#8594; server authenticates the session/profile &#8594; server resolves a <code>MatchmakingAlgorithm</code> (default, or named via the application's <code>MatchmakingApplicationConfiguration.matchmaker</code>) &#8594; the algorithm asynchronously matches or creates &#8594; server sends a handshake response &#8594; connection transitions to <code>SIGNALING</code>.</p>
 <!-- /wp:paragraph -->
+
+<!-- TODO(docs): render source at images/handshake-flows.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL -->
+<!-- wp:image {"linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="images/handshake-flows.svg" alt="Sequence diagrams for the four Crossfire handshake flows: FIND, JOIN, CREATE, and JOIN_CODE"/></figure>
+<!-- /wp:image -->
 
 <!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading" id="h-find-v10">FIND (v1.0) &#8212; join the matchmaking queue</h3>
@@ -218,6 +228,11 @@
 <!-- wp:paragraph -->
 <p>If the host's connection disconnects cleanly, the server automatically reassigns host to another currently-connected participant and re-broadcasts <code>HOST</code>. If every participant disconnects (but the match record itself isn't ended), or every participant formally leaves the match, the server ends and removes the match automatically.</p>
 <!-- /wp:paragraph -->
+
+<!-- TODO(docs): render source at images/backlog-replay.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL -->
+<!-- wp:image {"linkDestination":"none"} -->
+<figure class="wp-block-image"><img src="images/backlog-replay.svg" alt="Sequence diagram showing a late-joining profile receiving replayed backlog signals from the match mailbox"/></figure>
+<!-- /wp:image -->
 
 <!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-control-messages">Control messages</h2>

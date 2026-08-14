@@ -1,0 +1,21 @@
+flowchart TB
+    api["api<br/>(wire model: ProtocolMessage, Signal, HandshakeRequest/Response)"]
+    common["common<br/>(shared Jackson codec)"]
+    client["client<br/>(vendor-neutral SPI: Crossfire, SignalingClient,<br/>MatchHost / MatchClient, Peer)"]
+    onvoid["client-onvoid<br/>(JVM / native WebRTC via onvoid webrtc-java)"]
+    teavm["client-teavm<br/>(browser via TeaVM, JSO overlays on RTCPeerConnection)"]
+    server["server<br/>(V1 protocol handler, MatchSignalingEndpoint)"]
+    unity["Unity Crossfire Plugin<br/>(separate GitHub repo, own WebRTC/WebSocket stack)"]
+
+    api --> common
+    api --> client
+    common --> client
+    client --> onvoid
+    client --> teavm
+    api --> server
+    common --> server
+    api -.same wire protocol.-> unity
+
+    onvoid <-->|"WebSocket handshake + signaling,<br/>then WebRTC data channels"| server
+    teavm <-->|"WebSocket handshake + signaling,<br/>then WebRTC data channels"| server
+    unity <-->|"WebSocket handshake + signaling,<br/>then WebRTC data channels"| server
