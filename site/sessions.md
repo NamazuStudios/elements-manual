@@ -58,6 +58,10 @@
 <p>This the most basic method of creating a session and requires no third-party integration. When creating a User, the client supplies the desired username and password. Elements securely hashes each User's password in the database.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:paragraph -->
+<p>To attach a Profile to the session, the request may specify one of <code>profileId</code>, <code>profileSelector</code>, or (<em>Elements 3.9+</em>) <code>applicationNameOrId</code> -- the name or ID of an <a href="applications">Application</a> whose primary profile should be attached. <code>applicationNameOrId</code> is only consulted if neither <code>profileId</code> nor <code>profileSelector</code> is specified, and if the Application or the user's primary profile for it can't be resolved, the session is simply created without a profile rather than failing the request. The same <code>applicationNameOrId</code> field is also accepted on OAuth2 session creation (see below).</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading {"level":4} -->
 <h4 class="wp-block-heading" id="h-sso-using-oidc-oauth2">SSO using OIDC / OAuth2</h4>
 <!-- /wp:heading -->

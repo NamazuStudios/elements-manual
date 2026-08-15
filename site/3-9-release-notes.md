@@ -1,0 +1,85 @@
+<h1>3.9 Release Notes</h1>
+
+<!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Warning","noticeBackgroundColor":"#ffdd57"} -->
+<div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="d29f31"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
+<p>Elements 3.9 is still under active development (current version: <code>3.9.0-SNAPSHOT</code>) and has not been released. The contents of this page are a draft and may change before the final release.</p>
+<!-- /wp:paragraph --></div></div>
+<!-- /wp:genesis-blocks/gb-notice -->
+
+<!-- wp:heading {"anchor":"h-overview"} -->
+<h2 id="h-overview" class="wp-block-heading">Overview</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, plus a new way to attach a user's profile to a session by naming an Application instead of an explicit profile.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"anchor":"h-highlights"} -->
+<h2 id="h-highlights" class="wp-block-heading">Highlights</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>Per-application profile limits</strong> — a new <code>maxProfiles</code> setting on <a href="applications">Application</a> bounds how many profiles a user may create for it.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Automatic primary profile creation</strong> — a new <code>autoCreateProfile</code> setting on Application, combined with a new <code>autoCreateProfileApplicationNameOrId</code> field on the user-create/signup request, lets Elements create a user's primary profile for an Application automatically at signup time. See <a href="creating-a-user">Creating a User</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Session creation by Application</strong> — username/password and OAuth2 session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. See <a href="sessions">Sessions</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Authoritative profile pictures and display-name validation</strong> — new <code>authoritativeProfilePicture</code> and <code>displayNameRegex</code> settings on Application. See <a href="applications">Applications</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Progress API fixes and a new advance-progress endpoint</strong> — <code>POST /progress</code> and the superuser <code>PUT /progress/{id}</code> path are fixed, and a new <code>POST /progress/{progressId}/advance</code> endpoint lets a Mission opt in to client-driven progress advancement. Reported, diagnosed, and prototyped by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> -- thank you!</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"anchor":"h-new-features"} -->
+<h2 id="h-new-features" class="wp-block-heading">New Features</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3,"anchor":"h-per-application-profile-limits-and-auto-create"} -->
+<h3 id="h-per-application-profile-limits-and-auto-create" class="wp-block-heading">Per-Application Profile Limits and Auto-Create</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><code>Application</code> gains two new fields: <code>maxProfiles</code> (defaults to <code>1</code>) caps how many profiles a user may create for that application, and <code>autoCreateProfile</code> (defaults to <code>true</code>) governs whether a user's primary profile is created automatically when requested via <code>autoCreateProfileApplicationNameOrId</code> on user creation. Lowering <code>maxProfiles</code> never affects profiles that already exist -- only new profile creations are gated. Existing applications with no value set for these fields behave as if they were set to the defaults.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-session-creation-by-application"} -->
+<h3 id="h-session-creation-by-application" class="wp-block-heading">Session Creation by Application</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Username/password and OAuth2 session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session; if the application or the primary profile can't be resolved, the session is simply created without a profile.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-authoritative-profile-pictures-and-display-name-validation"} -->
+<h3 id="h-authoritative-profile-pictures-and-display-name-validation" class="wp-block-heading">Authoritative Profile Pictures and Display-Name Validation</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><code>Application</code> gains two more new fields: <code>authoritativeProfilePicture</code> (defaults to <code>false</code>), which when <code>true</code> blocks a user from editing their own profile picture for that application via the REST API (it must be set by backend/Element code instead), and <code>displayNameRegex</code> (optional), a Java regular expression a profile's display name must match for that application -- profile creates/updates with a non-matching display name are rejected. Leave it blank to skip the check.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-progress-api-fixes-and-advance-progress-endpoint"} -->
+<h3 id="h-progress-api-fixes-and-advance-progress-endpoint" class="wp-block-heading">Progress API Fixes and Advance-Progress Endpoint</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p><code>POST /progress</code> no longer 400s with <code>"profile - must not be null"</code> when a valid profile is supplied, and the superuser <code>PUT /progress/{id}</code> path no longer rejects every possible request body. Both were reported with full root-cause analysis by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> in <a href="https://github.com/NamazuStudios/elements/issues/2">#2</a> and <a href="https://github.com/NamazuStudios/elements/issues/3">#3</a> -- thank you for the thorough repros and the <code>sequence</code>/<code>currentStep</code> data-model deep-dive.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Mission gains a new <code>authoritative</code> field (defaults to <code>true</code>). A new <code>POST /progress/{progressId}/advance</code> endpoint decrements a Progress's remaining actions, advancing Steps and issuing Rewards as needed -- superusers may always call it, and a regular user may only call it for their own Progress on a Mission explicitly marked <code>authoritative: false</code>. This is the client-driven progress advancement @hobolabsdigital originally prototyped in #3, now gated per-Mission so authoritative-integrity is preserved by default.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
