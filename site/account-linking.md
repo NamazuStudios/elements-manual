@@ -10,6 +10,10 @@
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
+<!-- wp:paragraph -->
+<p>The browser-redirect thick-client OIDC flow can also link, as an alternative to the endpoints below: if the client already holds a session when it starts a login attempt, the attempt links to that user instead of creating a new one. See <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a> for that sequence.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-precondition">Precondition: an active User session</h2>
 <!-- /wp:heading -->

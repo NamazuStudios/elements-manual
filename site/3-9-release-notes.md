@@ -11,7 +11,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, plus a new way to attach a user's profile to a session by naming an Application instead of an explicit profile.</p>
+<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, a new way to attach a user's profile to a session by naming an Application instead of an explicit profile, and account linking for the OIDC browser-redirect login flow.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-highlights"} -->
@@ -28,11 +28,15 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>Session creation by Application</strong> — username/password and OAuth2 session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. See <a href="sessions">Sessions</a>.</li>
+<li><strong>Session creation by Application, including auto-create</strong> — username/password, OAuth2, and OIDC session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. If no primary profile exists yet, it's now created automatically, subject to the Application's own <code>autoCreateProfile</code>/<code>maxProfiles</code> settings. See <a href="sessions">Sessions</a>.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
 <li><strong>Authoritative profile pictures and display-name validation</strong> — new <code>authoritativeProfilePicture</code> and <code>displayNameRegex</code> settings on Application. See <a href="applications">Applications</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Account linking via the OIDC browser-redirect flow</strong> — starting a login attempt while already holding a session now links the resulting external identity to that user instead of creating a new one, with a new <code>confirmToken</code>-gated confirmation step to keep the mutation off the unauthenticated provider callback. See <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a>.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -57,7 +61,19 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Username/password and OAuth2 session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session; if the application or the primary profile can't be resolved, the session is simply created without a profile.</p>
+<p>Username/password, OAuth2, and OIDC session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session. If no primary profile exists yet, one is now created automatically, subject to the same <code>autoCreateProfile</code>/<code>maxProfiles</code> gating as signup-time auto-create, via the same <code>ProfileDao#createSlottedProfile</code> path; if the application can't be resolved, or auto-create isn't configured for it, the session is simply created without a profile.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-account-linking-via-the-oidc-browser-redirect-flow"} -->
+<h3 id="h-account-linking-via-the-oidc-browser-redirect-flow" class="wp-block-heading">Account Linking via the OIDC Browser-Redirect Flow</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Starting an OIDC browser-redirect login attempt (<code>POST /oidc/session</code>) while already holding a session now links the resulting external identity to that user, the same way the existing <a href="account-linking">Account Linking</a> endpoints do for a possessed <code>id_token</code>. No new request field is involved; whether an attempt links or creates a new user is decided purely by whether the caller had a session when the attempt was started.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Because the provider's callback that validates the external identity is always an unauthenticated redirect from the identity provider, with no way to confirm it's the same caller that started the attempt, it no longer performs the account-link mutation itself. A new <code>confirmToken</code>, returned only in the original <code>begin()</code> response, gates a new <code>POST /oidc/session/{id}/confirm</code> step that performs it. See <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a> for the full sequence. This closes a case where a leaked <code>state</code> value, which (unlike the poll <code>id</code>) necessarily passes through the browser and the identity provider, could otherwise have let an attacker permanently link their own external identity to a victim's account.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"anchor":"h-authoritative-profile-pictures-and-display-name-validation"} -->
