@@ -37,6 +37,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Progress API fixes and a new advance-progress endpoint</strong> — <code>POST /progress</code> and the superuser <code>PUT /progress/{id}</code> path are fixed, and a new <code>POST /progress/{progressId}/advance</code> endpoint lets a Mission opt in to client-driven progress advancement. Reported, diagnosed, and prototyped by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> -- thank you!</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>JeroMQ removed from cluster RPC</strong>: the JeroMQ-based cross-instance invocation transport is gone, replaced by a WebSocket-based transport prototype. This is internal infrastructure with no effect on game developer or plugin (Element) code. See <a href="cluster-rpc-fabric">Cluster RPC (Fabric)</a>.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
