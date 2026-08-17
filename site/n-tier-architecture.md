@@ -85,5 +85,9 @@
 <!-- /wp:genesis-blocks/gb-notice -->
 
 <!-- wp:paragraph -->
+<p>These three layers describe a single Elements instance. For how one instance calls a service hosted on another instance, see <a href="cluster-rpc-fabric">Cluster RPC (Fabric)</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
