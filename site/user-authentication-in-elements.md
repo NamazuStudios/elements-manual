@@ -132,6 +132,10 @@
 <p><em>(Elements 3.9+)</em> Rather than passing an explicit <code>profileId</code> or <code>profileSelector</code>, username/password and OAuth2 session requests can instead pass <code>applicationNameOrId</code> to have Elements attach the user's primary profile for that <a href="applications">Application</a> automatically -- see <a href="sessions">Sessions</a> for details.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:paragraph -->
+<p>The flow above covers a client that already holds an <code>id_token</code>. A native/thick client with no other way to obtain one — most game engines — instead drives a server-orchestrated, provider-agnostic browser-redirect flow; see <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a>. That same flow can also attach an external identity to an existing session instead of creating a new account — see <a href="account-linking">Account Linking</a>.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
@@ -267,6 +271,14 @@
 
 <!-- wp:list-item -->
 <li><a href="https://namazustudios.com/docs/core-features/auth-schemes/auth-schemes/">Auth Scheme Configuration</a></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients (Browser Redirect Flow)</a></li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="account-linking">Account Linking</a></li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
