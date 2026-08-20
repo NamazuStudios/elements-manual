@@ -11,7 +11,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, plus a new way to attach a user's profile to a session by naming an Application instead of an explicit profile.</p>
+<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, a new way to attach a user's profile to a session by naming an Application instead of an explicit profile, and account linking for the OIDC browser-redirect login flow.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-highlights"} -->
@@ -28,7 +28,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>Session creation by Application</strong> — username/password and OAuth2 session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. See <a href="sessions">Sessions</a>.</li>
+<li><strong>Session creation by Application, including auto-create</strong> — username/password, OAuth2, and OIDC session requests can now pass <code>applicationNameOrId</code> to attach the user's primary profile for that Application, instead of an explicit <code>profileId</code>/<code>profileSelector</code>. If no primary profile exists yet, it's now created automatically, subject to the Application's own <code>autoCreateProfile</code>/<code>maxProfiles</code> settings. See <a href="sessions">Sessions</a>.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -36,7 +36,15 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
+<li><strong>Account linking via the OIDC browser-redirect flow</strong> — starting a login attempt while already holding a session now links the resulting external identity to that user instead of creating a new one, with a new <code>confirmToken</code>-gated confirmation step to keep the mutation off the unauthenticated provider callback. See <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
 <li><strong>Progress API fixes and a new advance-progress endpoint</strong> — <code>POST /progress</code> and the superuser <code>PUT /progress/{id}</code> path are fixed, and a new <code>POST /progress/{progressId}/advance</code> endpoint lets a Mission opt in to client-driven progress advancement. Reported, diagnosed, and prototyped by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> -- thank you!</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Stale Datastore/Mapper fix on Element (re)deploy</strong> — a singleton that captured Elements' shared Mongo <code>Datastore</code> could go stale on the next Element (re)deploy; see below.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -57,7 +65,19 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Username/password and OAuth2 session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session; if the application or the primary profile can't be resolved, the session is simply created without a profile.</p>
+<p>Username/password, OAuth2, and OIDC session requests accept a new <code>applicationNameOrId</code> field (an application name or ID). If neither <code>profileId</code> nor <code>profileSelector</code> is specified, Elements resolves the user's primary profile for that application and attaches it to the session. If no primary profile exists yet, one is now created automatically, subject to the same <code>autoCreateProfile</code>/<code>maxProfiles</code> gating as signup-time auto-create, via the same <code>ProfileDao#createSlottedProfile</code> path; if the application can't be resolved, or auto-create isn't configured for it, the session is simply created without a profile.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-account-linking-via-the-oidc-browser-redirect-flow"} -->
+<h3 id="h-account-linking-via-the-oidc-browser-redirect-flow" class="wp-block-heading">Account Linking via the OIDC Browser-Redirect Flow</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Starting an OIDC browser-redirect login attempt (<code>POST /oidc/session</code>) while already holding a session now links the resulting external identity to that user, the same way the existing <a href="account-linking">Account Linking</a> endpoints do for a possessed <code>id_token</code>. No new request field is involved; whether an attempt links or creates a new user is decided purely by whether the caller had a session when the attempt was started.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Because the provider's callback that validates the external identity is always an unauthenticated redirect from the identity provider, with no way to confirm it's the same caller that started the attempt, it no longer performs the account-link mutation itself. A new <code>confirmToken</code>, returned only in the original <code>begin()</code> response, gates a new <code>POST /oidc/session/{id}/confirm</code> step that performs it. See <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a> for the full sequence. This closes a case where a leaked <code>state</code> value, which (unlike the poll <code>id</code>) necessarily passes through the browser and the identity provider, could otherwise have let an attacker permanently link their own external identity to a victim's account.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"anchor":"h-authoritative-profile-pictures-and-display-name-validation"} -->
@@ -78,6 +98,26 @@
 
 <!-- wp:paragraph -->
 <p>Mission gains a new <code>authoritative</code> field (defaults to <code>true</code>). A new <code>POST /progress/{progressId}/advance</code> endpoint decrements a Progress's remaining actions, advancing Steps and issuing Rewards as needed -- superusers may always call it, and a regular user may only call it for their own Progress on a Mission explicitly marked <code>authoritative: false</code>. This is the client-driven progress advancement @hobolabsdigital originally prototyped in #3, now gated per-Mission so authoritative-integrity is preserved by default.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-guice-spi-loading-strategy-escape-hatch"} -->
+<h3 id="h-guice-spi-loading-strategy-escape-hatch" class="wp-block-heading">Guice SPI Loading-Strategy Escape Hatch</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The package-level <code>@GuiceOptions</code> annotation is now wired into <code>GuiceSpiModule</code>, giving third-party Element authors an opt-in escape hatch for the <code>[Guice/ExposedButNotBound]</code> crash that can occur when an exported service has no locally-discovered implementation. Elements that don't declare <code>@GuiceOptions</code> see no behavior change -- the existing bind/expose scanning remains the default <code>LEGACY</code> strategy. Authors can instead declare <code>GUICE_MODULE_ONLY</code> to defer every exported service to their own <code>@GuiceElementModule</code>(s), or <code>STRICT</code> to fail fast at startup with a clear error naming the unbound service instead of Guice's generic crash. See <a href="introduction-to-guice-and-jakarta-in-elements">Introduction to Guice and Jakarta in Elements</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"anchor":"h-bug-fixes"} -->
+<h2 id="h-bug-fixes" class="wp-block-heading">Bug Fixes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3,"anchor":"h-stale-datastore-mapper-state-on-element-redeploy"} -->
+<h3 id="h-stale-datastore-mapper-state-on-element-redeploy" class="wp-block-heading">Stale Datastore/Mapper State on Element Redeploy</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Any singleton that captured the injected Morphia <code>Datastore</code> directly could go stale the moment an Element (re)deploy rebuilt and swapped the shared <code>Datastore</code>/Mapper -- most reliably on every redeploy, since an Element's eager singletons are constructed before its own entities are even registered. The injected <code>Datastore</code> is now a stable proxy that always forwards to whichever instance is live at call time, so holding a reference to it -- in Elements' own internal DAOs, or in a downstream Element's -- is safe by construction.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
