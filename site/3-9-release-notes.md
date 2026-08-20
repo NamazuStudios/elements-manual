@@ -41,6 +41,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Progress API fixes and a new advance-progress endpoint</strong> — <code>POST /progress</code> and the superuser <code>PUT /progress/{id}</code> path are fixed, and a new <code>POST /progress/{progressId}/advance</code> endpoint lets a Mission opt in to client-driven progress advancement. Reported, diagnosed, and prototyped by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> -- thank you!</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Stale Datastore/Mapper fix on Element (re)deploy</strong> — a singleton that captured Elements' shared Mongo <code>Datastore</code> could go stale on the next Element (re)deploy; see below.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -94,6 +98,26 @@
 
 <!-- wp:paragraph -->
 <p>Mission gains a new <code>authoritative</code> field (defaults to <code>true</code>). A new <code>POST /progress/{progressId}/advance</code> endpoint decrements a Progress's remaining actions, advancing Steps and issuing Rewards as needed -- superusers may always call it, and a regular user may only call it for their own Progress on a Mission explicitly marked <code>authoritative: false</code>. This is the client-driven progress advancement @hobolabsdigital originally prototyped in #3, now gated per-Mission so authoritative-integrity is preserved by default.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-guice-spi-loading-strategy-escape-hatch"} -->
+<h3 id="h-guice-spi-loading-strategy-escape-hatch" class="wp-block-heading">Guice SPI Loading-Strategy Escape Hatch</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The package-level <code>@GuiceOptions</code> annotation is now wired into <code>GuiceSpiModule</code>, giving third-party Element authors an opt-in escape hatch for the <code>[Guice/ExposedButNotBound]</code> crash that can occur when an exported service has no locally-discovered implementation. Elements that don't declare <code>@GuiceOptions</code> see no behavior change -- the existing bind/expose scanning remains the default <code>LEGACY</code> strategy. Authors can instead declare <code>GUICE_MODULE_ONLY</code> to defer every exported service to their own <code>@GuiceElementModule</code>(s), or <code>STRICT</code> to fail fast at startup with a clear error naming the unbound service instead of Guice's generic crash. See <a href="introduction-to-guice-and-jakarta-in-elements">Introduction to Guice and Jakarta in Elements</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"anchor":"h-bug-fixes"} -->
+<h2 id="h-bug-fixes" class="wp-block-heading">Bug Fixes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3,"anchor":"h-stale-datastore-mapper-state-on-element-redeploy"} -->
+<h3 id="h-stale-datastore-mapper-state-on-element-redeploy" class="wp-block-heading">Stale Datastore/Mapper State on Element Redeploy</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Any singleton that captured the injected Morphia <code>Datastore</code> directly could go stale the moment an Element (re)deploy rebuilt and swapped the shared <code>Datastore</code>/Mapper -- most reliably on every redeploy, since an Element's eager singletons are constructed before its own entities are even registered. The injected <code>Datastore</code> is now a stable proxy that always forwards to whichever instance is live at call time, so holding a reference to it -- in Elements' own internal DAOs, or in a downstream Element's -- is safe by construction.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
