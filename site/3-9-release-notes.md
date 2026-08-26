@@ -45,6 +45,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Stale Datastore/Mapper fix on Element (re)deploy</strong> — a singleton that captured Elements' shared Mongo <code>Datastore</code> could go stale on the next Element (re)deploy; see below.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Element injectors now use Guice's PRODUCTION stage</strong> — services you mark <code>@Singleton</code> are now constructed at Element-load time (and every binding is validated up front) instead of on first use. This pairs with the Datastore/Mapper fix above: capturing the shared <code>Datastore</code> in an eager singleton is safe now, so there's no new risk from the earlier construction timing. See below.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -106,6 +110,28 @@
 
 <!-- wp:paragraph -->
 <p>The package-level <code>@GuiceOptions</code> annotation is now wired into <code>GuiceSpiModule</code>, giving third-party Element authors an opt-in escape hatch for the <code>[Guice/ExposedButNotBound]</code> crash that can occur when an exported service has no locally-discovered implementation. Elements that don't declare <code>@GuiceOptions</code> see no behavior change -- the existing bind/expose scanning remains the default <code>LEGACY</code> strategy. Authors can instead declare <code>GUICE_MODULE_ONLY</code> to defer every exported service to their own <code>@GuiceElementModule</code>(s), or <code>STRICT</code> to fail fast at startup with a clear error naming the unbound service instead of Guice's generic crash. See <a href="introduction-to-guice-and-jakarta-in-elements">Introduction to Guice and Jakarta in Elements</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-eager-singleton-construction-for-elements"} -->
+<h3 id="h-eager-singleton-construction-for-elements" class="wp-block-heading">Eager Singleton Construction for Elements</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Element injectors are now built with Guice's <code>Stage.PRODUCTION</code> instead of <code>Stage.DEVELOPMENT</code>. Two things change for Element authors:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Any service class you mark <code>@Singleton</code> is now constructed at Element-load time, not lazily on first use. Previously only bindings explicitly marked <code>.asEagerSingleton()</code> in a Guice module were built eagerly; a plain <code>@Singleton</code> class was left to first use.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Every binding in your Element's injector is validated up front at load time, so a misconfigured binding now fails fast when the Element loads instead of surfacing later at first invocation.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>This is safe to rely on together with the Datastore/Mapper fix below: injecting the shared <code>Datastore</code> into an eager singleton no longer risks capturing a stale snapshot, since the <code>Datastore</code> you receive is a stable proxy regardless of when it's constructed. If your own service binds another shared, mutable dependency directly (not through a similar proxy or a <code>Provider</code>), review whether earlier eager construction under <code>PRODUCTION</code> stage could now capture a stale reference to it.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-bug-fixes"} -->
