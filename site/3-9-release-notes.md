@@ -48,7 +48,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>Element injectors now use Guice's PRODUCTION stage</strong> — services you mark <code>@Singleton</code> are now constructed at Element-load time (and every binding is validated up front) instead of on first use. This pairs with the Datastore/Mapper fix above: capturing the shared <code>Datastore</code> in an eager singleton is safe now, so there's no new risk from the earlier construction timing. See below.</li>
+<li><strong>Opt-in Guice PRODUCTION stage for injectors</strong> — every Guice injector in the platform (per-Element, jetty-ws itself, the <code>migrate</code>/<code>setup</code> tools, and more) can now be built with Guice's <code>Stage.PRODUCTION</code> instead of the default <code>Stage.DEVELOPMENT</code>, via a new system property/environment variable. This pairs with the Datastore/Mapper fix above: capturing the shared <code>Datastore</code> in an eager singleton is safe now, so there's no new risk from the earlier construction timing under <code>PRODUCTION</code>. See below.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -113,20 +113,24 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"anchor":"h-eager-singleton-construction-for-elements"} -->
-<h3 id="h-eager-singleton-construction-for-elements" class="wp-block-heading">Eager Singleton Construction for Elements</h3>
+<h3 id="h-eager-singleton-construction-for-elements" class="wp-block-heading">Opt-In Eager Singleton Construction (Guice Stage.PRODUCTION)</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Element injectors are now built with Guice's <code>Stage.PRODUCTION</code> instead of <code>Stage.DEVELOPMENT</code>. Two things change for Element authors:</p>
+<p>Every Guice injector in the platform can now be built with <code>Stage.PRODUCTION</code> instead of the default <code>Stage.DEVELOPMENT</code>, controlled by the <code>dev.getelements.elements.guice.stage</code> system property (or the <code>ELEMENTS_GUICE_STAGE</code> environment variable if the property isn't set). Leaving both unset keeps today's <code>DEVELOPMENT</code> behavior everywhere, including for Element injectors -- <code>PRODUCTION</code> is strictly opt-in. A server deployment that wants the benefits below should set <code>dev.getelements.elements.guice.stage=PRODUCTION</code> (or the equivalent environment variable) in its own launch configuration.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>When enabled, two things change for Element authors:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li>Any service class you mark <code>@Singleton</code> is now constructed at Element-load time, not lazily on first use. Previously only bindings explicitly marked <code>.asEagerSingleton()</code> in a Guice module were built eagerly; a plain <code>@Singleton</code> class was left to first use.</li>
+<li>Any service class you mark <code>@Singleton</code> is constructed at Element-load time, not lazily on first use. Previously only bindings explicitly marked <code>.asEagerSingleton()</code> in a Guice module were built eagerly; a plain <code>@Singleton</code> class was left to first use.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Every binding in your Element's injector is validated up front at load time, so a misconfigured binding now fails fast when the Element loads instead of surfacing later at first invocation.</li>
+<li>Every binding in your Element's injector is validated up front at load time, so a misconfigured binding fails fast when the Element loads instead of surfacing later at first invocation.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
