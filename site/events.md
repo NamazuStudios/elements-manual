@@ -24,6 +24,10 @@
 <p>DAO level events will always have two versions - one that occurs during the transaction, with a reference to the transaction itself, and one that occurs after the transaction. This is important, as sometimes you might want to communicate with the database and ensure that your event consumer has the same protections and retries that a transaction provides. In these cases, it's important to ensure that your code is idempotent, and that you use the transaction itself to get any DAO classes. For example:</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:paragraph -->
+<p>As of Elements 3.9, this create/update/delete event pattern is produced by nearly every DAO in the system, not just a handful. A few DAOs expose fewer variants where it matches the entity's lifecycle (for instance, an entity that is only ever upserted produces a single created-or-updated event rather than separate created and updated events), so always check the Produced Events listing for the DAO you're interested in rather than assuming a full create/update/delete set.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:preformatted -->
 <pre class="wp-block-preformatted">@ElementEventConsumer(ReceiptDao.RECEIPT_CREATED)<br>public void onReceiptCreated(Receipt receipt, Transaction transaction) {<br>    final User user = transaction.performAndCloseV(txn -> {<br>        final var dao = txn.getDao(UserDao.class);<br>        final var txUser = dao.getUser(receipt.getUser.getId());<br>        //Do something with the User here<br>        return txUser;<br>    });<br><br>    //The transaction has completed at this point<br>}</pre>
 <!-- /wp:preformatted -->

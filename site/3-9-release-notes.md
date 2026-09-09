@@ -45,6 +45,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Stale Datastore/Mapper fix on Element (re)deploy</strong> — a singleton that captured Elements' shared Mongo <code>Datastore</code> could go stale on the next Element (re)deploy; see below.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>CRUD events across nearly every DAO</strong> — create/update/delete events, previously only produced by a handful of DAOs, now cover nearly all of them, making it practical to build audit logging and similar cross-cutting Elements. See <a href="events">Events</a>.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -106,6 +110,22 @@
 
 <!-- wp:paragraph -->
 <p>The package-level <code>@GuiceOptions</code> annotation is now wired into <code>GuiceSpiModule</code>, giving third-party Element authors an opt-in escape hatch for the <code>[Guice/ExposedButNotBound]</code> crash that can occur when an exported service has no locally-discovered implementation. Elements that don't declare <code>@GuiceOptions</code> see no behavior change -- the existing bind/expose scanning remains the default <code>LEGACY</code> strategy. Authors can instead declare <code>GUICE_MODULE_ONLY</code> to defer every exported service to their own <code>@GuiceElementModule</code>(s), or <code>STRICT</code> to fail fast at startup with a clear error naming the unbound service instead of Guice's generic crash. See <a href="introduction-to-guice-and-jakarta-in-elements">Introduction to Guice and Jakarta in Elements</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-crud-events-across-nearly-every-dao"} -->
+<h3 id="h-crud-events-across-nearly-every-dao" class="wp-block-heading">CRUD Events Across Nearly Every DAO</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Before 3.9, only three DAOs (<code>ElementDeploymentDao</code>, <code>MultiMatchDao</code>, and <code>ReceiptDao</code>) published create/update/delete events. That coverage now extends to nearly every DAO in the system, including profiles, sessions, applications and their configurations, auth schemes, OIDC login attempts and provider configurations, inventory items and item ledger entries, missions and progress, schedules, leaderboards and scores, reward issuances, save data documents, large objects, followers and friends, FCM registrations, smart contracts, vaults and wallets, and more.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Each new event follows the same two-variant pattern already used by the pre-3.9 DAOs and described in <a href="events">Events</a>: a transactional variant carrying a <code>Transaction</code> argument, published immediately as part of the write, and a plain variant published only once the enclosing transaction commits (and dropped entirely if it rolls back). A handful of DAOs expose fewer variants where it matches the entity's actual lifecycle -- for example, <code>ScoreDao</code> fires a single <code>SCORE_CREATED_OR_UPDATED</code> event since scores are always upserted, <code>ItemLedgerDao</code> only fires a created event since ledger entries are immutable, and <code>FriendDao</code> only fires a deleted event since friendships are formed implicitly through mutual follows rather than a direct create call.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>As with all Element events, the authoritative list of event names and their argument types for a given DAO is discoverable at runtime via the CMS's Produced Events screens, or the underlying <code>GET /elements/system</code> and <code>GET /elements/application</code> endpoints; see <a href="events">Events</a> for details.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-bug-fixes"} -->
