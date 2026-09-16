@@ -798,7 +798,7 @@ public class HelloWorldApplication extends Application {
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Each <code>@ElementDefaultAttribute</code> field declares a default value for a named configuration attribute — the string constant is the attribute key, the annotation value is its default. <code>AUTH_ENABLED</code> defaulting to <code>"true"</code> is what turns on the built-in Elements auth filter for every request and service in this Element, which is exactly what makes <code>UserService.getCurrentUser()</code> populated in <code>GreetingServiceImpl</code>. <code>RS_ROOT</code> and <code>WS_ROOT</code> set the REST and WebSocket mount points; <code>STATIC_CONTENT_URI</code> and <code>UI_CONTENT_URI</code> are example placeholder paths, not wired to real content.</li>
+<li>Each <code>@ElementDefaultAttribute</code> field declares a default value for a named configuration attribute — the string constant is the attribute key, the annotation value is its default. <code>AUTH_ENABLED</code> defaulting to <code>"true"</code> is what turns on the built-in Elements auth filter for every request and service in this Element, which is exactly what makes <code>UserService.getCurrentUser()</code> populated in <code>GreetingServiceImpl</code>. <code>RS_ROOT</code> and <code>WS_ROOT</code> set the REST and WebSocket mount points; <code>STATIC_CONTENT_URI</code> and <code>UI_CONTENT_URI</code> are example placeholder paths, not wired to real content. See <a href="element-static-content-and-dashboard-ui-plugins">Element Static Content and Dashboard UI Plugins</a> for how these attributes work when an Element does ship a <code>static/</code> or <code>ui/</code> directory.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
