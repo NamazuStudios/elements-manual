@@ -51,7 +51,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Application configurations add support for features such as Facebook SSO, Firebase push notifications, and Android and iOS In-App Products. Application configurations are created and configured from inside the Application editor in the console.</p>
+<p>Application configurations add support for features such as Facebook SSO, Firebase push notifications, and Android and iOS In-App Products. Application configurations are created and configured from inside the Application editor in the console. See <a href="firebase-push-notifications">Firebase Push Notifications</a> for how the Firebase configuration is used.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
