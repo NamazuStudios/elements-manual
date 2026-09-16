@@ -94,7 +94,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Firebase configuration for push notifications</li>
+<li>Firebase configuration for push notifications, see <a href="firebase-push-notifications">Firebase Push Notifications</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -331,7 +331,7 @@
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
-<p>Here is where you can upload and store arbitrary data. Depending on the type of data, you can also preview the image. This is useful for live ops, A/B testing, and other actions where you might want to store files and other game assets in Elements directly.</p>
+<p>Here is where you can upload and store arbitrary data. Depending on the type of data, you can also preview the image. This is useful for live ops, A/B testing, and other actions where you might want to store files and other game assets in Elements directly. See <a href="large-object-api">Large Object API</a> for the underlying model, permissions, and REST endpoints.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:separator -->

@@ -51,6 +51,30 @@ public static final String DEFAULT_USER_PASSWORD = "dev.getelements.elements.use
 <!-- /wp:code -->
 
 <!-- wp:heading -->
+<h2 class="wp-block-heading" id="h-password-policy">Password Policy</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>These two properties are system-wide (not per-Element) and are set on the server's own properties file, not an Element's <code>dev.getelements.element.attributes.properties</code>. The regex is enforced everywhere a client submits or changes a password: signup, password reset, admin-set password, self-service change-password, and account linking. It does not apply to server-generated passwords, such as the default superuser password below. Keep the regex and its description in sync yourself; Elements does not derive one from the other.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>/**
+ * The system-wide password policy, expressed as a regex a submitted password must fully match.
+ * Enforced everywhere a password is accepted or changed (signup, password reset, admin-set
+ * password, email/username-password linking). Does not apply to server-generated passwords.
+ */
+String PASSWORD_POLICY_REGEX = "dev.getelements.elements.password.policy.regex"; // default: ".{4,}"
+
+/**
+ * A plain-text, human-readable description of PASSWORD_POLICY_REGEX, so clients can display the
+ * requirement to end users without parsing the regex themselves. Also included in the validation
+ * error message when a submitted password fails the policy.
+ */
+String PASSWORD_POLICY_DESCRIPTION = "dev.getelements.elements.password.policy.description"; // default: "Password must be at least 4 characters."</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-element-settings">Element Settings</h2>
 <!-- /wp:heading -->
 

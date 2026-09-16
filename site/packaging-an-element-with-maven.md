@@ -18,7 +18,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><code>static</code> / <code>ui</code> - optional static content and dashboard UI plugin content trees</li>
+<li><code>static</code> / <code>ui</code> - optional static content and dashboard UI plugin content trees; see <a href="element-static-content-and-dashboard-ui-plugins">Element Static Content and Dashboard UI Plugins</a> for how these are served</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
