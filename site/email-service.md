@@ -170,7 +170,11 @@ public class WelcomeEmailService {
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li><a href="../docs/namazu-elements-core/email-verification/">Email Verification</a>&nbsp;- built-in email-based UID verification using&nbsp;<code>EmailVerificationService</code>, including token lifecycle, REST endpoints, and custom templates.</li>
+<li><a href="../docs/namazu-elements-core/email-verification/">Email Verification</a>&nbsp;- built-in email-based UID verification using&nbsp;<code>EmailVerificationService</code>, including token lifecycle and REST endpoints.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="email-templates">Email Templates</a> - where the subject and HTML body sent by <code>EmailService</code> callers are managed, including the CMS editor and how custom Elements register their own templates.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 

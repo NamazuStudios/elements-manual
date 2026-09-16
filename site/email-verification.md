@@ -152,46 +152,74 @@ public interface EmailVerificationService {
 <!-- /wp:heading -->
 
 <!-- wp:table -->
-<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Attribute key</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>dev.getelements.elements.verification.base_url</code></td><td><em>(blank - derived from request)</em></td><td>Override the base URL embedded in the link, e.g. when sitting behind a reverse proxy.</td></tr><tr><td><code>dev.getelements.elements.verification.email_subject</code></td><td><code>Verify your email</code></td><td>Subject line for the verification email.</td></tr><tr><td><code>dev.getelements.elements.verification.email_template</code></td><td><em>(inline link - see below)</em></td><td>Full HTML body. Must contain&nbsp;<code>{link}</code>&nbsp;as the placeholder for the verification URL.</td></tr></tbody></table></figure>
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Attribute key</th><th>Default</th><th>Description</th></tr></thead><tbody><tr><td><code>dev.getelements.elements.verification.base_url</code></td><td><em>(blank - derived from request)</em></td><td>Override the base URL embedded in the link, e.g. when sitting behind a reverse proxy.</td></tr></tbody></table></figure>
 <!-- /wp:table -->
+
+<!-- wp:paragraph -->
+<p>The verification email's subject and HTML body are no longer element attributes. As of Elements 3.9, they are managed as a persistent <code>EmailTemplate</code> record through <code>EmailTemplateService</code>, keyed by <code>EmailVerificationService.VERIFICATION_EMAIL_TEMPLATE</code> (<code>dev.getelements.elements.verification.email_template</code>). See <a href="email-templates">Email Templates</a> for the full reference.</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading" id="default-email-template">Default email template</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>If not defined, the email body will default to this template:</p>
+<p>The core template is seeded automatically the first time it is listed or requested, with this subject and body:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code><code>&lt;p&gt;Please verify your email address by clicking the link below:&lt;/p&gt;
+<pre class="wp-block-code"><code><code>Subject: Verify your email
+
+&lt;p&gt;Please verify your email address by clicking the link below:&lt;/p&gt;
 &lt;p&gt;&lt;a href="{link}"&gt;Verify Email&lt;/a&gt;&lt;/p&gt;</code></code></pre>
 <!-- /wp:code -->
 
 <!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="custom-template-example">Custom template example</h3>
+<h3 class="wp-block-heading" id="editing-the-template">Editing the template</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Override&nbsp;<code>VERIFICATION_EMAIL_TEMPLATE</code>&nbsp;in your Element's Guice module or via element attributes:</p>
+<p>The simplest way to customize the subject or body is through the admin CMS: <strong>Other &gt; Email Templates</strong>, find the row whose key is <code>dev.getelements.elements.verification.email_template</code> (marked with a <strong>Core</strong> badge), and edit it. A preview action renders the body with a sample link substituted for <code>{link}</code> before you save. See <a href="cms-feature-overview">CMS Feature Overview</a> and <a href="email-templates">Email Templates</a> for details.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>It can also be read or written programmatically via <code>EmailTemplateService</code>, which is exported to element child injectors like any other platform service:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code><code>public class MyGameElementModule extends AbstractModule {
-    @Override
-    protected void configure() {
-        bindConstant()
-            .annotatedWith(Names.named(EmailVerificationService.VERIFICATION_EMAIL_TEMPLATE))
-            .to("&lt;html&gt;&lt;body&gt;"
-              + "&lt;h1&gt;Confirm your email&lt;/h1&gt;"
-              + "&lt;p&gt;&lt;a href=\"{link}\"&gt;Click here to verify&lt;/a&gt;&lt;/p&gt;"
-              + "&lt;/body&gt;&lt;/html&gt;");
+<pre class="wp-block-code"><code><code>import dev.getelements.elements.sdk.service.schema.email.EmailTemplateService;
+import dev.getelements.elements.sdk.service.user.EmailVerificationService;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+
+import static dev.getelements.elements.sdk.service.Constants.UNSCOPED;
+
+public class MyGameStartup {
+
+    private EmailTemplateService emailTemplateService;
+
+    public void applyCustomVerificationTemplate() {
+        emailTemplateService.getOrCreateEmailTemplate(
+            EmailVerificationService.VERIFICATION_EMAIL_TEMPLATE,
+            "Email Verification",
+            "Confirm your email",
+            "&lt;h1&gt;Confirm your email&lt;/h1&gt;"
+          + "&lt;p&gt;&lt;a href=\"{link}\"&gt;Click here to verify&lt;/a&gt;&lt;/p&gt;");
+    }
+
+    @Inject
+    public void setEmailTemplateService(@Named(UNSCOPED) EmailTemplateService emailTemplateService) {
+        this.emailTemplateService = emailTemplateService;
     }
 }</code></code></pre>
 <!-- /wp:code -->
 
 <!-- wp:paragraph -->
-<p>The&nbsp;<code>{link}</code>&nbsp;token is always replaced with the full verification URL before the email is sent.</p>
+<p><code>getOrCreateEmailTemplate</code> only supplies these defaults the first time the key is seen; once a row exists (whether seeded automatically or edited in the CMS) it is left alone. The&nbsp;<code>{link}</code>&nbsp;token is always replaced with the full verification URL before the email is sent.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Custom Elements can register their own templates the same way, using their own reverse-DNS key (e.g. <code>com.mystudio.mygame.welcome_email</code>). Keys under the <code>dev.getelements.elements.</code> prefix are reserved for core platform templates and cannot be created or deleted through the <code>/email_template</code> REST API or the CMS.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:separator -->

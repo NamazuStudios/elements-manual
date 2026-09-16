@@ -338,6 +338,18 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
+<!-- wp:heading {"level":4} -->
+<h4 class="wp-block-heading" id="h-email-templates">Email Templates</h4>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Here you can manage the subject and HTML body of transactional emails. The two built-in templates, used by password reset and email verification, are marked with a <strong>Core</strong> badge and cannot be deleted or re-keyed, though their content can be edited freely. Custom Elements can register their own templates under their own key, which then appear in this same list. A preview action renders the body with sample values in place of any documented variables before you save. See <a href="email-templates">Email Templates</a> for the full reference.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
 <!-- wp:heading -->
 <h2 class="wp-block-heading" id="h-api-explorer">API Explorer</h2>
 <!-- /wp:heading -->
