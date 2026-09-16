@@ -94,7 +94,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Firebase configuration for push notifications</li>
+<li>Firebase configuration for push notifications, see <a href="firebase-push-notifications">Firebase Push Notifications</a></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
