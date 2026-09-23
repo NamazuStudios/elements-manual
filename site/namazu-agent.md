@@ -1,4 +1,4 @@
-<h1>Namazu Agent</h1>
+<h1>Namazu Agent Overview</h1>
 
 <!-- wp:paragraph -->
 <p>The Namazu Agent is an AI coding agent that runs inside Namazu Cloud as a managed, on-demand job. It is purpose-built to help build and extend Namazu Elements projects, whether that work is server-side code, dashboard UI plugins, static web content, or the front-end game/client code that talks to them. Start a session from the Namazu Cloud control panel, and the agent gets to work against your project in its own workspace.</p>
