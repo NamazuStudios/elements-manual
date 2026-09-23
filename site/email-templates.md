@@ -99,3 +99,7 @@
 <li><a href="cms-feature-overview">CMS Feature Overview</a> - a tour of the admin dashboard, including where Email Templates lives in the sidebar.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
