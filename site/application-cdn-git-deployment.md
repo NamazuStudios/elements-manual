@@ -5,13 +5,13 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="app-cdn-1"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
 <p>This is a different system from <a href="element-static-content-and-dashboard-ui-plugins">Element Static Content and Dashboard UI Plugins</a> (which serves files bundled inside a specific Element's <code>.elm</code> archive) and from the <a href="large-object-api">Large Object API</a> (which stores individual files as first-class database records). All three happen to live under a <code>/cdn</code>-ish or <code>/app</code>-ish URL depending on the system, but they are separate storage mechanisms serving different use cases.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-how-it-works">How It Works</h2>
+<!-- wp:heading {"anchor":"h-how-it-works"} -->
+<h2 id="h-how-it-works" class="wp-block-heading">How It Works</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list {"ordered":true} -->
@@ -32,8 +32,8 @@
 <!-- /wp:list-item --></ol>
 <!-- /wp:list -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-pushing-content">Pushing Content</h2>
+<!-- wp:heading {"anchor":"h-pushing-content"} -->
+<h2 id="h-pushing-content" class="wp-block-heading">Pushing Content</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -49,8 +49,8 @@ git push elements-cdn main</code></pre>
 <p>Pushing content does not publish it by itself; it only makes that commit available for Elements to check out. Publishing happens in the next step.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-publishing-a-deployment">Publishing a Deployment</h2>
+<!-- wp:heading {"anchor":"h-publishing-a-deployment"} -->
+<h2 id="h-publishing-a-deployment" class="wp-block-heading">Publishing a Deployment</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -65,8 +65,8 @@ git push elements-cdn main</code></pre>
 <p>A Deployment record has an <code>id</code>, a <code>version</code>, the <code>revision</code> it was published from, and the owning <code>application</code>. Creating or updating a Deployment (and deleting one) requires Superuser access. Unauthenticated callers may only read the current Deployment; they cannot create, update, or delete one.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-how-content-is-stored-and-served">How Content Is Stored and Served</h2>
+<!-- wp:heading {"anchor":"h-how-content-is-stored-and-served"} -->
+<h2 id="h-how-content-is-stored-and-served" class="wp-block-heading">How Content Is Stored and Served</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -90,8 +90,8 @@ git push elements-cdn main</code></pre>
 <p>The serving endpoint resolves the Application from the URL, refuses to serve any path that would resolve outside that Application's own content directory, and supports conditional requests (<code>ETag</code> / <code>If-None-Match</code>) with a configurable public cache lifetime.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-configuration">Configuration</h2>
+<!-- wp:heading {"anchor":"h-configuration"} -->
+<h2 id="h-configuration" class="wp-block-heading">Configuration</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->

@@ -12,8 +12,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="core-templates">Core templates</h2>
+<!-- wp:heading {"anchor":"core-templates"} -->
+<h2 id="core-templates" class="wp-block-heading">Core templates</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -32,8 +32,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="editing-in-the-cms">Editing in the CMS</h2>
+<!-- wp:heading {"anchor":"editing-in-the-cms"} -->
+<h2 id="editing-in-the-cms" class="wp-block-heading">Editing in the CMS</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -44,8 +44,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="rest-api">REST API</h2>
+<!-- wp:heading {"anchor":"rest-api"} -->
+<h2 id="rest-api" class="wp-block-heading">REST API</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->
@@ -60,53 +60,15 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="using-emailtemplateservice-in-custom-elements">Using EmailTemplateService in custom Elements</h2>
+<!-- wp:heading {"anchor":"using-emailtemplateservice-in-custom-elements"} -->
+<h2 id="using-emailtemplateservice-in-custom-elements" class="wp-block-heading">Using EmailTemplateService in custom Elements</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p><code>EmailTemplateService</code> is exported to element child injectors, so it can be injected directly, no additional ELM dependency is needed. Custom Elements register and fetch their own templates with <code>getOrCreateEmailTemplate</code>, an idempotent call that creates the row with the given defaults the first time it is seen and simply returns the existing row on every call after that (including after an operator has edited it in the CMS):</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:code -->
-<pre class="wp-block-code"><code><code>import dev.getelements.elements.sdk.service.schema.email.EmailTemplateService;
-import dev.getelements.elements.sdk.service.email.EmailService;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
-import static dev.getelements.elements.sdk.service.Constants.UNSCOPED;
-
-public class WelcomeEmailService {
-
-    private static final String WELCOME_EMAIL_KEY = "com.mystudio.mygame.welcome_email";
-
-    private EmailTemplateService emailTemplateService;
-
-    private EmailService emailService;
-
-    public void sendWelcome(String toAddress, String displayName) {
-
-        final var template = emailTemplateService.getOrCreateEmailTemplate(
-            WELCOME_EMAIL_KEY,
-            "Welcome Email",
-            "Welcome to the game!",
-            "&lt;h2&gt;Welcome, {name}!&lt;/h2&gt;&lt;p&gt;Thanks for joining. Good luck out there.&lt;/p&gt;");
-
-        final var body = template.getBody().replace("{name}", displayName);
-        emailService.send(null, toAddress, template.getSubject(), body, true);
-    }
-
-    @Inject
-    public void setEmailTemplateService(@Named(UNSCOPED) EmailTemplateService emailTemplateService) {
-        this.emailTemplateService = emailTemplateService;
-    }
-
-    @Inject
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
-}</code></code></pre>
-<!-- /wp:code -->
+<!-- wp:betterdocs/code-snippet {"blockId":"betterdocs-code-snippet-3c7ce7d8","blockMeta":{"desktop":" .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 { border-width: 0px !important; border-radius: 0px !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 .betterdocs-code-snippet-header.betterdocs-file-preview-header { border-bottom-width: 1px !important; border-bottom-style: solid !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 .betterdocs-code-snippet-header .betterdocs-file-name .file-name-text { font-size: 14px; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 .betterdocs-code-snippet-header .betterdocs-code-snippet-copy-button { } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 .betterdocs-code-snippet-content .betterdocs-code-snippet-line-numbers { border-right-width: 1px !important; border-right-style: solid !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 .betterdocs-code-snippet-content .betterdocs-code-snippet-line-numbers .line-number { } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-3c7ce7d8 .betterdocs-code-snippet-code { } ","tab":" ","mobile":" "},"codeContent":"import dev.getelements.elements.sdk.service.schema.email.EmailTemplateService;\nimport dev.getelements.elements.sdk.service.email.EmailService;\nimport jakarta.inject.Inject;\nimport jakarta.inject.Named;\n\nimport static dev.getelements.elements.sdk.service.Constants.UNSCOPED;\n\npublic class WelcomeEmailService {\n\n    private static final String WELCOME_EMAIL_KEY = \u0022com.mystudio.mygame.welcome_email\u0022;\n\n    private EmailTemplateService emailTemplateService;\n\n    private EmailService emailService;\n\n    public void sendWelcome(String toAddress, String displayName) {\n\n        final var template = emailTemplateService.getOrCreateEmailTemplate(\n            WELCOME_EMAIL_KEY,\n            \u0022Welcome Email\u0022,\n            \u0022Welcome to the game!\u0022,\n            \u0022\u003ch2\u003eWelcome, {name}!\u003c/h2\u003e\u003cp\u003eThanks for joining. Good luck out there.\u003c/p\u003e\u0022);\n\n        final var body = template.getBody().replace(\u0022{name}\u0022, displayName);\n        emailService.send(null, toAddress, template.getSubject(), body, true);\n    }\n\n    @Inject\n    public void setEmailTemplateService(@Named(UNSCOPED) EmailTemplateService emailTemplateService) {\n        this.emailTemplateService = emailTemplateService;\n    }\n\n    @Inject\n    public void setEmailService(EmailService emailService) {\n        this.emailService = emailService;\n    }\n}","language":"java"} /-->
 
 <!-- wp:paragraph -->
 <p>Because <code>getOrCreateEmailTemplate</code> only supplies its defaults the first time a key is seen, the template immediately becomes editable in the CMS under <strong>Other &gt; Email Templates</strong>, right alongside the core templates, with no additional registration step. Use your own reverse-DNS key (e.g. <code>com.mystudio.mygame.welcome_email</code>), not the reserved <code>dev.getelements.elements.</code> prefix, which is rejected outside of this internal call.</p>
@@ -120,8 +82,8 @@ public class WelcomeEmailService {
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="see-also">See also</h2>
+<!-- wp:heading {"anchor":"see-also"} -->
+<h2 id="see-also" class="wp-block-heading">See also</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -137,3 +99,7 @@ public class WelcomeEmailService {
 <li><a href="cms-feature-overview">CMS Feature Overview</a> - a tour of the admin dashboard, including where Email Templates lives in the sidebar.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->

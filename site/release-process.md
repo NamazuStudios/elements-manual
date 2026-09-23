@@ -41,7 +41,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Once a release candidate has been tested and is considered stable, the <code>-rc-N</code> designation is dropped (e.g. <code>3.9.0-rc-3</code> &rarr; <code>3.9.0</code>) and a formal release is tagged and published: Maven Central, Docker images, and a GitHub Release with generated notes. This is the version you should target for production.</p>
+<p>Once a release candidate has been tested and is considered stable, the <code>-rc-N</code> designation is dropped (e.g. <code>3.9.0-rc-3</code> → <code>3.9.0</code>) and a formal release is tagged and published: Maven Central, Docker images, and a GitHub Release with generated notes. This is the version you should target for production.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -56,13 +56,7 @@
 <p>Release and release-candidate artifacts share the <code>dev.getelements.elements</code> group ID on Maven Central. Point your SDK or Element project's dependency at the exact version you want:</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:code -->
-<pre class="wp-block-code"><code>&lt;dependency&gt;
-    &lt;groupId&gt;dev.getelements.elements&lt;/groupId&gt;
-    &lt;artifactId&gt;sdk&lt;/artifactId&gt;
-    &lt;version&gt;3.9.0-rc-3&lt;/version&gt; &lt;!-- or 3.9.0 once released --&gt;
-&lt;/dependency&gt;</code></pre>
-<!-- /wp:code -->
+<!-- wp:betterdocs/code-snippet {"blockId":"betterdocs-code-snippet-356eec01","blockMeta":{"desktop":" .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 { border-width: 0px !important; border-radius: 0px !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 .betterdocs-code-snippet-header.betterdocs-file-preview-header { border-bottom-width: 1px !important; border-bottom-style: solid !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 .betterdocs-code-snippet-header .betterdocs-file-name .file-name-text { font-size: 14px; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 .betterdocs-code-snippet-header .betterdocs-code-snippet-copy-button { } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 .betterdocs-code-snippet-content .betterdocs-code-snippet-line-numbers { border-right-width: 1px !important; border-right-style: solid !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 .betterdocs-code-snippet-content .betterdocs-code-snippet-line-numbers .line-number { } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-356eec01 .betterdocs-code-snippet-code { } ","tab":" ","mobile":" "},"codeContent":"\u003cdependency\u003e\n    \u003cgroupId\u003edev.getelements.elements\u003c/groupId\u003e\n    \u003cartifactId\u003esdk\u003c/artifactId\u003e\n    \u003cversion\u003e3.9.0-rc-3\u003c/version\u003e \u003c!\u002d\u002d or 3.9.0 once released \u002d\u002d\u003e\n\u003c/dependency\u003e","language":"xml","fileName":""} /-->
 
 <!-- wp:paragraph -->
 <p>See <a href="packaging-an-element-with-maven">Packaging an Element with Maven</a> for how these coordinates fit into an Element project.</p>
@@ -116,3 +110,7 @@ docker pull ghcr.io/namazustudios/elements-jetty-ws:3.10.0-SNAPSHOT</code></pre>
 <li><strong>Trying out unreleased engine work, or contributing to Elements itself:</strong> the snapshot Docker images are the only practical way to run <code>main</code> locally, since there's no resolvable snapshot jar.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->

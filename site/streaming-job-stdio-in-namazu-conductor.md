@@ -39,7 +39,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
-<pre class="wp-block-code"><code>COPY --from=ghcr.io/namazustudios/namazu-stdio-bridge:latest \
+<pre class="wp-block-code"><code>COPY --from=ghcr.io/namazustudios/namazu-stdio-bridge:latest 
      /usr/local/bin/namazu-stdio-bridge /usr/local/bin/namazu-stdio-bridge
 ENTRYPOINT ["/usr/local/bin/namazu-stdio-bridge"]</code></pre>
 <!-- /wp:code -->
