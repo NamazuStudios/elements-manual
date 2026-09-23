@@ -5,13 +5,13 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="large-object-1"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
-<p>This is a different system from <a href="element-static-content-and-dashboard-ui-plugins">Element Static Content and Dashboard UI Plugins</a> and from <a href="application-cdn-git-deployment">Application CDN Git Deployment</a>. Large Object content is stored as database content addressed by object id, not as a file tree tied to an Element or an Application.</p>
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<p>This is a different system from Element Static Content and Dashboard UI Plugins. Large Object content is stored as database content addressed by object id, not as a file tree tied to an Element or an Application.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-the-large-object-model">The Large Object Model</h2>
+<!-- wp:heading {"anchor":"h-the-large-object-model"} -->
+<h2 id="h-the-large-object-model" class="wp-block-heading">The Large Object Model</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->
@@ -22,32 +22,32 @@
 <p>Object content itself (the actual bytes) is stored separately from the metadata above, in MongoDB GridFS, keyed by the object's id.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-access-permissions">Access Permissions</h2>
+<!-- wp:heading {"anchor":"h-access-permissions"} -->
+<h2 id="h-access-permissions" class="wp-block-heading">Access Permissions</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>Each Large Object carries its own <code>accessPermissions</code>, with a separate permission for reading, writing, and deleting the object. Each of these can either be a wildcard, meaning "anyone," or scoped to specific subjects. A publicly downloadable game asset would have a wildcard read permission with write and delete restricted; a private user upload would have all three restricted.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-access-levels">Access Levels</h2>
+<!-- wp:heading {"anchor":"h-access-levels"} -->
+<h2 id="h-access-levels" class="wp-block-heading">Access Levels</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->
 <figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Access level</th><th>Capabilities</th></tr></thead><tbody><tr><td>Anonymous</td><td>Can list objects and read metadata. Can read an object's content only if its read permission is a wildcard. Create, update, delete, and non-public reads are all forbidden.</td></tr><tr><td>User</td><td>Can read, update, and delete objects it has been granted permission for, per that object's <code>accessPermissions</code>. Cannot create new Large Objects; creation is Superuser-only.</td></tr><tr><td>Superuser</td><td>Full create, read, update, and delete access to any object, plus the ability to create an object by fetching content from a URL server-side rather than uploading it directly.</td></tr></tbody></table></figure>
 <!-- /wp:table -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-rest-api">REST API</h2>
+<!-- wp:heading {"anchor":"h-rest-api"} -->
+<h2 id="h-rest-api" class="wp-block-heading">REST API</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->
 <figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead><tbody><tr><td><code>POST</code></td><td><code>/large_object</code></td><td>Creates a new Large Object record (metadata only; content is uploaded separately). Superuser only.</td></tr><tr><td><code>POST</code></td><td><code>/large_object/from_url</code></td><td>Creates a new Large Object by having Elements fetch content from a supplied URL server-side. Superuser only.</td></tr><tr><td><code>PUT</code></td><td><code>/large_object/{id}</code></td><td>Updates an object's metadata and/or access permissions.</td></tr><tr><td><code>PUT</code></td><td><code>/large_object/{id}/content</code></td><td>Uploads (or replaces) an object's content as a multipart request body.</td></tr><tr><td><code>GET</code></td><td><code>/large_object/{id}</code></td><td>Gets a single object's metadata.</td></tr><tr><td><code>GET</code></td><td><code>/large_object?offset=&amp;count=&amp;search=</code></td><td>Lists objects, paginated, optionally filtered by a search term matched against <code>path</code> and <code>mimeType</code>.</td></tr><tr><td><code>DELETE</code></td><td><code>/large_object/{id}</code></td><td>Deletes an object's metadata and content.</td></tr></tbody></table></figure>
 <!-- /wp:table -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-serving-content">Serving Content</h2>
+<!-- wp:heading {"anchor":"h-serving-content"} -->
+<h2 id="h-serving-content" class="wp-block-heading">Serving Content</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -76,8 +76,8 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-events">Events</h2>
+<!-- wp:heading {"anchor":"h-events"} -->
+<h2 id="h-events" class="wp-block-heading">Events</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
