@@ -4,36 +4,40 @@
 <p>The Namazu Agent is an AI coding agent that runs inside Namazu Cloud as a managed, on-demand job. It is purpose-built to help build and extend Namazu Elements projects, whether that work is server-side code, dashboard UI plugins, static web content, or the front-end game/client code that talks to them. Start a session from the Namazu Cloud control panel, and the agent gets to work against your project in its own workspace.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:image {"id":22863,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://namazustudios.com/wp-content/uploads/2026/09/image-6-1024x531.png" alt="" class="wp-image-22863"/></figure>
+<!-- /wp:image -->
+
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-what-the-agent-does-for-you">What the Agent Does for You</h2>
+<!-- wp:heading {"anchor":"h-what-the-agent-does-for-you"} -->
+<h2 id="h-what-the-agent-does-for-you" class="wp-block-heading">What the Agent Does for You</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>The agent is a pair programmer, a deployment assistant, and an instance administrator in one. It can write code, commit and push changes, open pull requests, spin up disposable preview instances, and operate your running copy of Namazu Elements.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-code-and-administer-in-one-place">Code and Administer in One Place</h3>
+<!-- wp:heading {"level":3,"anchor":"h-code-and-administer-in-one-place"} -->
+<h3 id="h-code-and-administer-in-one-place" class="wp-block-heading">Code and Administer in One Place</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>Because it runs within Namazu Cloud, the agent does more than edit files. With access to your running project it can administer your live instance, manage deployments, talk to the Elements REST API, and make changes to your game end to end without you touching a console.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-diagnose-and-troubleshoot">Diagnose and Troubleshoot</h3>
+<!-- wp:heading {"level":3,"anchor":"h-diagnose-and-troubleshoot"} -->
+<h3 id="h-diagnose-and-troubleshoot" class="wp-block-heading">Diagnose and Troubleshoot</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>The same session that writes your code can diagnose live issues. It reads real logs, queries the actual databases and services, and works against your instance's own API to figure out what went wrong and fix it, rather than guessing from a stack trace alone.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-temporary-preview-instance">Temporary Preview Instance</h3>
+<!-- wp:heading {"level":3,"anchor":"h-temporary-preview-instance"} -->
+<h3 id="h-temporary-preview-instance" class="wp-block-heading">Temporary Preview Instance</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -44,8 +48,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-bring-your-own-agent">Bring Your Own Agent</h2>
+<!-- wp:heading {"anchor":"h-bring-your-own-agent"} -->
+<h2 id="h-bring-your-own-agent" class="wp-block-heading">Bring Your Own Agent</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -70,8 +74,8 @@
 <p>Whichever you choose, the agent keeps the same workflow: an onboarding-aware workspace, a project clone from GitHub, a temporary preview instance, and the ability to push, pull, and open pull requests on your behalf.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-model-options">Model Options</h3>
+<!-- wp:heading {"level":3,"anchor":"h-model-options"} -->
+<h3 id="h-model-options" class="wp-block-heading">Model Options</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -92,16 +96,16 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-how-sessions-run">How Sessions Run</h2>
+<!-- wp:heading {"anchor":"h-how-sessions-run"} -->
+<h2 id="h-how-sessions-run" class="wp-block-heading">How Sessions Run</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>Each agent session runs as a job dispatched and managed by <a href="namazu-conductor">Namazu Conductor</a>, the Elements orchestration engine. Conductor launches the session, gives it its workspace, and tracks its state. It is also how the session is visible from the Namazu Cloud control panel, where you can watch and stop it at any time (see the <a href="namazu-conductor-admin-api">Namazu Conductor Admin API</a> for the underlying job model).</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-cost-and-lifecycle">Cost and Lifecycle</h3>
+<!-- wp:heading {"level":3,"anchor":"h-cost-and-lifecycle"} -->
+<h3 id="h-cost-and-lifecycle" class="wp-block-heading">Cost and Lifecycle</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -112,8 +116,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-related-pages">Related Pages</h2>
+<!-- wp:heading {"anchor":"h-related-pages"} -->
+<h2 id="h-related-pages" class="wp-block-heading">Related Pages</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
