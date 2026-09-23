@@ -8,8 +8,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-creating-an-instance">Creating an Instance</h2>
+<!-- wp:heading {"anchor":"h-creating-an-instance"} -->
+<h2 id="h-creating-an-instance" class="wp-block-heading">Creating an Instance</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -68,8 +68,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-statuses">Statuses</h2>
+<!-- wp:heading {"anchor":"h-statuses"} -->
+<h2 id="h-statuses" class="wp-block-heading">Statuses</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -81,7 +81,7 @@
 <!-- /wp:table -->
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"How to read this"} -->
-<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>How to read this</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="803648"><div class="gb-notice-title" style="color:#fff"><p>How to read this</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
 <p>The <code>paused</code> state is not a separate value. A stopped instance is simply <code>STOPPED</code>, and starting it again moves it through <code>START_PENDING</code>, <code>STARTING</code>, and back to <code>STARTED</code> or <code>HEALTHY</code>. Each operation on an instance moves it forward along one of these paths, and an <code>ERROR_*</code> status means simply that the last operation did not complete: retry it, or destroy the instance.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
@@ -90,8 +90,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-lifecycle-actions">Lifecycle Actions</h2>
+<!-- wp:heading {"anchor":"h-lifecycle-actions"} -->
+<h2 id="h-lifecycle-actions" class="wp-block-heading">Lifecycle Actions</h2>
 <!-- /wp:heading -->
 
 <!-- wp:table -->
@@ -108,8 +108,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-provisioning">Provisioning</h2>
+<!-- wp:heading {"anchor":"h-provisioning"} -->
+<h2 id="h-provisioning" class="wp-block-heading">Provisioning</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -120,8 +120,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-audit-log">Audit Log</h2>
+<!-- wp:heading {"anchor":"h-audit-log"} -->
+<h2 id="h-audit-log" class="wp-block-heading">Audit Log</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -132,8 +132,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-nodes">Nodes</h2>
+<!-- wp:heading {"anchor":"h-nodes"} -->
+<h2 id="h-nodes" class="wp-block-heading">Nodes</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -144,8 +144,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-related-pages">Related Pages</h2>
+<!-- wp:heading {"anchor":"h-related-pages"} -->
+<h2 id="h-related-pages" class="wp-block-heading">Related Pages</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
