@@ -25,7 +25,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>As of Elements 3.9, this create/update/delete event pattern is produced by nearly every DAO in the system, not just a handful. A few DAOs expose fewer variants where it matches the entity's lifecycle (for instance, an entity that is only ever upserted produces a single created-or-updated event rather than separate created and updated events), so always check the Produced Events listing for the DAO you're interested in rather than assuming a full create/update/delete set.</p>
+<p>As of Elements 3.9, this create/update/delete event pattern is produced by nearly every DAO in the system, not just a handful. A few DAOs expose fewer variants where it matches the entity's lifecycle (for instance, an entity that is only ever upserted produces a single created-or-updated event rather than separate created and updated events), so always check the Produced Events listing for the DAO you're interested in rather than assuming a full create/update/delete set. For a complete catalog of every built-in event, including its payload and the release that introduced it, see <a href="event-reference">Event Reference</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:preformatted -->
