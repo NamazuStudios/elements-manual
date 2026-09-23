@@ -1,0 +1,12 @@
+flowchart TB
+    A["Start a session in Namazu Cloud"]
+    A --> B["First-run onboarding<br/>new vs existing project, engine choice"]
+    B --> C["Authenticate with GitHub"]
+    C --> D["Set up the workspace<br/>clone and push/pull your game's code"]
+    D --> E["Spin up a temporary preview instance<br/>a disposable copy of your project"]
+    E --> F["Agent writes and pushes code<br/>git commit and push to GitHub"]
+    F --> G["You pull locally, add art, review,<br/>test, and adjust"]
+    G --> H{"Satisfied with it?"}
+    H -- "no" --> F
+    H -- "yes" --> I["Ask the agent to move your game to production"]
+    F -.-> |"iterates until you're happy"| G
