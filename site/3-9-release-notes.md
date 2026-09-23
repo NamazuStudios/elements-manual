@@ -1,7 +1,7 @@
 <h1>3.9 Release Notes</h1>
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Warning","noticeBackgroundColor":"#ffdd57"} -->
-<div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="d29f31"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
+<div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="0eaadb"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
 <p>Elements 3.9 is still under active development (current version: <code>3.9.0-SNAPSHOT</code>) and has not been released. The contents of this page are a draft and may change before the final release.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
@@ -148,8 +148,8 @@
 <p>As with all Element events, the authoritative list of event names and their argument types for a given DAO is discoverable at runtime via the CMS's Produced Events screens, or the underlying <code>GET /elements/system</code> and <code>GET /elements/application</code> endpoints; see <a href="events">Events</a> for details.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3,"anchor":"h-eager-singleton-construction-for-elements"} -->
-<h3 id="h-eager-singleton-construction-for-elements" class="wp-block-heading">Opt-In Eager Singleton Construction (Guice Stage.PRODUCTION)</h3>
+<!-- wp:heading {"level":3,"anchor":"h-opt-in-eager-singleton-construction-guice-stage-production"} -->
+<h3 id="h-opt-in-eager-singleton-construction-guice-stage-production" class="wp-block-heading">Opt-In Eager Singleton Construction (Guice Stage.PRODUCTION)</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
