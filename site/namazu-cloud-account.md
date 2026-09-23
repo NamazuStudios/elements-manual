@@ -8,8 +8,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-signing-up">Signing Up</h2>
+<!-- wp:heading {"anchor":"h-signing-up"} -->
+<h2 id="h-signing-up" class="wp-block-heading">Signing Up</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -20,8 +20,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-signing-in">Signing In</h2>
+<!-- wp:heading {"anchor":"h-signing-in"} -->
+<h2 id="h-signing-in" class="wp-block-heading">Signing In</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -36,8 +36,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-email-verification">Email Verification</h2>
+<!-- wp:heading {"anchor":"h-email-verification"} -->
+<h2 id="h-email-verification" class="wp-block-heading">Email Verification</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -62,8 +62,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-pending-invitations">Pending Invitations</h2>
+<!-- wp:heading {"anchor":"h-pending-invitations"} -->
+<h2 id="h-pending-invitations" class="wp-block-heading">Pending Invitations</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -74,8 +74,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-related-pages">Related Pages</h2>
+<!-- wp:heading {"anchor":"h-related-pages"} -->
+<h2 id="h-related-pages" class="wp-block-heading">Related Pages</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -91,3 +91,7 @@
 <li><a href="namazu-cloud-billing">Namazu Cloud Billing</a>. Setting up the payment method your organization needs</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
