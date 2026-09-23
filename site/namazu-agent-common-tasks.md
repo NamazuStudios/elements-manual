@@ -8,15 +8,15 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-the-development-workflow-at-a-glance">The Development Workflow at a Glance</h2>
+<!-- wp:heading {"anchor":"h-the-development-workflow-at-a-glance"} -->
+<h2 id="h-the-development-workflow-at-a-glance" class="wp-block-heading">The Development Workflow at a Glance</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>You and the agent work in a loop. You do the parts that need taste and judgment, the agent does the parts that need code slinging, and GitHub is the handoff point between you.</p>
 <!-- /wp:paragraph -->
 
-<!-- TODO(docs): render source at images/namazu-agent-workflow.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL -->
+<p><!-- TODO(docs): render source at images/namazu-agent-workflow.mmd, upload the SVG to the WP media library, then replace the src below with the hosted URL --></p>
 <figure class="wp-block-image"><img src="images/namazu-agent-workflow.svg" alt="Namazu Agent development workflow"/></figure>
 
 <!-- wp:list {"ordered":true} -->
@@ -49,32 +49,32 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-starting-a-session">Starting a Session</h2>
+<!-- wp:heading {"anchor":"h-starting-a-session"} -->
+<h2 id="h-starting-a-session" class="wp-block-heading">Starting a Session</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>Begin from the Namazu Cloud control panel by launching an agent session. Under the hood this dispatches a job via <a href="namazu-conductor">Namazu Conductor</a>, which starts the agent's execution environment in its own workspace and wires up the terminal you interact with in the dashboard. You do not need to provision anything yourself; starting the session is all it takes.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-first-run-onboarding">First-Run Onboarding</h3>
+<!-- wp:heading {"level":3,"anchor":"h-first-run-onboarding"} -->
+<h3 id="h-first-run-onboarding" class="wp-block-heading">First-Run Onboarding</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>On its very first run in a fresh workspace, the agent walks you through a short onboarding flow instead of dropping you into a blank prompt. Expect a handful of questions, such as whether you are starting a new or existing project, which game engine or client framework you're using, and where the project's source lives. Answer them, and the agent sets up accordingly.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-authenticate-with-github">Authenticate with GitHub</h3>
+<!-- wp:heading {"level":3,"anchor":"h-authenticate-with-github"} -->
+<h3 id="h-authenticate-with-github" class="wp-block-heading">Authenticate with GitHub</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>The agent pushes and pulls code for you, so it needs access to your GitHub account. It runs <code>gh auth login</code> as part of startup, and you complete the sign-in that it prompts you for, usually via a device code or a link to open. This is where the agent gets permission to clone your repos, commit, push, and open pull requests on your behalf. Because the running container is disposable (see Session Persistence below), you may need to sign in again at the start of a fresh session.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-set-up-your-workspace">Set Up Your Workspace</h3>
+<!-- wp:heading {"level":3,"anchor":"h-set-up-your-workspace"} -->
+<h3 id="h-set-up-your-workspace" class="wp-block-heading">Set Up Your Workspace</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -85,8 +85,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-temporary-preview-instance">Temporary Preview Instance</h2>
+<!-- wp:heading {"anchor":"h-temporary-preview-instance"} -->
+<h2 id="h-temporary-preview-instance" class="wp-block-heading">Temporary Preview Instance</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -97,8 +97,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-the-core-iteration-loop">The Core Iteration Loop</h2>
+<!-- wp:heading {"anchor":"h-the-core-iteration-loop"} -->
+<h2 id="h-the-core-iteration-loop" class="wp-block-heading">The Core Iteration Loop</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -131,8 +131,8 @@
 <p>You never hand a zip over a chat window, and the agent never works on a different copy than you do. GitHub is the single shared source of truth between you.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading" id="h-moving-to-production">Moving to Production</h3>
+<!-- wp:heading {"level":3,"anchor":"h-moving-to-production"} -->
+<h3 id="h-moving-to-production" class="wp-block-heading">Moving to Production</h3>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -143,8 +143,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-session-persistence">Session Persistence</h2>
+<!-- wp:heading {"anchor":"h-session-persistence"} -->
+<h2 id="h-session-persistence" class="wp-block-heading">Session Persistence</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -165,8 +165,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-idle-timeout-and-notifications">Idle Timeout and Notifications</h2>
+<!-- wp:heading {"anchor":"h-idle-timeout-and-notifications"} -->
+<h2 id="h-idle-timeout-and-notifications" class="wp-block-heading">Idle Timeout and Notifications</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -181,8 +181,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-related-pages">Related Pages</h2>
+<!-- wp:heading {"anchor":"h-related-pages"} -->
+<h2 id="h-related-pages" class="wp-block-heading">Related Pages</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -198,3 +198,7 @@
 <li><a href="deploying-an-element">Deploying an Element</a>: what a deployable Element looks like when you promote work to production</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
