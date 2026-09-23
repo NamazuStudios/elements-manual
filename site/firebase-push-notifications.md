@@ -4,8 +4,8 @@
 <p>Namazu Elements includes a full server-side push notification system built on the Firebase Admin SDK. It has three parts: a per-Application Firebase configuration, a device registration token stored per Profile, and a general-purpose notification-sending API that your own server-side code calls to actually deliver a push. There is no REST endpoint for triggering a send; sending is meant to be driven by your own business logic, typically from a Custom Element. See <a href="custom-elements">Custom Elements</a> if you haven't built one yet.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-configuring-firebase-for-an-application">Configuring Firebase for an Application</h2>
+<!-- wp:heading {"anchor":"h-configuring-firebase-for-an-application"} -->
+<h2 id="h-configuring-firebase-for-an-application" class="wp-block-heading">Configuring Firebase for an Application</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -24,8 +24,8 @@
 <p>Managing an Application's Firebase configuration is Superuser-only; there is no User or Anonymous access to this endpoint. If an Application has no Firebase configuration attached, attempting to send a notification through it fails with a configuration error rather than silently doing nothing.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-registering-a-device-token">Registering a Device Token</h2>
+<!-- wp:heading {"anchor":"h-registering-a-device-token"} -->
+<h2 id="h-registering-a-device-token" class="wp-block-heading">Registering a Device Token</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -44,30 +44,15 @@
 <p>As a normal User, you can only manage the registration for your own current Profile: if you omit <code>profile</code> in the request body it defaults to your current Profile, and if you supply one that isn't yours, the request is rejected. A Superuser can create, update, or delete a registration for any Profile. Anonymous callers cannot use this endpoint at all.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-sending-a-notification">Sending a Notification</h2>
+<!-- wp:heading {"anchor":"h-sending-a-notification"} -->
+<h2 id="h-sending-a-notification" class="wp-block-heading">Sending a Notification</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>There is no REST endpoint to send a push notification. Sending is done programmatically, by injecting <code>NotificationService</code> into your own Custom Element and building a notification with its fluent builder:</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:code -->
-<pre class="wp-block-code"><code>@Inject
-private NotificationService notificationService;
-
-public void notifyPlayer(Profile recipient) {
-    notificationService
-        .getBuilder()
-        .recipient(recipient)
-        .title("Your turn!")
-        .message("It's your move in Match #482.")
-        .sound()
-        .add("matchId", "482")
-        .build()
-        .send();
-}</code></pre>
-<!-- /wp:code -->
+<!-- wp:betterdocs/code-snippet {"blockId":"betterdocs-code-snippet-d7e4094b","blockMeta":{"desktop":" .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b { border-width: 0px !important; border-radius: 0px !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b .betterdocs-code-snippet-header.betterdocs-file-preview-header { border-bottom-width: 1px !important; border-bottom-style: solid !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b .betterdocs-code-snippet-header .betterdocs-file-name .file-name-text { font-size: 14px; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b .betterdocs-code-snippet-header .betterdocs-code-snippet-copy-button { } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b .betterdocs-code-snippet-content .betterdocs-code-snippet-line-numbers { border-right-width: 1px !important; border-right-style: solid !important; } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b .betterdocs-code-snippet-content .betterdocs-code-snippet-line-numbers .line-number { } .betterdocs-code-snippet-wrapper.betterdocs-code-snippet-d7e4094b .betterdocs-code-snippet-code { } ","tab":" ","mobile":" "},"codeContent":"@Inject\nprivate NotificationService notificationService;\n\npublic void notifyPlayer(Profile recipient) {\n    notificationService\n        .getBuilder()\n        .recipient(recipient)\n        .title(\u0022Your turn!\u0022)\n        .message(\u0022It's your move in Match #482.\u0022)\n        .sound()\n        .add(\u0022matchId\u0022, \u0022482\u0022)\n        .build()\n        .send();\n}","language":"java","fileName":""} /-->
 
 <!-- wp:paragraph -->
 <p>The builder exposes:</p>
@@ -116,16 +101,16 @@ public void notifyPlayer(Profile recipient) {
 <p>Under the hood, each call sends a single, direct-to-device Firebase message per registered token for the recipient (there's no topic broadcast or multicast batching). Android and iOS-specific notification fields are populated automatically from <code>title</code>/<code>message</code>/<code>sound</code>, so you don't need to build platform-specific payloads yourself.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-error-handling">Error Handling</h2>
+<!-- wp:heading {"anchor":"h-error-handling"} -->
+<h2 id="h-error-handling" class="wp-block-heading">Error Handling</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
 <p>If Firebase reports a token as unregistered (the device uninstalled the app, or the token otherwise expired), Elements automatically deletes that Profile's stored registration so you don't keep sending to a dead token. Any other delivery failure (network error, malformed payload, and so on) is only reported to the failure callback you supply; there is no built-in retry or backoff, so retry logic is your Element's responsibility if you need it.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-events">Events</h2>
+<!-- wp:heading {"anchor":"h-events"} -->
+<h2 id="h-events" class="wp-block-heading">Events</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
