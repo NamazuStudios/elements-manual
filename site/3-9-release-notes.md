@@ -193,7 +193,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>As with all Element events, the authoritative list of event names and their argument types for a given DAO is discoverable at runtime via the CMS's Produced Events screens, or the underlying <code>GET /elements/system</code> and <code>GET /elements/application</code> endpoints; see <a href="events">Events</a> for details.</p>
+<p>As with all Element events, the authoritative list of event names and their argument types for a given DAO is discoverable at runtime via the CMS's Produced Events screens, or the underlying <code>GET /elements/system</code> and <code>GET /elements/application</code> endpoints; see <a href="events">Events</a> for details. The new <a href="event-reference">Event Reference</a> page catalogs every built-in event with its payload, the release that introduced it, and links to the Javadoc for each declaring interface.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-bug-fixes"} -->
