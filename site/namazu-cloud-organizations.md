@@ -8,8 +8,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-roles">Roles</h2>
+<!-- wp:heading {"anchor":"h-roles"} -->
+<h2 id="h-roles" class="wp-block-heading">Roles</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -30,8 +30,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-creating-an-organization">Creating an Organization</h2>
+<!-- wp:heading {"anchor":"h-creating-an-organization"} -->
+<h2 id="h-creating-an-organization" class="wp-block-heading">Creating an Organization</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -46,8 +46,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-members">Members</h2>
+<!-- wp:heading {"anchor":"h-members"} -->
+<h2 id="h-members" class="wp-block-heading">Members</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -72,8 +72,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-invitations">Invitations</h2>
+<!-- wp:heading {"anchor":"h-invitations"} -->
+<h2 id="h-invitations" class="wp-block-heading">Invitations</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -102,8 +102,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-renaming-and-deleting">Renaming and Deleting</h2>
+<!-- wp:heading {"anchor":"h-renaming-and-deleting"} -->
+<h2 id="h-renaming-and-deleting" class="wp-block-heading">Renaming and Deleting</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -114,8 +114,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-what-you-can-do-inside">What You Can Do Inside</h2>
+<!-- wp:heading {"anchor":"h-what-you-can-do-inside"} -->
+<h2 id="h-what-you-can-do-inside" class="wp-block-heading">What You Can Do Inside</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
@@ -148,8 +148,8 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
-<!-- wp:heading -->
-<h2 class="wp-block-heading" id="h-related-pages">Related Pages</h2>
+<!-- wp:heading {"anchor":"h-related-pages"} -->
+<h2 id="h-related-pages" class="wp-block-heading">Related Pages</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
@@ -161,3 +161,7 @@
 <li><a href="namazu-cloud-account">Namazu Cloud Account</a>. Your own sign-in, sessions, and email verification</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p></p>
+<!-- /wp:paragraph -->
