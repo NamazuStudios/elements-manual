@@ -48,6 +48,10 @@
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
+<!-- wp:paragraph -->
+<p>Reserved system paths are only part of the picture. Two ordinary deployments can also claim the same serve path. In that case the tree is not refused: it is remounted under a deployment-scoped path derived from the deployment's ID, so both deployments can run at once. A UI tree that conflicts at its default path is served at <code>/app/ui/{deployment-id}/{prefix}</code>, and an override that collides with another mounted tree is served at <code>/app/ui/{deployment-id}/{suffix}</code>. The same applies to the <code>static/</code> tree. The deployment log reports a warning naming the conflicting path and the deployment that owns it. Only a path that still falls inside a reserved namespace or another content tree after scoping is refused. Each deployment mounts its own content tree independently, so two deployments may expose the same <code>ui/</code> content at different scoped paths without interfering.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading {"anchor":"h-serving-behavior"} -->
 <h2 id="h-serving-behavior" class="wp-block-heading">Serving Behavior</h2>
 <!-- /wp:heading -->
@@ -135,7 +139,7 @@
 <!-- /wp:code -->
 
 <!-- wp:paragraph -->
-<p>The bundle reuses the dashboard's own <code>window.React</code> instance rather than bundling a copy of React itself, which keeps plugin bundles small and avoids duplicate-React errors. To discover plugins, the dashboard lists the Elements currently deployed, extracts each one's <code>/app/ui/{prefix}/</code> base path from its exposed URIs, fetches <code>plugin.json</code> for each known segment, and injects a <code>&lt;script&gt;</code> tag for the referenced bundle.</p>
+<p>The bundle reuses the dashboard's own <code>window.React</code> instance rather than bundling a copy of React itself, which keeps plugin bundles small and avoids duplicate-React errors. To discover plugins, the dashboard lists the Elements currently deployed, treats every exposed URI that is not a known REST, WebSocket, or standard static mount as a candidate UI base path (covering both the default <code>/app/ui/{prefix}/</code> path and any <code>dev.getelements.element.ui.uri</code> override), fetches <code>plugin.json</code> for each known segment, and injects a <code>&lt;script&gt;</code> tag for the referenced bundle.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->

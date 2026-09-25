@@ -893,7 +893,7 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:preformatted -->
-<pre class="wp-block-preformatted"><code>// Deployment configuration with path-specific attributes<br>Map&lt;String, Map&lt;String, Object&gt;&gt; pathAttributes = Map.of(<br>    "/my-element", Map.of(<br>        "environment", "staging",<br>        "debug.enabled", true<br>    )<br>);<br><br>ElementDeployment deployment = new ElementDeployment(<br>    deploymentId,<br>    application,<br>    null,  // ELM file<br>    pathAttributes,  // Override attributes<br>    elementDefinitions,<br>    packageDefinitions,<br>    true,  // Use default repositories<br>    customRepositories,<br>    ElementDeploymentState.ENABLED,<br>    version<br>);<br></code></pre>
+<pre class="wp-block-preformatted"><code>// Deployment configuration with path-specific attributes<br>Map&lt;String, Map&lt;String, Object&gt;&gt; pathAttributes = Map.of(<br>    "/my-element", Map.of(<br>        "environment", "staging",<br>        "debug.enabled", true<br>    )<br>);<br><br>ElementDeployment deployment = new ElementDeployment(<br>    deploymentId,<br>    name,  // Optional human-readable name; qualifies dashboard plugin/menu entries, falls back to the deployment ID<br>    application,<br>    null,  // ELM file<br>    pathAttributes,  // Override attributes<br>    elementDefinitions,<br>    packageDefinitions,<br>    true,  // Use default repositories<br>    customRepositories,<br>    ElementDeploymentState.ENABLED,<br>    version<br>);<br></code></pre>
 <!-- /wp:preformatted -->
 
 <!-- wp:paragraph -->
