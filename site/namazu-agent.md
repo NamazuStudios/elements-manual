@@ -44,6 +44,32 @@
 <p>On demand, the agent can spin up (and tear down) its own temporary Namazu Elements + MongoDB instance, a disposable copy of your main setup for previewing changes safely. Anything you break there is broken only in the sandbox, never in your real deployment. See <a href="namazu-agent-common-tasks">Common Agent Tasks</a> for the full workflow.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3,"anchor":"h-services-that-come-with-your-agent"} -->
+<h3 id="h-services-that-come-with-your-agent" class="wp-block-heading">Services That Come With Your Agent</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A session is more than a terminal. The agent's pod runs a small set of purpose-built services alongside it, and every one of them is something you can ask the agent about by name:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>A workspace file browser.</strong> A private web file browser serves the agent's workspace, so you can browse, view, edit, upload, and download its working files (the checked-out code, generated assets, anything it is building) directly from your own browser, no terminal involved. When you ask for it, the agent hands you the link and a login token; the agent's own credential files are deliberately hidden from it.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>A local LLM.</strong> On profiles that bundle one (see Model Options below), the model runs in the same pod as the agent. It powers the agent itself, and on request the agent can also hand you a token so your own tools can call it.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Built-in automation tools.</strong> The agent carries its own MCP toolset for its operational tasks: starting, checking, and tearing down the temporary preview instance; reserving and releasing the on-demand subdomains that give your previews and services real, shareable URLs; and logging in to the Namazu Cloud control plane when a task needs it. These are the same tasks the agent performs for you conversationally; the tools are how it does them reliably.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>External access to these services is deliberately gated. They are all reached through one secure proxy that routes by hostname, and each one requires a short-lived login token that only the agent can mint for you. Nothing is reachable without a token, and every token dies with the session, so there is nothing long-lived to leak. See <a href="namazu-agent-common-tasks">Common Agent Tasks</a> for walkthroughs of asking the agent for each of these.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
