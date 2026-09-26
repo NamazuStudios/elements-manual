@@ -897,6 +897,10 @@
 <!-- /wp:preformatted -->
 
 <!-- wp:paragraph -->
+<p><strong>Deprecated:</strong> the <code>elementDefinitions</code> value above corresponds to the <code>ElementDeployment.elements</code> field, the legacy manual Element Definitions mechanism. It is deprecated and hidden from the generated API documentation. Package an Element as an <code>.elm</code> archive and reference it through the <code>packages</code> field instead. See <a href="packaging-an-element-with-maven">Packaging an Element with Maven</a> for how to construct the archive.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
 <p><strong>Attribute Precedence</strong>&nbsp;(highest to lowest):</p>
 <!-- /wp:paragraph -->
 

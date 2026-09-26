@@ -136,7 +136,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>extraAuthorizeParams</strong>: a raw JSON textarea. Paste:<br><code>json { "claims": "{\"id_token\":{\"email\":null,\"email_verified\":null,\"preferred_username\":null}}" }</code></li>
+<li><strong>extraAuthorizeParams</strong>: structured key/value editor. Add a row with key<br><code>claims</code>, switch its type to <strong>Object</strong>, add a key <code>id_token</code> (also Object), then add<br>three keys with type <strong>Null</strong>: <code>email</code>, <code>email_verified</code>, and<br><code>preferred_username</code>. This produces the same <code>claims</code> value as the historical<br>hand-typed JSON: <code>json {"id_token":{"email":null,"email_verified":null,"preferred_username":null}}</code></li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
