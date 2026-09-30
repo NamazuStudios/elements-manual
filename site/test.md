@@ -5,5 +5,5 @@
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>It exists on the branch <code>docs/add-test-page</code> and is not merged into <code>main</code> yet.</p>
+<p>It's on main now and I'm testing if this is a two-way sync back to Github and my terminal. </p>
 <!-- /wp:paragraph -->
