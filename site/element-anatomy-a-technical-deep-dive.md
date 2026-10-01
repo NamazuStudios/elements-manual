@@ -687,6 +687,40 @@
 <!-- /wp:list -->
 
 <!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading" id="mission-critical-deployments">Mission Critical Deployments</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>By default, a deployment which fails to load is logged but does not affect the health check, so the instance keeps serving traffic with a silently reduced feature set. When a deployment is required for the instance to function correctly, mark it mission critical:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:preformatted -->
+<pre class="wp-block-preformatted"><code>deployment.missionCritical(true);</code></pre>
+<!-- /wp:preformatted -->
+
+<!-- wp:paragraph -->
+<p>In the admin console this appears as a <strong>Mission critical deployment</strong> checkbox in the deployment form, alongside a <strong>mission critical</strong> badge in the deployment list. It is also available on the deployment create and update REST requests as the <code>missionCritical</code> field, which defaults to <code>false</code>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A mission critical deployment makes the instance report itself unhealthy in either of these cases:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>The runtime fails to load the deployment at all (<code>FAILED</code>).</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Loading completes with errors, so at least one Element in the deployment did not load (<code>UNSTABLE</code>).</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Deployments which load cleanly, or which load with warnings only, are treated as healthy. Deployments that are not mission critical never affect the health check regardless of their state. This matters most in a multi-instance deployment, where taking a partially-serving instance out of the load balancer is preferable to leaving it in rotation advertising features it cannot provide.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading" id="dependency-resolution">Dependency Resolution</h3>
 <!-- /wp:heading -->
 

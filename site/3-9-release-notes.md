@@ -11,7 +11,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, a new way to attach a user's profile to a session by naming an Application instead of an explicit profile, and account linking for the OIDC browser-redirect login flow.</p>
+<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, a new way to attach a user's profile to a session by naming an Application instead of an explicit profile, account linking for the OIDC browser-redirect login flow, and mission critical deployments that participate in the system health check.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-highlights"} -->
@@ -57,6 +57,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Opt-in Guice PRODUCTION stage for injectors</strong> — every Guice injector in the platform (per-Element, jetty-ws itself, the <code>migrate</code>/<code>setup</code> tools, and more) can now be built with Guice's <code>Stage.PRODUCTION</code> instead of the default <code>Stage.DEVELOPMENT</code>, via a new system property/environment variable. This pairs with the Datastore/Mapper fix above: capturing the shared <code>Datastore</code> in an eager singleton is safe now, so there's no new risk from the earlier construction timing under <code>PRODUCTION</code>. See below.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Mission critical deployments and a probe-friendly health endpoint</strong> — a deployment can now be flagged as mission critical so that failing to load it fails the system health check, and the health endpoint returns only a bare <code>OK</code>/<code>503</code> to non-superuser callers while reserving the detailed health status for superusers. See <a href="health-checks-and-mission-critical-deployments">Health Checks and Mission Critical Deployments</a>.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
