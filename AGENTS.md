@@ -12,6 +12,50 @@ The manual documents the [Namazu Elements](https://github.com/NamazuStudios/elem
 
 All pages live flat under `site/`, one Markdown file per page, filename matching the page's URL slug (e.g. `leaderboards.md`, `crossfire-protocol-reference.md`). Release notes follow the pattern `<major>-<minor>-release-notes.md` (e.g. `3-8-release-notes.md`). Diagram sources and rendered images live in `site/images/`.
 
+Live URLs are nested by category (e.g. `/docs/namazu-elements-core/features/web3/smart-contracts/`), so the join key between a live page and its file is the **last path segment**.
+
+## Taxonomy: every page needs a category and at least one tag
+
+A documentation page is incomplete unless it is filed under **exactly one `doc_category`** and carries **at least one `doc_tag`**. Do not open a PR for a new or relocated page without both set.
+
+These are assigned in WordPress, not in this repository. The `.md` file carries no category or tag metadata, so confirm the assignment on the live page (or via `/wp-json/wp/v2/docs`) before opening a PR, and say so in the PR description.
+
+### Choosing a category
+
+Prefer an existing term over creating a new one. There are 31 terms in the live `doc_category` taxonomy, nested beneath these 13 top-level parents:
+
+| Parent | Existing child terms |
+|---|---|
+| `add-ons` | `commerce` (and `commerce/stripe`), `container-on-demand`, `crossplay-gaming-backend`, `roblox` |
+| `configuration` | `batch-samples` |
+| `custom-code` | none |
+| `fundamentals` | none |
+| `game-engine-client-support` | `gamemaker`, `unity` |
+| `general-concepts` | none |
+| `getting-started` | none |
+| `namazu-agent` | none |
+| `namazu-cloud` | none |
+| `namazu-elements-core` | `advanced-operators`, `features`, `features/web3`, `features/web3/smart-contracts`, `queries`, `user-authentication-sign-in` (and `user-authentication-sign-in/auth-schemes`) |
+| `releases` | none |
+| `restful-apis` | none |
+| `troubleshooting-guide` | `local-sdk`, `community-edition` (and `community-edition/running-in-the-ide`) |
+
+Use the most specific existing term that fits. If no term fits, propose one in the PR rather than creating it silently.
+
+### Choosing a tag
+
+<!-- TODO(docs): tag vocabulary is still being agreed. The three terms below are the only ones that exist today, and they are too coarse to tag every page. Replace this list with the agreed vocabulary, and record how many tags a page should carry. -->
+
+At least one tag is required. The live `doc_tag` taxonomy currently contains only three terms:
+
+- `core-features`
+- `releases`
+- `web3`
+
+### Glossaries
+
+A third taxonomy, `glossaries`, is also attached to the `docs` post type. It does **not** appear in the site's XML sitemaps, so it is invisible to sitemap-based tooling and must be read through the WordPress REST API (`/wp-json/wp/v2/taxonomies`, `rest_base` `glossaries`).
+
 ## File format: WordPress Gutenberg blocks, not plain Markdown
 
 Page bodies are HTML wrapped in WordPress Gutenberg block comments, e.g.:
