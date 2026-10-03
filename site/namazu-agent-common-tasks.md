@@ -97,6 +97,84 @@
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
 
+<!-- wp:heading {"anchor":"h-working-with-the-files-in-your-workspace"} -->
+<h2 id="h-working-with-the-files-in-your-workspace" class="wp-block-heading">Working With the Files in Your Workspace</h2>
+<!-- /wp:heading -->
+
+<!-- wp:heading {"level":3,"anchor":"h-see-and-edit-the-workspace-files-in-your-browser"} -->
+<h3 id="h-see-and-edit-the-workspace-files-in-your-browser" class="wp-block-heading">See and Edit the Workspace Files in Your Browser</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>You do not need a terminal to look at what the agent is working on. Every session runs a private web file browser over its own workspace, and the agent can hand you the keys in a few seconds. Just ask:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p>Can I see the files in my workspace?</p>
+<!-- /wp:paragraph --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>The agent replies with a link and a short-lived login token, usually putting the token on your clipboard along with a notification toast so it is ready to paste. Open the link; when the browser shows its login prompt, enter <strong>user</strong> as the username and paste the token as the password. Your own browser remembers the login for that site for the rest of the session, so it is a one-time paste.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>From there you can:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>Browse the workspace and preview images, text, and code files, with search by name</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Edit code and text files right in the browser and save back to the workspace</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Upload files, like art or a config file you want the agent to work from, and download anything the agent has produced</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Edits you make there are the same files the agent sees, so a quick typo fix or a dropped-in asset is immediately part of its world. Two guardrails are worth knowing: the agent's own credential files are hidden from the browser entirely, and the link only works with a token the agent minted for this session, so it cannot be shared or reused later.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-asking-what-is-running"} -->
+<h3 id="h-asking-what-is-running" class="wp-block-heading">Asking What Is Running</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To get your bearings in a session, ask what is running:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><!-- wp:paragraph -->
+<p>What services are running in my agent pod, and how do I reach them?</p>
+<!-- /wp:paragraph --></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph -->
+<p>The agent reports each service by name, its externally reachable URL (when one has been reserved for the session), and how to authenticate. It is the same list that powers the walkthroughs on this page, so when in doubt, ask and the agent will point you at the right one.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-using-the-local-model-from-your-own-tools"} -->
+<h3 id="h-using-the-local-model-from-your-own-tools" class="wp-block-heading">Using the Local Model From Your Own Tools</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>On profiles that bundle a local model, that model is not locked away inside the agent. Ask the agent for access to it and it hands you a link and a token, the same exchange as the file browser above. Your tool then authenticates with the token: as an HTTP header for API clients, or as the password (username <strong>user</strong>) for anything that speaks standard login, like curl or an OpenAI-compatible client configured with a custom base URL.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The token authorizes exactly one service for a short window you can ask the agent to size, so request the shortest one that covers what you are doing. If you paste a token back to the agent expecting it to use it, it will usually skip the token entirely and just use its own local access instead.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
 <!-- wp:heading {"anchor":"h-the-core-iteration-loop"} -->
 <h2 id="h-the-core-iteration-loop" class="wp-block-heading">The Core Iteration Loop</h2>
 <!-- /wp:heading -->
