@@ -35,7 +35,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Client registrations are provisioned by a superuser through the REST surface. <code>POST /api/rest/oidc_client</code> with a body such as:</p>
+<p>Client registrations are provisioned by a superuser. In the admin console, open <strong>OIDC Clients</strong> under the Auth section: create an entry, and the console shows the generated secret once and copies it to your clipboard. Equivalently, register through the REST surface with <code>POST /api/rest/oidc_client</code> and a body such as:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
@@ -49,6 +49,10 @@
 
 <!-- wp:paragraph -->
 <p>The server generates the <code>clientId</code> and <code>clientSecret</code> when omitted, and the response carries the raw secret exactly once. The secret is stored as a salted digest and is never returned by any later read, so hand it to the downstream application when you receive it. Redirect URIs are matched exactly, byte for byte, including the query string. An optional <code>applicationId</code> scopes the resulting sessions to an Application, which drives profile resolution the same way session creation does (see <a href="sessions">Sessions</a>).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Setting the registration's <code>status</code> to <code>SUSPENDED</code> refuses the client at the authorization and token endpoints without deleting it. Deleting a registration is immediate and cascading: every grant the client holds (its backing Elements sessions and refresh tokens) is revoked, so tokens already issued to that client stop verifying right away.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -74,6 +78,22 @@
 
 <!-- wp:list-item -->
 <li><code>dev.getelements.elements.oidc.refresh.grant.ttl.seconds</code> (default <code>2592000</code>, thirty days): how long a grant and its refresh tokens remain valid.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>dev.getelements.elements.oidc.provider.consent.required</code> (default <code>true</code>): whether end users must explicitly approve a consent screen before an authorization completes. When <code>false</code>, registered clients are trusted implicitly for the scopes granted at registration time.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>dev.getelements.elements.oidc.machine.token.ttl.seconds</code> (default <code>300</code>): the lifetime of machine-to-machine access tokens issued by the <code>client_credentials</code> grant. Short by design; clients should re-request rather than refresh.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>dev.getelements.elements.oidc.rate.limit.enabled</code> (default <code>true</code>): whether the provider's authorization, token, and hosted-login endpoints are rate limited. See <a href="#h-rate-limiting">Rate limiting</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>dev.getelements.elements.oidc.rate.limit.token.per.minute</code> (default <code>60</code>), <code>...authorize.per.minute</code> (default <code>60</code>), <code>...login.per.minute</code> (default <code>10</code>): the per-client request budgets behind those limits.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
@@ -99,11 +119,15 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><code>GET/POST oidc/login</code>: the hosted login page. The authorize step redirects here; the user signs in with their Elements username and password, and the browser lands on your redirect URI carrying the <code>code</code> and echoed <code>state</code>.</li>
+<li><code>GET/POST oidc/login</code>: the hosted login page. The authorize step redirects here; the user signs in with their Elements username and password. When consent is required (the default), the page is answered with the consent screen; otherwise the browser lands on your redirect URI carrying the <code>code</code> and echoed <code>state</code>.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><code>POST oidc/token</code>: exchanges an authorization code (with its <code>code_verifier</code>) or a refresh token for tokens. Client credentials may be supplied in the form or via HTTP basic authentication.</li>
+<li><code>POST oidc/consent</code>: records the user's decision on the consent screen. Approval redirects the browser to your redirect URI with the <code>code</code>; denial redirects back with an RFC 6749 <code>access_denied</code> error plus your <code>state</code>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>POST oidc/token</code>: exchanges an authorization code (with its <code>code_verifier</code>), rotates a refresh token, or issues a machine-to-machine token (<code>client_credentials</code>). Client credentials may be supplied in the form or via HTTP basic authentication.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -133,7 +157,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>The user signs in on the hosted login page and the browser arrives at your redirect URI with <code>code</code> and <code>state</code>. Confirm the <code>state</code> matches what you sent.</li>
+<li>The user signs in on the hosted login page. When consent is required, they then see a consent screen naming your application and the requested scopes, and must choose Approve or Deny. On approval the browser arrives at your redirect URI with <code>code</code> and <code>state</code>; on denial it arrives with <code>error=access_denied</code> and your <code>state</code>. Confirm the <code>state</code> matches what you sent.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
@@ -157,24 +181,69 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
+<!-- wp:heading {"anchor":"h-machine-to-machine-clients"} -->
+<h2 id="h-machine-to-machine-clients" class="wp-block-heading">Machine-to-machine clients</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Services that act on their own behalf, with no end-user present (build agents, sidecar daemons), use the <code>client_credentials</code> grant. Register the client with <code>grantTypes: ["CLIENT_CREDENTIALS"]</code>; redirect URIs are not required. Requests must present an <code>audience</code> when the registration lists more than one audience; with a single registered audience it is used by default:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:code -->
+<pre class="wp-block-code"><code>POST &lt;issuer&gt;/oidc/token
+grant_type=client_credentials
+client_id=el_xxx &amp; client_secret=yyy
+audience=filebrowser</code></pre>
+<!-- /wp:code -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li>The <code>audience</code> becomes the token's <code>aud</code> claim and must be one of the registration's <code>audiences</code> (or the client's own id when none are registered); anything else is refused with <code>invalid_target</code>. A downstream verifier should check <code>aud</code> matches the service it protects.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The token's <code>sub</code> and <code>azp</code> are the client id, and a <code>scope</code> claim carries the granted scopes (a subset of the registration's scopes). There is no id token, no refresh token, and no grant row: nothing to rotate and nothing user-scoped.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>The token lives for <code>dev.getelements.elements.oidc.machine.token.ttl.seconds</code> (default five minutes). When it expires, request a new one with the same call; that is the intended renewal path.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li>Machine tokens are <strong>not</strong> Elements session tokens; they authenticate the client, not a user, so Elements' own APIs will not accept them. Verify them locally against the published JWKS.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:heading {"anchor":"h-errors"} -->
+<h2 id="h-errors" class="wp-block-heading">Errors</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Failed token requests return an RFC 6749 section 5.2 body: <code>{"error": "...", "error_description": "..."}</code>. The status is <code>400</code> for most errors, <code>401</code> for <code>invalid_client</code> (bad credentials or unknown client, with a <code>WWW-Authenticate: Basic</code> header), and <code>429</code> when a rate limit is exceeded. The <code>authorization</code> endpoint sends redirect-able errors (bad scope, unsupported response type) back to your redirect URI as <code>error</code>, <code>error_description</code>, and <code>state</code> query parameters, exactly as the specification requires; errors detected before your redirect URI could be validated (unknown client, unregistered redirect URI) return an error document instead, and must never be followed.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"anchor":"h-rate-limiting"} -->
+<h2 id="h-rate-limiting" class="wp-block-heading">Rate limiting</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The provider's endpoints are rate limited per client: the authorization and token endpoints allow the configured budget per minute, and the hosted login step allows fewer (it guards the credential-entry step against brute force). Exceeding a budget returns <code>429 Too Many Requests</code>; the response indicates when the current minute window closes. Buckets are keyed by the presented <code>client_id</code>, so one misbehaving downstream client cannot starve another. The counters are kept per server process: deployments running multiple provider nodes enforce the budget per node, not globally. There is no IP-based keying: clients behind a shared NAT share a bucket.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading {"anchor":"h-current-limitations"} -->
 <h2 id="h-current-limitations" class="wp-block-heading">Current limitations</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
 <ul class="wp-block-list"><!-- wp:list-item -->
-<li>The hosted login page is intentionally minimal and unbranded.</li>
+<li>The hosted login and consent pages are intentionally minimal and unbranded.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>There is no consent screen: registered clients are administratively trusted for the scopes granted at registration time.</li>
+<li>Rate limiting is per server process; multi-node deployments enforce the budget per node.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Only the authorization code and refresh token grants are supported. Machine-to-machine (<code>client_credentials</code>) and device-code flows are planned follow-up work.</li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li>Token endpoint errors return Elements' standard error format rather than the OAuth 2.0 <code>error</code>/<code>error_description</code> bodies.</li>
+<li>Device-code flows for browserless console clients are planned follow-up work.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
