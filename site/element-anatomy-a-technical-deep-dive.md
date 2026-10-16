@@ -686,6 +686,10 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
+<!-- wp:paragraph -->
+<p>The default repositories (enabled with <code>useDefaultRepositories</code>) are <a href="https://search.maven.org/">Maven Central</a> and the Namazu Studios Maven repository at <code>https://maven.namazustudios.com/</code>, which publishes the platform's own artifacts (the Elements SDK modules and released ELM packages). Having it on by default means deployments and the ELM inspector resolve Namazu Studio artifacts without configuring this repository in every environment. A repository configured explicitly on the deployment takes precedence in practice: if it duplicates a default (same id and URL), the duplicate is dropped; if <code>useDefaultRepositories</code> is false, only the explicitly configured repositories are used.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading" id="dependency-resolution">Dependency Resolution</h3>
 <!-- /wp:heading -->
