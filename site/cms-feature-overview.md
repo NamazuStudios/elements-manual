@@ -425,3 +425,7 @@
 <!-- wp:paragraph -->
 <p>The cog icon in the top right corner of the screen will give you access to the Settings page. From here, you can toggle the visual theme of the CMS, set the results per page for paginated results, and toggle the visibility of various other pages (for instance, if you know that you'll never user a particular feature and want it out of the way). After saving your settings changes, you may need to refresh the page to apply them.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The Settings page also provides self-service account controls. The <strong>Change Password</strong> card lets you rotate your own password: enter your current password, choose a new one, and confirm it. Changing your password signs out your other sessions and keeps you signed in here under the new credential. The password must satisfy the deployment's configured password policy; if it does not, the policy's message is shown. (This is separate from the admin user-management page, which manages passwords for OTHER users, and from the forgot/reset-password flows, which are for when you cannot sign in at all.)</p>
+<!-- /wp:paragraph -->
