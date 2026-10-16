@@ -186,6 +186,14 @@
 <p>Any singleton that captured the injected Morphia <code>Datastore</code> directly could go stale the moment an Element (re)deploy rebuilt and swapped the shared <code>Datastore</code>/Mapper -- most reliably on every redeploy, since an Element's eager singletons are constructed before its own entities are even registered. The injected <code>Datastore</code> is now a stable proxy that always forwards to whichever instance is live at call time, so holding a reference to it -- in Elements' own internal DAOs, or in a downstream Element's -- is safe by construction.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3,"anchor":"h-re-uploading-elm-content-now-reloads-the-deployment"} -->
+<h3 id="h-re-uploading-elm-content-now-reloads-the-deployment" class="wp-block-heading">Re-uploading ELM Content Now Reloads the Deployment</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Uploading new content to a deployment's ELM LargeObject only touched the object itself, never the deployment document, so the runtime service (which reloads on deployment changes) never noticed: the deployment kept running -- and the Runtime page kept reporting -- the previously loaded content indefinitely, a trap when iterating on a bad ELM. Completing an ELM content upload now bumps the version of every enabled deployment referencing it, which triggers the normal reconcile and reload path. A failed upload does not trigger a reload, and by the time the upload response returns, the Runtime status reflects the new content.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
