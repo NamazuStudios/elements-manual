@@ -222,6 +222,18 @@ ExampleInterface example;  // ❌ Won’t be injected automatically</code></pre>
 <p>The first time you request it, Guice will call <code>@Inject</code> on the implementation (<code>ExampleInterfaceImplementation</code> in this case). After that, the same instance is reused as per your binding scope.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading" id="h-request-body-limits-on-hosted-deployments">Request Body Limits on Hosted Deployments</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>On Namazu Cloud, requests pass an edge WAF that can only inspect the first 8&nbsp;KB of a request body. Bodies of 8192 bytes or more are rejected by the edge with a bare <code>403 Forbidden</code> on Element API paths, so keep ordinary JSON endpoints under that ceiling and design for larger payloads explicitly: create a LargeObject, upload the bytes to <code>/api/rest/large_object/{id}/content</code>, then finalize (the LargeObject endpoints are exempt from the edge cap for exactly this purpose).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>The rejection is the proxy's, not your endpoint's: a 403 on a large body does not mean the request was unauthorized, and the endpoint never sees it. Self-hosted deployments do not have this limit unless your own proxy or firewall applies one.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
