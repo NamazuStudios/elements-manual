@@ -716,9 +716,25 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li>Isolated per Element</li>
+<li>Isolated per Element</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
+
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading" id="repository-availability-and-offline-fallback">Repository Availability and Offline Fallback</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Resolution failures come in two distinct kinds: an artifact that does not exist in any reachable repository, and a repository that cannot be contacted at all (connection refused, DNS failure, timeout). They are handled differently.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A repository that is unreachable does not fail the resolution when the artifacts it provides are already present in the local Maven repository cache. The server logs a warning naming the unreachable repository and proceeds with the cached copy, so an Element that resolved once keeps loading across restarts even after its repository is taken offline. This pairs with redirecting the local cache via the <code>ELEMENTS_MAVEN_REPO_LOCAL</code> environment variable (or the <code>dev.getelements.elements.maven.repo.local</code> system property), which points the resolver at a shared or pre-provisioned local repository directory instead of the default <code>~/.m2/repository</code>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>If the artifacts are not cached either, resolution fails with an error naming the coordinates, the unreachable repository, and the underlying cause, so the log answers "which repository did it try" without reading a suppressed stack trace. Before taking a repository offline, either keep an alternative reachable repository for the same artifacts or make sure the local cache has been warmed, for example by loading the deployment once while the repository is still up.</p>
+<!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 <p><strong>Learn More:</strong></p>
