@@ -186,6 +186,14 @@
 <p>Any singleton that captured the injected Morphia <code>Datastore</code> directly could go stale the moment an Element (re)deploy rebuilt and swapped the shared <code>Datastore</code>/Mapper -- most reliably on every redeploy, since an Element's eager singletons are constructed before its own entities are even registered. The injected <code>Datastore</code> is now a stable proxy that always forwards to whichever instance is live at call time, so holding a reference to it -- in Elements' own internal DAOs, or in a downstream Element's -- is safe by construction.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3,"anchor":"h-deleting-a-profile-unlinks-live-sessions"} -->
+<h3 id="h-deleting-a-profile-unlinks-live-sessions" class="wp-block-heading">Deleting a Profile Unlinks Live Sessions</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Soft-deleting a profile left every session carrying it untouched, and since a session resolves the request scope's current profile directly from its stored reference, the deleted profile kept rendering as current on every subsequent request until the session itself expired. Deleting a profile now also clears the link from each affected session (publishing a <code>SESSION_UPDATED</code> event for it), so requests through those sessions resolve no profile rather than a deleted one. Fresh logins were never affected.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
