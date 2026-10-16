@@ -186,6 +186,18 @@
 <p>Any singleton that captured the injected Morphia <code>Datastore</code> directly could go stale the moment an Element (re)deploy rebuilt and swapped the shared <code>Datastore</code>/Mapper -- most reliably on every redeploy, since an Element's eager singletons are constructed before its own entities are even registered. The injected <code>Datastore</code> is now a stable proxy that always forwards to whichever instance is live at call time, so holding a reference to it -- in Elements' own internal DAOs, or in a downstream Element's -- is safe by construction.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3,"anchor":"h-failed-element-deployments-are-retried"} -->
+<h3 id="h-failed-element-deployments-are-retried" class="wp-block-heading">Failed Element Deployments Are Retried</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A deployment whose load failed used to latch a <code>FAILED</code> status and stay that way until an operator updated the deployment or the server restarted, so a transient failure (a network blip, a momentarily unreachable artifact repository, a MongoDB timeout) could permanently take an Element offline. The runtime service now retries a failed deployment automatically at its current version, with an exponential backoff that starts at 30 seconds and doubles on each consecutive failure up to a 600-second ceiling. A retry that succeeds publishes <code>RUNTIME_LOADED</code> and the deployment mounts normally; a retry that still fails is rescheduled. Retries are unbounded in count but capped in rate, so a deployment knocked out by a transient outage recovers on its own without the server hot-looping against a permanently broken dependency.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Publishing a new version of a deployment reloads it immediately and resets the backoff to the initial 30 seconds, and removing a deployment clears its retry state entirely. No configuration is required; the retry timing is internal.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
