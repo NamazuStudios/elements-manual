@@ -42,6 +42,18 @@
 <p><code>{prefix}</code> comes from the Element's <code>dev.getelements.elements.app.serve.prefix</code> attribute, and falls back to the Element's own <code>@ElementDefinition</code> name if that attribute isn't set. Either mount point can be overridden per-Element with the corresponding attribute above, in which case the override value is used verbatim as the context path instead of the computed <code>/app/{static|ui}/{prefix}</code> path.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Serving Content From Disk (Development)</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>While iterating on a UI or static site, repackaging the whole element for every change is slow. Set the <code>dev.getelements.element.static.directory</code> attribute (or <code>dev.getelements.element.ui.directory</code> for the UI tree) to a filesystem path, and Elements will serve that directory's contents instead of the content packaged in the element -- overriding it entirely. Relative paths resolve against the server's working directory. Editing files in the directory and redeploying the deployment (or restarting it) picks up the changes without rebuilding the ELM.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>If the configured directory does not exist, Elements logs a warning and serves the packaged content as usual, and an empty directory mounts no content at all. Serving from disk is a development convenience; for production, package the content into the element as normal.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Note"} -->
 <div style="color:#32373c;background-color:#00d1b2" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="3b0649"><div class="gb-notice-title" style="color:#fff"><p>Note</p></div><div class="gb-notice-text" style="border-color:#00d1b2"><!-- wp:paragraph -->
 <p>Before mounting a content tree, Elements checks the computed context path against its registry of reserved system paths (the REST API root, WebSocket root, and similar). If your override collides with a reserved path outright, deployment of that content tree is rejected; if it merely overlaps a catch-all route, the reserved system routes still take priority so they keep working.</p>

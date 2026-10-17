@@ -334,6 +334,10 @@
 <p>Here is where you can upload and store arbitrary data. Depending on the type of data, you can also preview the image. This is useful for live ops, A/B testing, and other actions where you might want to store files and other game assets in Elements directly. See <a href="large-object-api">Large Object API</a> for the underlying model, permissions, and REST endpoints.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:paragraph -->
+<p>Every object's row has a <strong>Permissions</strong> button (the shield icon), which opens an editor for the object's access permissions: for each of read, write, and delete, you can make the object public (anyone with the URL) or restricted to specific users and profiles by id. Changes take effect immediately. The minimum access level, where one was set at object creation, is shown for reference and is managed server-side.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
