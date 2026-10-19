@@ -11,7 +11,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, a new way to attach a user's profile to a session by naming an Application instead of an explicit profile, and account linking for the OIDC browser-redirect login flow.</p>
+<p>Elements 3.9 adds per-application profile limits and automatic primary-profile creation, a new way to attach a user's profile to a session by naming an Application instead of an explicit profile, account linking for the OIDC browser-redirect login flow, and an email-invite flow for elevating administrators.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"anchor":"h-highlights"} -->
@@ -37,6 +37,10 @@
 
 <!-- wp:list-item -->
 <li><strong>Account linking via the OIDC browser-redirect flow</strong> — starting a login attempt while already holding a session now links the resulting external identity to that user instead of creating a new one, with a new <code>confirmToken</code>-gated confirmation step to keep the mutation off the unauthenticated provider callback. See <a href="oidc-login-for-thick-clients-browser-redirect-flow">OIDC Login for Thick Clients</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>Superuser email invitations</strong> — an existing administrator can invite a colleague by email; the invitee signs in with an account whose verified email matches and redeems the single-use token to elevate that account to superuser. Invitations are time-limited and revocable. See <a href="superuser-invites">Superuser Invitations</a>.</li>
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
