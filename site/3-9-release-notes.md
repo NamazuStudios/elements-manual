@@ -40,6 +40,10 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
+<li><strong>TOTP two-factor authentication</strong> — accounts can self-enroll an authenticator app for username/password login, with a system-wide switch to enforce it and one-time recovery codes for a lost device. See <a href="two-factor-authentication">Two-Factor Authentication (TOTP)</a>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
 <li><strong>Progress API fixes and a new advance-progress endpoint</strong> — <code>POST /progress</code> and the superuser <code>PUT /progress/{id}</code> path are fixed, and a new <code>POST /progress/{progressId}/advance</code> endpoint lets a Mission opt in to client-driven progress advancement. Reported, diagnosed, and prototyped by community contributor <a href="https://github.com/hobolabsdigital">@hobolabsdigital</a> -- thank you!</li>
 <!-- /wp:list-item -->
 
@@ -98,6 +102,14 @@
 
 <!-- wp:paragraph -->
 <p><code>Application</code> gains two more new fields: <code>authoritativeProfilePicture</code> (defaults to <code>false</code>), which when <code>true</code> blocks a user from editing their own profile picture for that application via the REST API (it must be set by backend/Element code instead), and <code>displayNameRegex</code> (optional), a Java regular expression a profile's display name must match for that application -- profile creates/updates with a non-matching display name are rejected. Leave it blank to skip the check.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-totp-two-factor-authentication"} -->
+<h3 id="h-totp-two-factor-authentication" class="wp-block-heading">TOTP Two-Factor Authentication</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Any account can now self-enroll an authenticator app (TOTP, RFC 6238) via a new <code>POST /totp/enroll</code> / <code>POST /totp/enroll/confirm</code> pair, receiving a set of one-time recovery codes on confirmation. A new system-wide <code>GET</code>/<code>PUT /totp_configuration</code> switch, off by default, controls whether enrolled accounts are actually challenged at login; enrollment itself is always available regardless of that switch. When enforcement is on, <code>POST /session</code> for an enrolled account returns a new <code>MFA_REQUIRED</code> error carrying a challenge ID instead of completing the login, and a new <code>POST /session/mfa</code> endpoint completes it with a code (or a recovery code). A SUPERUSER-only <code>DELETE /totp/{userId}</code> resets another account's enrollment for the lost-device-and-no-recovery-codes case. See <a href="two-factor-authentication">Two-Factor Authentication (TOTP)</a>.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"anchor":"h-progress-api-fixes-and-advance-progress-endpoint"} -->
