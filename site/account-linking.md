@@ -44,7 +44,7 @@
 <!-- /wp:code -->
 
 <!-- wp:paragraph -->
-<p>If the external id is already linked to a <em>different</em> user, the request fails. If it's already linked to the calling user, the call is idempotent — no duplicate link is created. On success it returns a full session, the same as a login call.</p>
+<p>If the external id is already linked to a <em>different</em> user, the request fails with <code>409 Conflict</code> (error code <code>IDENTITY_ALREADY_LINKED</code>). If it's already linked to the calling user, the call is idempotent — no duplicate link is created. On success it returns a full session, the same as a login call.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
@@ -64,7 +64,7 @@
 <!-- /wp:code -->
 
 <!-- wp:paragraph -->
-<p>If the token's <code>sub</code> is already linked to a different user, the request fails. If the token's <code>email</code> claim is already linked to a different user, that's handled more leniently: the <code>sub</code> still links successfully, and the email simply isn't attached (no error). Linking this way does capture the provider's returned profile claims into <code>user.linkedAccountProfiles</code>, the same audit trail described in <a href="users-and-profiles">Users and Profiles</a> — but unlike a fresh anonymous login, it does <strong>not</strong> fill in the flat <code>displayName</code>/<code>firstName</code>/<code>lastName</code> fields.</p>
+<p>If the token's <code>sub</code> is already linked to a different user, the request fails with <code>409 Conflict</code> (error code <code>IDENTITY_ALREADY_LINKED</code>). If the token's <code>email</code> claim is already linked to a different user, that's handled more leniently: the <code>sub</code> still links successfully, and the email simply isn't attached (no error). Linking this way does capture the provider's returned profile claims into <code>user.linkedAccountProfiles</code>, the same audit trail described in <a href="users-and-profiles">Users and Profiles</a> — but unlike a fresh anonymous login, it does <strong>not</strong> fill in the flat <code>displayName</code>/<code>firstName</code>/<code>lastName</code> fields.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3} -->
@@ -103,6 +103,10 @@
 
 <!-- wp:paragraph -->
 <p>In every case, an identity already linked to <strong>another</strong> user is rejected rather than silently reassigned or merged — Elements never combines two existing accounts into one by linking. If you need one physical player to end up with a single account after using two different identities independently, that has to be handled as a deliberate migration, not a linking call.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>For OAuth2 and OIDC, an identity already linked to another user is reported as <code>409 Conflict</code> with the error code <code>IDENTITY_ALREADY_LINKED</code> in the response body, so a client can detect the collision without parsing the message text (for example, to offer account-merge UX or prompt the user to unlink the identity from the other account). Other linking failures use their own codes: a missing session is <code>403 Forbidden</code>, and a rejected username/email is reported as a validation failure.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
