@@ -146,7 +146,7 @@ spec:
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>In a <a href="namazu-agent">workspace</a>, you can simply ask the agent to run something — a one-off script, a build, a preview stack, a long-running service. The agent dispatches it through the same platform machinery, so the workload lands on your workspace's nodes and is compliant by construction. If you need the workload shaped differently (a bigger instance type, GPUs, spot vs on-demand), say so in the same breath and the agent sets it.</p>
+<p>In a <a href="namazu-agent">workspace</a>, you can simply ask the agent to run something — a one-off script, a build, a preview stack, a long-running service. The agent dispatches it through the same platform machinery, so the workload lands on your workspace's nodes and is compliant by construction. If you need the workload shaped differently (a bigger instance type, spot vs on-demand), say so in the same breath and the agent sets it. GPUs are the exception: they must be <a href="#h-gpu-workloads">requested from Namazu</a> first — the agent can run GPU workloads for you once the request is approved, but it cannot grant the capacity itself.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading {"level":3,"anchor":"h-bring-your-own"} -->
@@ -184,7 +184,7 @@ spec:
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>GPU nodes are opt-in per tenant and carry an additional taint, <code>nvidia.com/gpu=present:NoSchedule</code>. A GPU workload therefore requests the GPU resource <em>and</em> tolerates the GPU taint — both together:</p>
+<p>GPU nodes are granted per tenant <strong>on request</strong> and carry an additional taint, <code>nvidia.com/gpu=present:NoSchedule</code>. A GPU workload therefore requests the GPU resource <em>and</em> tolerates the GPU taint — both together:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:code -->
@@ -232,7 +232,7 @@ spec:
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>GPU access is part of a tenant's configuration — if a GPU request is rejected because the namespace is not GPU-enabled, ask Namazu to enable it rather than working around the rejection.</p>
+<p>GPUs are <strong>not self-serve</strong>. GPU capacity must be requested from Namazu: open a request describing what the workload is, how many GPUs per pod it needs, and how long it runs. Once approved, the platform enables GPU capacity for the tenant and the examples above work as written. Until then, GPU requests are rejected — that rejection is the guardrail doing its job, not something to work around, and no scheduling trick (extra tolerations, different instance types) will land a GPU pod on a tenant that has not been granted capacity.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:separator -->
@@ -244,7 +244,7 @@ spec:
 <!-- /wp:heading -->
 
 <!-- wp:table -->
-<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Symptom</th><th>Meaning</th><th>Fix</th></tr></thead><tbody><tr><td>Pod creation rejected: "must pin its own tenant identity"</td><td>No <code>nodeSelector</code>/affinity pin on the identity key</td><td>Add the pin from the example above</td></tr><tr><td>Rejected: "must not pin a tenant identity other than its own namespace"</td><td>The pin's value is a different namespace</td><td>Set the value to <code>metadata.namespace</code> exactly</td></tr><tr><td>Rejected: "operator In with this namespace as the only value"</td><td>An affinity term uses <code>Exists</code> or extra values</td><td>Use <code>operator: In</code> with only your namespace</td></tr><tr><td>Rejected: "must tolerate the dedicated taint"</td><td>Missing <code>dedicated=tenant</code> toleration</td><td>Add it from the example above</td></tr><tr><td>Rejected: "tolerates the GPU capability taint but requests no nvidia.com/gpu"</td><td>GPU toleration without a GPU request</td><td>Request <code>nvidia.com/gpu</code> in <code>resources.limits</code>, or drop the toleration</td></tr><tr><td>Rejected: "more than the per-pod GPU cap"</td><td>One pod asking for the tenant's whole GPU budget</td><td>Split the workload, or request a cap raise</td></tr><tr><td>Warning on create, pod runs anyway</td><td>The namespace is at the <code>warn</code> level</td><td>Fix it before the level escalates to <code>deny</code></td></tr></tbody></table></figure>
+<figure class="wp-block-table"><table class="has-fixed-layout"><thead><tr><th>Symptom</th><th>Meaning</th><th>Fix</th></tr></thead><tbody><tr><td>Pod creation rejected: "must pin its own tenant identity"</td><td>No <code>nodeSelector</code>/affinity pin on the identity key</td><td>Add the pin from the example above</td></tr><tr><td>Rejected: "must not pin a tenant identity other than its own namespace"</td><td>The pin's value is a different namespace</td><td>Set the value to <code>metadata.namespace</code> exactly</td></tr><tr><td>Rejected: "operator In with this namespace as the only value"</td><td>An affinity term uses <code>Exists</code> or extra values</td><td>Use <code>operator: In</code> with only your namespace</td></tr><tr><td>Rejected: "must tolerate the dedicated taint"</td><td>Missing <code>dedicated=tenant</code> toleration</td><td>Add it from the example above</td></tr><tr><td>Rejected: "tolerates the GPU capability taint but requests no nvidia.com/gpu"</td><td>GPU toleration without a GPU request</td><td>Request <code>nvidia.com/gpu</code> in <code>resources.limits</code>, or drop the toleration</td></tr><tr><td>Rejected: "more than the per-pod GPU cap"</td><td>One pod asking for the tenant's whole GPU budget</td><td>Split the workload, or request a cap raise from Namazu</td></tr><tr><td>Rejected: pod requests GPUs on a tenant without GPU capacity</td><td>GPUs were never granted for this tenant</td><td><a href="#h-gpu-workloads">Request GPU access from Namazu</a> — it is granted on approval, not self-serve</td></tr><tr><td>Warning on create, pod runs anyway</td><td>The namespace is at the <code>warn</code> level</td><td>Fix it before the level escalates to <code>deny</code></td></tr></tbody></table></figure>
 <!-- /wp:table -->
 
 <!-- wp:paragraph -->
