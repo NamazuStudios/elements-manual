@@ -124,6 +124,10 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
+<li><a href="namazu-cloud-custom-addons">Namazu Cloud Custom Addons</a>. Terraform extensions installed into your namespaces by Namazu Studios</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
 <li><a href="namazu-cloud-backups">Namazu Cloud Backups</a>. automatic and manual snapshots of instance storage</li>
 <!-- /wp:list-item -->
 

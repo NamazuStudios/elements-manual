@@ -79,5 +79,9 @@
 
 <!-- wp:list-item -->
 <li><a href="namazu-cloud-organizations">Namazu Cloud Organizations</a>. Who can purchase and manage add-ons</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><a href="namazu-cloud-custom-addons">Namazu Cloud Custom Addons</a>. A different concept: Terraform extensions Namazu Studios installs into your namespaces</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
