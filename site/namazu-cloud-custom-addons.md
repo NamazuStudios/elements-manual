@@ -126,7 +126,9 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><strong>We take all reasonable efforts to approve everything.</strong> Our reviews exist to make your addon land safely, not to fail it.</li>
+
+<!-- wp:list-item -->
+<li><strong>AGPL waiver for delivered work.</strong> Namazu Studios, as the copyright holder, waives all AGPL obligations for software installed through a purchase or other business arrangement between Namazu Studios and the client. The license terms govern the code as published; what we deliver to you under contract is delivered under that agreement, not the license's reciprocity terms.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
