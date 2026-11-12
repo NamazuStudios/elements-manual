@@ -65,7 +65,7 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>If the catalog does not cover what you need, you can build your own addon. We publish the template publicly, under the MIT license: what you build from it is yours. See <a href="https://github.com/NamazuStudios/namazu-cloud-addon-example">namazu-cloud-addon-example</a> and its <a href="https://github.com/NamazuStudios/namazu-cloud-addon-example/blob/main/ADDONS.md">ADDONS.md</a> for the full process document.</p>
+<p>If the catalog does not cover what you need, you can build your own addon. We publish the template publicly, under the MIT license: what you build from it is yours. See <a href="https://github.com/NamazuStudios/namazu-cloud-addon-example">namazu-cloud-addon-example</a> and its <a href="https://github.com/NamazuStudios/namazu-cloud-addon/blob/main/ADDONS.md">ADDONS.md</a> for the full process document.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list {"ordered":true} -->
