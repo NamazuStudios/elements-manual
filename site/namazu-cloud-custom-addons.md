@@ -52,7 +52,7 @@
 <!-- /wp:list-item -->
 
 <!-- wp:list-item -->
-<li><a href="https://github.com/NamazuStudios/namazu-cloud-addon-agent-apn">namazu-cloud-addon-agent-apn</a>. AWS wiring for the co-selling agent: outbound assume permissions, an optional co-sell role, and ECR pull for the agent's images.</li>
+<li><a href="https://github.com/NamazuStudios/namazu-cloud-addon-agent-apn">namazu-cloud-addon-agent-apn</a>. The APN funding engine: ACE opportunities authored and managed without touching the APN console, WAFRs for funding submissions, cost and usage estimates for POC and MAP, multi-deal tracking, meeting notes summarized into ACE, and client-ready PDFs, Word documents, and pitch decks, with opportunity-score optimization, next-step recommendations, sales guidance, and objection analysis built in.</li>
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
