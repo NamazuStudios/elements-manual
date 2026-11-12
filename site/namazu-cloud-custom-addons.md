@@ -82,6 +82,10 @@
 <!-- /wp:list-item --></ol>
 <!-- /wp:list -->
 
+<!-- wp:paragraph -->
+<p>Writing the Terraform yourself is optional. <strong>Namazu Studios can also author a custom addon for you, for a fee scoped to the work required.</strong> Tell us what you need installed, and we write it, review it internally, and install it through the same process. The maintenance terms below apply either way; the difference is who writes the first draft and a price that scales with the work rather than a fixed ticket.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:separator -->
 <hr class="wp-block-separator has-alpha-channel-opacity"/>
 <!-- /wp:separator -->
