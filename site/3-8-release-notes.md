@@ -136,6 +136,14 @@
 <!-- /wp:list-item --></ul>
 <!-- /wp:list -->
 
+<!-- wp:heading {"level":3,"anchor":"h-iap-receipt-validation-failures-no-longer-silent-500s"} -->
+<h3 id="h-iap-receipt-validation-failures-no-longer-silent-500s" class="wp-block-heading">IAP receipt validation failures are no longer silent 500s</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Purchases rejected by the store's verification service (Apple, Google Play, Meta, Oculus, or Steam) previously returned an unexplained <code>500</code> and produced no server-side log at standard log levels, making client-supplied receipt data look like a server fault. Receipt validation failures are now logged at WARN level with the provider's status code. Client-supplied bad data (malformed, blank, or store-rejected purchases) returns <code>400</code>, and store-side verification rejections return <code>502</code> with the provider's status included in the message. See <a href="receipts">Receipts</a>.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading {"anchor":"h-other-changes"} -->
 <h2 id="h-other-changes" class="wp-block-heading">Other Changes</h2>
 <!-- /wp:heading -->

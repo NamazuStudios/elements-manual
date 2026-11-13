@@ -217,6 +217,58 @@ final var createdReceipt = transactionProvider.get().performAndClose(tx -> {
 <!-- /wp:list -->
 
 <!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading" id="h-receipt-verification-endpoints-and-error-responses">Receipt verification endpoints and error responses</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Clients submit purchases for server-side validation and reward issuance through provider-specific, user-level endpoints:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><code>POST /api/rest/ios/receipt</code>: Apple App Store receipts. The request carries the base64 App Receipt as <code>receiptData</code>, plus an optional <code>createAppleIapReceiptEnvironment</code> of <code>PRODUCTION</code> or <code>SANDBOX</code>. When the environment is omitted, Elements tries production first and automatically retries the sandbox when Apple reports status <code>21007</code>.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>POST /api/rest/google/purchase</code>: Google Play purchases, identified by package name, product id, and purchase token.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>POST /api/rest/meta/facebook/verify</code> and <code>POST /api/rest/meta/oculus/verify</code>: Meta (Facebook) and Oculus purchases.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><code>POST /api/rest/steam/purchase</code>: Steam transactions, identified by order id.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>On success, these return the list of <a href="reward-issuance">Reward Issuances</a> granted for the purchase. Some or all of these may report an already-redeemed issuance, since issuance is idempotent per purchase.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>Rejections follow these status semantics:</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul class="wp-block-list"><!-- wp:list-item -->
+<li><strong>400 (Bad Request)</strong>: the submitted data was malformed, blank, or missing required fields, or the store rejected the purchase (for example, an invalid or already-consumed Google Play purchase token). The provider's status or error detail is included in the response message.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>502 (Bad Gateway)</strong>: the store's verification service reported a failure for the submitted receipt (for example, Apple's <code>verifyReceipt</code> returning a non-zero status such as <code>21003</code>). The provider's status code is included in the response message.</li>
+<!-- /wp:list-item -->
+
+<!-- wp:list-item -->
+<li><strong>401/403</strong>: standard authentication errors, as with any other endpoint.</li>
+<!-- /wp:list-item --></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p>Receipt verification failures are always logged server-side at WARN level with the provider's status code, so check the server logs when diagnosing a rejected purchase.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3} -->
 <h3 class="wp-block-heading" id="h-integrating-a-new-payment-provider">Integrating a new payment provider</h3>
 <!-- /wp:heading -->
 
