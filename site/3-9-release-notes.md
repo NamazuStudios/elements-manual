@@ -186,6 +186,14 @@
 <p>Any singleton that captured the injected Morphia <code>Datastore</code> directly could go stale the moment an Element (re)deploy rebuilt and swapped the shared <code>Datastore</code>/Mapper -- most reliably on every redeploy, since an Element's eager singletons are constructed before its own entities are even registered. The injected <code>Datastore</code> is now a stable proxy that always forwards to whichever instance is live at call time, so holding a reference to it -- in Elements' own internal DAOs, or in a downstream Element's -- is safe by construction.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3,"anchor":"h-iap-receipt-validation-failures-no-longer-silent-500s"} -->
+<h3 id="h-iap-receipt-validation-failures-no-longer-silent-500s" class="wp-block-heading">IAP receipt validation failures are no longer silent 500s</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Purchases rejected by the store's verification service (Apple, Google Play, Meta, Oculus, or Steam) previously returned an unexplained <code>500</code> and produced no server-side log at standard log levels, making client-supplied receipt data look like a server fault. Receipt validation failures are now logged at WARN level with the provider's status code. Client-supplied bad data (malformed, blank, or store-rejected purchases) returns <code>400</code>, and store-side verification rejections return <code>502</code> with the provider's status included in the message. See <a href="receipts">Receipts</a>. This fix is also included in the 3.8 patch releases.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:paragraph -->
 <p></p>
 <!-- /wp:paragraph -->
