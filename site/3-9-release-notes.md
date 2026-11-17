@@ -2,7 +2,7 @@
 
 <!-- wp:genesis-blocks/gb-notice {"noticeTitle":"Warning","noticeBackgroundColor":"#ffdd57"} -->
 <div style="color:#32373c;background-color:#ffdd57" class="wp-block-genesis-blocks-gb-notice gb-font-size-18 gb-block-notice" data-id="0eaadb"><div class="gb-notice-title" style="color:#fff"><p>Warning</p></div><div class="gb-notice-text" style="border-color:#ffdd57"><!-- wp:paragraph -->
-<p>Elements 3.9 is still under active development (current version: <code>3.9.0-SNAPSHOT</code>) and has not been released. The contents of this page are a draft and may change before the final release.</p>
+<p>Elements 3.9 is under release-candidate testing (current version: <code>3.9.1-rc-11</code>) and the final release has not yet been published. The contents of this page are a draft and may change before the final release.</p>
 <!-- /wp:paragraph --></div></div>
 <!-- /wp:genesis-blocks/gb-notice -->
 
@@ -174,6 +174,14 @@
 <p>This is safe to rely on together with the Datastore/Mapper fix below: injecting the shared <code>Datastore</code> into an eager singleton no longer risks capturing a stale snapshot, since the <code>Datastore</code> you receive is a stable proxy regardless of when it's constructed. If your own service binds another shared, mutable dependency directly (not through a similar proxy or a <code>Provider</code>), review whether earlier eager construction under <code>PRODUCTION</code> stage could now capture a stale reference to it.</p>
 <!-- /wp:paragraph -->
 
+<!-- wp:heading {"level":3,"anchor":"h-platform-managed-element-executors"} -->
+<h3 id="h-platform-managed-element-executors" class="wp-block-heading">Platform-Managed Element Executors</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Elements can now obtain background executors from a platform-managed facility, <code>ElementExecutors</code>, bound in every Element's injector: <code>newScheduledExecutor(name, poolSize)</code> and <code>newExecutor(name)</code> return standard JDK executor types whose threads are named <code>&lt;element&gt;:&lt;executor-name&gt;-&lt;n&gt;</code>. The runtime tracks every executor it vends and shuts them all down automatically when the Element closes, including the hot-reload unload path, logging a single <code>Reaped N executor(s) for element X</code> line. This replaces the hand-rolled "create an executor + remember a close hook" pattern, where one forgotten hook left a zombie executor running against a retired Element generation. See <a href="element-lifecycle-and-background-executors">Element Lifecycle and Background Executors</a>.</p>
+<!-- /wp:paragraph -->
+
 <!-- wp:heading {"anchor":"h-bug-fixes"} -->
 <h2 id="h-bug-fixes" class="wp-block-heading">Bug Fixes</h2>
 <!-- /wp:heading -->
@@ -192,6 +200,30 @@
 
 <!-- wp:paragraph -->
 <p>Purchases rejected by the store's verification service (Apple, Google Play, Meta, Oculus, or Steam) previously returned an unexplained <code>500</code> and produced no server-side log at standard log levels, making client-supplied receipt data look like a server fault. Receipt validation failures are now logged at WARN level with the provider's status code. Client-supplied bad data (malformed, blank, or store-rejected purchases) returns <code>400</code>, and store-side verification rejections return <code>502</code> with the provider's status included in the message. See <a href="receipts">Receipts</a>. This fix is also included in the 3.8 patch releases.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-hot-reload-no-longer-degrades-serving"} -->
+<h3 id="h-hot-reload-no-longer-degrades-serving" class="wp-block-heading">Hot Reload No Longer Degrades or Freezes Serving</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>A hot reload of a deployed Element could leave the pod serving broken responses after the swap, with failures accumulating across consecutive reloads. Three fixes close the failure chain end to end. The reload path now pre-registers an Element's entity classes with the shared Morphia mapper <strong>before</strong> the new generation's injector builds, so eager singletons no longer resolve entities from the previous generation's classloader (<code>ClassCastException: X cannot be cast to X</code>). Old Jetty handlers now retire at unload time rather than surviving until the new version mounts, closing the window where requests routed to handlers whose classloaders were already closed (<code>NoClassDefFoundError</code> against the Element's own archives). And a deadlock between the runtime service's reconcile loop and the container service's sync poller, which could permanently freeze a pod's deployment processing mid-reload, is fixed. The retired generation's classloaders are now closed after a configurable grace period (<code>dev.getelements.elements.runtime.unload.grace.period.seconds</code>, default 30 seconds) so in-flight requests finish first. Element authors should stop background executors through the new <code>ElementExecutors</code> facility or an Element close hook; see <a href="element-lifecycle-and-background-executors">Element Lifecycle and Background Executors</a>.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-health-check-sees-enabled-but-not-running-deployments"} -->
+<h3 id="h-health-check-sees-enabled-but-not-running-deployments" class="wp-block-heading">Health Check Sees Enabled-but-Not-Running Deployments</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The health check only inspected a node's active runtimes, so an enabled, mission-critical deployment with <em>no</em> runtime at all (a reconcile frozen mid-reload, or a load stuck in retry backoff) reported a perfectly healthy instance while its Element routes were dead, and the pod stayed in the load balancer's rotation. The health check now also reports enabled, mission-critical deployments missing from the node's active runtimes beyond a configurable window (<code>dev.getelements.elements.health.deployment.absence.threshold.seconds</code>, default 600 seconds, chosen to cover a normal hot reload's record-free load window).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading {"level":3,"anchor":"h-unixfs-persistence-modules-run-on-macos"} -->
+<h3 id="h-unixfs-persistence-modules-run-on-macos" class="wp-block-heading">UnixFS Persistence Modules Build and Test on macOS</h3>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>The UnixFS transactional persistence layer assumed <code>SecureDirectoryStream</code> support in the JDK's directory streams, which Linux supplies but macOS never does; the modules' test suites could not run on a Mac at all. The garbage-collection, delete, and prune paths now fall back to plain recursive operations where the filesystem does not offer a secure stream. Linux behavior is unchanged.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
