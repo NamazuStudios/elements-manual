@@ -145,3 +145,11 @@
 <!-- wp:paragraph -->
 <p>Both approaches are fully supported.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:separator -->
+<hr class="wp-block-separator has-alpha-channel-opacity"/>
+<!-- /wp:separator -->
+
+<!-- wp:paragraph -->
+<p>For how an Element's lifecycle works at unload, and how to run background work (pollers, schedulers) so it stops cleanly when the Element is reloaded or removed, see <a href="element-lifecycle-and-background-executors">Element Lifecycle and Background Executors</a>.</p>
+<!-- /wp:paragraph -->
